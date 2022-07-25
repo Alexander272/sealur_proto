@@ -1,4 +1,4 @@
-module github.com/Alexander272/sealur/proto
+module github.com/Alexander272/sealur_proto
 
 go 1.17
 
