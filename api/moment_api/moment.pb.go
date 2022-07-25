@@ -491,9 +491,9 @@ type MaterialWithIsEmpty struct {
 
 	Id                string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	Title             string `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
-	IsEmptyAlpha      bool   `protobuf:"varint,3,opt,name=IsEmptyAlpha,json=isEmptyAlpha,proto3" json:"IsEmptyAlpha,omitempty"`
-	IsEmptyElasticity bool   `protobuf:"varint,4,opt,name=IsEmptyElasticity,json=isEmptyElasticity,proto3" json:"IsEmptyElasticity,omitempty"`
-	IsEmptyVoltage    bool   `protobuf:"varint,5,opt,name=IsEmptyVoltage,json=isEmptyVoltage,proto3" json:"IsEmptyVoltage,omitempty"`
+	IsEmptyAlpha      bool   `protobuf:"varint,3,opt,name=IsEmptyAlpha,json=isEmptyAlpha,proto3" json:"IsEmptyAlpha,omitempty"`                // required
+	IsEmptyElasticity bool   `protobuf:"varint,4,opt,name=IsEmptyElasticity,json=isEmptyElasticity,proto3" json:"IsEmptyElasticity,omitempty"` // required
+	IsEmptyVoltage    bool   `protobuf:"varint,5,opt,name=IsEmptyVoltage,json=isEmptyVoltage,proto3" json:"IsEmptyVoltage,omitempty"`          // required
 }
 
 func (x *MaterialWithIsEmpty) Reset() {
