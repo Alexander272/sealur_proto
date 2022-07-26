@@ -699,6 +699,7 @@ var MaterialsService_ServiceDesc = grpc.ServiceDesc{
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type GasketServiceClient interface {
 	GetGasket(ctx context.Context, in *GetGasketRequest, opts ...grpc.CallOption) (*GasketResponse, error)
+	GetGasketWithThick(ctx context.Context, in *GetGasketRequest, opts ...grpc.CallOption) (*GasketWithThickResponse, error)
 	CreateGasket(ctx context.Context, in *CreateGasketRequest, opts ...grpc.CallOption) (*IdResponse, error)
 	UpdateGasket(ctx context.Context, in *UpdateGasketRequest, opts ...grpc.CallOption) (*Response, error)
 	DeleteGasket(ctx context.Context, in *DeleteGasketRequest, opts ...grpc.CallOption) (*Response, error)
@@ -729,6 +730,15 @@ func NewGasketServiceClient(cc grpc.ClientConnInterface) GasketServiceClient {
 func (c *gasketServiceClient) GetGasket(ctx context.Context, in *GetGasketRequest, opts ...grpc.CallOption) (*GasketResponse, error) {
 	out := new(GasketResponse)
 	err := c.cc.Invoke(ctx, "/moment_api.GasketService/GetGasket", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gasketServiceClient) GetGasketWithThick(ctx context.Context, in *GetGasketRequest, opts ...grpc.CallOption) (*GasketWithThickResponse, error) {
+	out := new(GasketWithThickResponse)
+	err := c.cc.Invoke(ctx, "/moment_api.GasketService/GetGasketWithThick", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -893,6 +903,7 @@ func (c *gasketServiceClient) DeleteGasketData(ctx context.Context, in *DeleteGa
 // for forward compatibility
 type GasketServiceServer interface {
 	GetGasket(context.Context, *GetGasketRequest) (*GasketResponse, error)
+	GetGasketWithThick(context.Context, *GetGasketRequest) (*GasketWithThickResponse, error)
 	CreateGasket(context.Context, *CreateGasketRequest) (*IdResponse, error)
 	UpdateGasket(context.Context, *UpdateGasketRequest) (*Response, error)
 	DeleteGasket(context.Context, *DeleteGasketRequest) (*Response, error)
@@ -919,6 +930,9 @@ type UnimplementedGasketServiceServer struct {
 
 func (UnimplementedGasketServiceServer) GetGasket(context.Context, *GetGasketRequest) (*GasketResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetGasket not implemented")
+}
+func (UnimplementedGasketServiceServer) GetGasketWithThick(context.Context, *GetGasketRequest) (*GasketWithThickResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetGasketWithThick not implemented")
 }
 func (UnimplementedGasketServiceServer) CreateGasket(context.Context, *CreateGasketRequest) (*IdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateGasket not implemented")
@@ -998,6 +1012,24 @@ func _GasketService_GetGasket_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(GasketServiceServer).GetGasket(ctx, req.(*GetGasketRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _GasketService_GetGasketWithThick_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetGasketRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GasketServiceServer).GetGasketWithThick(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/moment_api.GasketService/GetGasketWithThick",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GasketServiceServer).GetGasketWithThick(ctx, req.(*GetGasketRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1318,6 +1350,10 @@ var GasketService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetGasket",
 			Handler:    _GasketService_GetGasket_Handler,
+		},
+		{
+			MethodName: "GetGasketWithThick",
+			Handler:    _GasketService_GetGasketWithThick_Handler,
 		},
 		{
 			MethodName: "CreateGasket",

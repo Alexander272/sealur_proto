@@ -160,6 +160,12 @@ message Gasket {
     string title = 2;
 }
 
+message GasketWithThick {
+    string id = 1;
+    string title = 2;
+    repeated double thickness = 3;
+}
+
 message GetGasketRequest {}
 message CreateGasketRequest {
     string title = 1;
@@ -174,6 +180,9 @@ message DeleteGasketRequest {
 
 message GasketResponse {
     repeated Gasket gasket = 1;
+}
+message GasketWithThickResponse {
+    repeated GasketWithThick gasket = 1;
 }
 
 message GasketType {
@@ -258,6 +267,7 @@ message DeleteGasketDataRequest {
 
 service GasketService {
     rpc GetGasket (GetGasketRequest) returns (GasketResponse);
+    rpc GetGasketWithThick (GetGasketRequest) returns (GasketWithThickResponse);
     rpc CreateGasket (CreateGasketRequest) returns (IdResponse);
     rpc UpdateGasket (UpdateGasketRequest) returns (Response);
     rpc DeleteGasket (DeleteGasketRequest) returns (Response);
@@ -392,6 +402,7 @@ message DeleteFlangeSizeRequest {
 
 message GetBasisFlangeSizeRequest {
     bool isUseRow = 1;
+    string standId = 2;
 }
 
 message BasisFlangeSize {
@@ -746,7 +757,7 @@ message GetFlangeResponse {
     repeated TypeFlange typeFlange = 1;
     repeated Standart standarts = 2;
     BasisFlangeSizeResponse sizes = 3;
-    repeated Gasket gaskets = 4;
+    repeated GasketWithThick gaskets = 4;
     repeated Env env = 5;
     repeated Material materials = 6;
 }
