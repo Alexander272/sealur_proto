@@ -390,6 +390,20 @@ message DeleteFlangeSizeRequest {
     string id = 1;
 }
 
+message GetBasisFlangeSizeRequest {
+    bool isUseRow = 1;
+}
+
+message BasisFlangeSize {
+    double dn = 1;
+    repeated double pn = 2;    
+}
+
+message BasisFlangeSizeResponse {
+    repeated BasisFlangeSize sizeRow1 = 1;
+    repeated BasisFlangeSize sizeRow2 = 2;
+}
+
 service FlangeService {
     rpc GetBolts (GetBoltsRequest) returns (BoltsResponse);
     rpc CreateBolt (CreateBoltRequest) returns (Response);
@@ -409,6 +423,8 @@ service FlangeService {
     rpc CreateFlangeSize (CreateFlangeSizeRequest) returns (Response);
     rpc UpdateFlangeSize (UpdateFlangeSizeRequest) returns (Response);
     rpc DeleteFlangeSize (DeleteFlangeSizeRequest) returns (Response);
+
+    rpc GetBasisFlangeSize (GetBasisFlangeSizeRequest) returns (BasisFlangeSizeResponse);
 }
 
 // -----------------------------------------------------------------------
@@ -721,4 +737,20 @@ message FlangeResponse {
 
 service CalcFlangeService {
     rpc CalculateFlange (CalcFlangeRequest) returns (FlangeResponse);
+}
+
+// ------------------------------------------------------
+message GetFlangeRequest {}
+
+message GetFlangeResponse {
+    repeated TypeFlange typeFlange = 1;
+    repeated Standart standarts = 2;
+    BasisFlangeSizeResponse sizes = 3;
+    repeated Gasket gaskets = 4;
+    repeated Env env = 5;
+    repeated Material materials = 6;
+}
+
+service ReadService {
+    rpc GetFlange (GetFlangeRequest) returns (GetFlangeResponse);
 }

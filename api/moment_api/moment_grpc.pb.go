@@ -1411,6 +1411,7 @@ type FlangeServiceClient interface {
 	CreateFlangeSize(ctx context.Context, in *CreateFlangeSizeRequest, opts ...grpc.CallOption) (*Response, error)
 	UpdateFlangeSize(ctx context.Context, in *UpdateFlangeSizeRequest, opts ...grpc.CallOption) (*Response, error)
 	DeleteFlangeSize(ctx context.Context, in *DeleteFlangeSizeRequest, opts ...grpc.CallOption) (*Response, error)
+	GetBasisFlangeSize(ctx context.Context, in *GetBasisFlangeSizeRequest, opts ...grpc.CallOption) (*BasisFlangeSizeResponse, error)
 }
 
 type flangeServiceClient struct {
@@ -1556,6 +1557,15 @@ func (c *flangeServiceClient) DeleteFlangeSize(ctx context.Context, in *DeleteFl
 	return out, nil
 }
 
+func (c *flangeServiceClient) GetBasisFlangeSize(ctx context.Context, in *GetBasisFlangeSizeRequest, opts ...grpc.CallOption) (*BasisFlangeSizeResponse, error) {
+	out := new(BasisFlangeSizeResponse)
+	err := c.cc.Invoke(ctx, "/moment_api.FlangeService/GetBasisFlangeSize", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // FlangeServiceServer is the server API for FlangeService service.
 // All implementations must embed UnimplementedFlangeServiceServer
 // for forward compatibility
@@ -1575,6 +1585,7 @@ type FlangeServiceServer interface {
 	CreateFlangeSize(context.Context, *CreateFlangeSizeRequest) (*Response, error)
 	UpdateFlangeSize(context.Context, *UpdateFlangeSizeRequest) (*Response, error)
 	DeleteFlangeSize(context.Context, *DeleteFlangeSizeRequest) (*Response, error)
+	GetBasisFlangeSize(context.Context, *GetBasisFlangeSizeRequest) (*BasisFlangeSizeResponse, error)
 	mustEmbedUnimplementedFlangeServiceServer()
 }
 
@@ -1626,6 +1637,9 @@ func (UnimplementedFlangeServiceServer) UpdateFlangeSize(context.Context, *Updat
 }
 func (UnimplementedFlangeServiceServer) DeleteFlangeSize(context.Context, *DeleteFlangeSizeRequest) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteFlangeSize not implemented")
+}
+func (UnimplementedFlangeServiceServer) GetBasisFlangeSize(context.Context, *GetBasisFlangeSizeRequest) (*BasisFlangeSizeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBasisFlangeSize not implemented")
 }
 func (UnimplementedFlangeServiceServer) mustEmbedUnimplementedFlangeServiceServer() {}
 
@@ -1910,6 +1924,24 @@ func _FlangeService_DeleteFlangeSize_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FlangeService_GetBasisFlangeSize_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBasisFlangeSizeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FlangeServiceServer).GetBasisFlangeSize(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/moment_api.FlangeService/GetBasisFlangeSize",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FlangeServiceServer).GetBasisFlangeSize(ctx, req.(*GetBasisFlangeSizeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // FlangeService_ServiceDesc is the grpc.ServiceDesc for FlangeService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1976,6 +2008,10 @@ var FlangeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteFlangeSize",
 			Handler:    _FlangeService_DeleteFlangeSize_Handler,
+		},
+		{
+			MethodName: "GetBasisFlangeSize",
+			Handler:    _FlangeService_GetBasisFlangeSize_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -2062,6 +2098,92 @@ var CalcFlangeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CalculateFlange",
 			Handler:    _CalcFlangeService_CalculateFlange_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "moment_api/moment.proto",
+}
+
+// ReadServiceClient is the client API for ReadService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type ReadServiceClient interface {
+	GetFlange(ctx context.Context, in *GetFlangeRequest, opts ...grpc.CallOption) (*GetFlangeResponse, error)
+}
+
+type readServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewReadServiceClient(cc grpc.ClientConnInterface) ReadServiceClient {
+	return &readServiceClient{cc}
+}
+
+func (c *readServiceClient) GetFlange(ctx context.Context, in *GetFlangeRequest, opts ...grpc.CallOption) (*GetFlangeResponse, error) {
+	out := new(GetFlangeResponse)
+	err := c.cc.Invoke(ctx, "/moment_api.ReadService/GetFlange", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ReadServiceServer is the server API for ReadService service.
+// All implementations must embed UnimplementedReadServiceServer
+// for forward compatibility
+type ReadServiceServer interface {
+	GetFlange(context.Context, *GetFlangeRequest) (*GetFlangeResponse, error)
+	mustEmbedUnimplementedReadServiceServer()
+}
+
+// UnimplementedReadServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedReadServiceServer struct {
+}
+
+func (UnimplementedReadServiceServer) GetFlange(context.Context, *GetFlangeRequest) (*GetFlangeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetFlange not implemented")
+}
+func (UnimplementedReadServiceServer) mustEmbedUnimplementedReadServiceServer() {}
+
+// UnsafeReadServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ReadServiceServer will
+// result in compilation errors.
+type UnsafeReadServiceServer interface {
+	mustEmbedUnimplementedReadServiceServer()
+}
+
+func RegisterReadServiceServer(s grpc.ServiceRegistrar, srv ReadServiceServer) {
+	s.RegisterService(&ReadService_ServiceDesc, srv)
+}
+
+func _ReadService_GetFlange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetFlangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ReadServiceServer).GetFlange(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/moment_api.ReadService/GetFlange",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ReadServiceServer).GetFlange(ctx, req.(*GetFlangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// ReadService_ServiceDesc is the grpc.ServiceDesc for ReadService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var ReadService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "moment_api.ReadService",
+	HandlerType: (*ReadServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetFlange",
+			Handler:    _ReadService_GetFlange_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
