@@ -28,9 +28,9 @@ message Material {
 message MaterialWithIsEmpty {
     string id = 1;
     string title = 2;
-    bool IsEmptyAlpha = 3;
-    bool IsEmptyElasticity = 4;
-    bool IsEmptyVoltage = 5;
+    bool IsEmptyAlpha = 3; // required
+    bool IsEmptyElasticity = 4; // required
+    bool IsEmptyVoltage = 5; // required
 }
 
 message GetMaterialsRequest {}
