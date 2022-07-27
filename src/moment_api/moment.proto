@@ -446,7 +446,14 @@ service FlangeService {
 }
 
 // -----------------------------------------------------------------------
-
+message MaterialData {
+    string title = 1;
+    double alphaF = 2;
+    double epsilonAt20 = 3;
+    double epsilon = 4;
+    double sigmaAt20 = 5;
+    double sigma = 6;
+}
 
 message FlangeData {
     enum Type {
@@ -465,31 +472,27 @@ message FlangeData {
         double d6 = 7;
     }
 
-    message Material {
-        double alphaF = 1;
-        double epsilonAt20 = 2;
-        double epsilon = 3;
-        double sigmaAt20 = 4;
-        double sigma = 5;
-    }
-
     Type type = 1;
     string standartId = 2;
     string markId = 3;
     int32 dy = 4;
     double py = 5;
     double corrosion = 6;
+    Size size = 7;
+    MaterialData material = 8;
 }
 
 message BoltData {
     string markId = 1;
     int32 diameter = 2;
     int32 count = 3;
+    MaterialData material = 4;
 }
 
 message WasherData {
     string markId = 1;
     double thickness = 2;
+    MaterialData material = 3;
 }
 
 message GasketData {
