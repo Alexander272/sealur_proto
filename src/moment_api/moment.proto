@@ -355,6 +355,13 @@ message DeleteStandartRequest {
     string id = 1;
 }
 
+message StandartWithSize {
+    string id = 1;
+    string title = 2;
+    string typeId = 3;
+    BasisFlangeSizeResponse sizes = 4;
+}
+
 message Standart {
     string id = 1;
     string title = 2;
@@ -440,11 +447,30 @@ service FlangeService {
 
 // -----------------------------------------------------------------------
 
+
 message FlangeData {
     enum Type {
         welded = 0;
         flat = 1;
         free = 2;
+    }
+
+    message Size {
+        double dOut = 1;
+        double d = 2;
+        double h = 3;
+        double s0 = 4;
+        double s1 = 5;
+        double l = 6;
+        double d6 = 7;
+    }
+
+    message Material {
+        double alphaF = 1;
+        double epsilonAt20 = 2;
+        double epsilon = 3;
+        double sigmaAt20 = 4;
+        double sigma = 5;
     }
 
     Type type = 1;
@@ -457,6 +483,8 @@ message FlangeData {
 
 message BoltData {
     string markId = 1;
+    int32 diameter = 2;
+    int32 count = 3;
 }
 
 message WasherData {
@@ -755,11 +783,10 @@ message GetFlangeRequest {}
 
 message GetFlangeResponse {
     repeated TypeFlange typeFlange = 1;
-    repeated Standart standarts = 2;
-    BasisFlangeSizeResponse sizes = 3;
-    repeated GasketWithThick gaskets = 4;
-    repeated Env env = 5;
-    repeated Material materials = 6;
+    repeated StandartWithSize standarts = 2;
+    repeated GasketWithThick gaskets = 3;
+    repeated Env env = 4;
+    repeated Material materials = 5;
 }
 
 service ReadService {
