@@ -354,7 +354,7 @@ message CreateStandartRequest {
     string titleDn = 3;
     string titlePn = 4;
     bool isNeedRow = 5;
-    repeated string row = 6;
+    repeated string rows = 6;
 }
 message UpdateStandartRequest {
     string id = 1;
@@ -363,7 +363,7 @@ message UpdateStandartRequest {
     string titleDn = 4;
     string titlePn = 5;
     bool isNeedRow = 6;
-    repeated string row = 7;
+    repeated string rows = 7;
 }
 message DeleteStandartRequest {
     string id = 1;
@@ -377,7 +377,7 @@ message StandartWithSize {
     string titleDn = 5;
     string titlePn = 6;
     bool isNeedRow = 7;
-    repeated string row = 8;
+    repeated string rows = 8;
 }
 
 message Standart {
@@ -387,10 +387,13 @@ message Standart {
     string titleDn = 4;
     string titlePn = 5;
     bool isNeedRow = 6;
-    repeated string row = 7;
+    repeated string rows = 7;
 }
 message StandartsResponse {
     repeated Standart standarts = 1;
+}
+message StandartsWithSizeResponse {
+    repeated StandartWithSize standarts = 1;
 }
 
 message GetFlangeSizeRequest {
@@ -456,6 +459,7 @@ service FlangeService {
     rpc DeleteTypeFlange (DeleteTypeFlangeRequest) returns (Response);
 
     rpc GetStandarts (GetStandartsRequest) returns (StandartsResponse);
+    rpc GetStandartsWithSize (GetStandartsRequest) returns (StandartsWithSizeResponse);
     rpc CreateStandart (CreateStandartRequest) returns (IdResponse);
     rpc UpdateStandart (UpdateStandartRequest) returns (Response);
     rpc DeleteStandart (DeleteStandartRequest) returns (Response);
@@ -503,6 +507,8 @@ message FlangeData {
     Size size = 7;
     MaterialData material = 8;
     double temp = 9;
+    string ringMarkId = 10;
+    MaterialData ringMaterial = 11;
 }
 
 message BoltData {
@@ -511,6 +517,9 @@ message BoltData {
     int32 count = 3;
     MaterialData material = 4;
     double temp = 5;
+    string title = 6;
+    double area = 7;
+    string name = 8;
 }
 
 message WasherData {
@@ -573,17 +582,17 @@ message CalcFlangeRequest {
         strength = 1;
     }
 
-    double pressure = 1;//P
-    int32 axialForce = 2;//F
-    int32 bendingMoment = 3;//M
-    double temp = 4;//T
-    bool isWork = 5;//work
-    Flanges flanges = 6;//ParTem
-    bool isSameFlange = 7;//Odin
-    bool isEmbedded = 8;//ZakDet
-    Type type = 9;//Tip
-    Condition condition = 10;//UsZat
-    Calcutation calculation = 11;//Moment
+    double pressure = 1;
+    int32 axialForce = 2;
+    int32 bendingMoment = 3;
+    double temp = 4;
+    bool isWork = 5;
+    Flanges flanges = 6;
+    bool isSameFlange = 7;
+    bool isEmbedded = 8;
+    Type type = 9;
+    Condition condition = 10;
+    Calcutation calculation = 11;
 
     repeated FlangeData flangesData = 12;
     BoltData bolts = 13;
@@ -775,6 +784,77 @@ message CalculatedFlange {
 }
 
 message CalcFormulas {
+    message StrengthF {
+        string Mkp = 1;
+        string Mkp1 = 2;
+        string Cf = 3;
+        string Dzv = 4;
+        string MM = 5;
+        string MMk = 6;
+        string Mpk = 7;
+        string Mp = 8;
+        string sigmaM1 = 9;
+        string sigmaM0 = 10;
+        string sigmaT = 11;
+        string sigmaR = 12;
+        string sigmaTp = 13;
+        string sigmaRp = 14;
+        string sigmaK = 15;
+        string sigmaP1 = 16;
+        string sigmaP0 = 17;
+        string sigmaMp = 18;
+        string sigmaMpm = 19;
+        string sigmaMp0 = 20;
+        string sigmaMpm0 = 21;
+        string sigmaMop = 22;
+        string sigmaKp = 23;
+        string teta = 24;
+        string dTeta = 25;
+        string dTetaK = 26;
+        string tetaK = 27;
+
+        string Max1 = 28;
+        string Max2 = 29;
+        string Max3 = 30;
+        string Max4 = 31;
+        string Max5 = 32;
+        string Max6 = 33;
+        string Max7 = 34;
+        string Max8 = 35;
+        string Max9 = 36;
+        string Max10 = 37;
+        string Max11 = 38;
+    }
+
+    message Strength {
+        string fPb = 1;
+        string fPb1 = 2;
+        string fPb2 = 3;
+        string fPbr = 4;
+        string fSigmaB1 = 5;
+        string fSigmaB2 = 6;
+        string fDSigmaM = 7;
+        string fDSigmaR = 8;
+        string fQ = 9;
+        string sPb = 10;
+        string sPb1 = 11;
+        string sPb2 = 12;
+        string sPbr = 13;
+        string sSigmaB1 = 14;
+        string sSigmaB2 = 15;
+        string sDSigmaM = 16;
+        string sDSigmaR = 17;
+        string sQ = 18;
+        string qP = 19;
+        string Mkp = 20;
+        string Mkp1 = 21;
+        string Mrek = 22;
+        string Qrek = 23;
+        string Mmax = 24;
+        string Qmax = 25;
+        repeated StrengthF strength = 26;
+    }
+
     message Basis {
         string Pb = 1;
         string Pb1 = 2;
@@ -792,8 +872,6 @@ message CalcFormulas {
         string Qrek = 14;
         string Mmax = 15;
         string Qmax = 16;
-        string VSigmaB1 = 17;
-        string VSigmaB2 = 18;
     }
 
     string b0 = 1;
@@ -807,6 +885,7 @@ message CalcFormulas {
     string alpha = 9;
     string alphaM = 10;
     Basis basis = 12;
+    Strength strength = 13;
 }
 
 message FlangeResponse {

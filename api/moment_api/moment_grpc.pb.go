@@ -1441,6 +1441,7 @@ type FlangeServiceClient interface {
 	UpdateTypeFlange(ctx context.Context, in *UpdateTypeFlangeRequest, opts ...grpc.CallOption) (*Response, error)
 	DeleteTypeFlange(ctx context.Context, in *DeleteTypeFlangeRequest, opts ...grpc.CallOption) (*Response, error)
 	GetStandarts(ctx context.Context, in *GetStandartsRequest, opts ...grpc.CallOption) (*StandartsResponse, error)
+	GetStandartsWithSize(ctx context.Context, in *GetStandartsRequest, opts ...grpc.CallOption) (*StandartsWithSizeResponse, error)
 	CreateStandart(ctx context.Context, in *CreateStandartRequest, opts ...grpc.CallOption) (*IdResponse, error)
 	UpdateStandart(ctx context.Context, in *UpdateStandartRequest, opts ...grpc.CallOption) (*Response, error)
 	DeleteStandart(ctx context.Context, in *DeleteStandartRequest, opts ...grpc.CallOption) (*Response, error)
@@ -1539,6 +1540,15 @@ func (c *flangeServiceClient) GetStandarts(ctx context.Context, in *GetStandarts
 	return out, nil
 }
 
+func (c *flangeServiceClient) GetStandartsWithSize(ctx context.Context, in *GetStandartsRequest, opts ...grpc.CallOption) (*StandartsWithSizeResponse, error) {
+	out := new(StandartsWithSizeResponse)
+	err := c.cc.Invoke(ctx, "/moment_api.FlangeService/GetStandartsWithSize", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *flangeServiceClient) CreateStandart(ctx context.Context, in *CreateStandartRequest, opts ...grpc.CallOption) (*IdResponse, error) {
 	out := new(IdResponse)
 	err := c.cc.Invoke(ctx, "/moment_api.FlangeService/CreateStandart", in, out, opts...)
@@ -1615,6 +1625,7 @@ type FlangeServiceServer interface {
 	UpdateTypeFlange(context.Context, *UpdateTypeFlangeRequest) (*Response, error)
 	DeleteTypeFlange(context.Context, *DeleteTypeFlangeRequest) (*Response, error)
 	GetStandarts(context.Context, *GetStandartsRequest) (*StandartsResponse, error)
+	GetStandartsWithSize(context.Context, *GetStandartsRequest) (*StandartsWithSizeResponse, error)
 	CreateStandart(context.Context, *CreateStandartRequest) (*IdResponse, error)
 	UpdateStandart(context.Context, *UpdateStandartRequest) (*Response, error)
 	DeleteStandart(context.Context, *DeleteStandartRequest) (*Response, error)
@@ -1655,6 +1666,9 @@ func (UnimplementedFlangeServiceServer) DeleteTypeFlange(context.Context, *Delet
 }
 func (UnimplementedFlangeServiceServer) GetStandarts(context.Context, *GetStandartsRequest) (*StandartsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetStandarts not implemented")
+}
+func (UnimplementedFlangeServiceServer) GetStandartsWithSize(context.Context, *GetStandartsRequest) (*StandartsWithSizeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetStandartsWithSize not implemented")
 }
 func (UnimplementedFlangeServiceServer) CreateStandart(context.Context, *CreateStandartRequest) (*IdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateStandart not implemented")
@@ -1852,6 +1866,24 @@ func _FlangeService_GetStandarts_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FlangeService_GetStandartsWithSize_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetStandartsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FlangeServiceServer).GetStandartsWithSize(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/moment_api.FlangeService/GetStandartsWithSize",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FlangeServiceServer).GetStandartsWithSize(ctx, req.(*GetStandartsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _FlangeService_CreateStandart_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateStandartRequest)
 	if err := dec(in); err != nil {
@@ -2020,6 +2052,10 @@ var FlangeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetStandarts",
 			Handler:    _FlangeService_GetStandarts_Handler,
+		},
+		{
+			MethodName: "GetStandartsWithSize",
+			Handler:    _FlangeService_GetStandartsWithSize_Handler,
 		},
 		{
 			MethodName: "CreateStandart",
