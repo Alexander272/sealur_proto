@@ -362,6 +362,10 @@ message StandartWithSize {
     string title = 2;
     string typeId = 3;
     BasisFlangeSizeResponse sizes = 4;
+    string titleDn = 5;
+    string titlePn = 6;
+    bool isNeedRow = 7;
+    string rows = 8;
 }
 
 message Standart {
@@ -482,6 +486,7 @@ message FlangeData {
     double corrosion = 6;
     Size size = 7;
     MaterialData material = 8;
+    double temp = 9;
 }
 
 message BoltData {
@@ -489,6 +494,7 @@ message BoltData {
     int32 diameter = 2;
     int32 count = 3;
     MaterialData material = 4;
+    double temp = 5;
 }
 
 message WasherData {
