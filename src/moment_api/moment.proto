@@ -365,7 +365,7 @@ message StandartWithSize {
     string titleDn = 5;
     string titlePn = 6;
     bool isNeedRow = 7;
-    string rows = 8;
+    repeated string row = 8;
 }
 
 message Standart {
@@ -375,7 +375,7 @@ message Standart {
     string titleDn = 4;
     string titlePn = 5;
     bool isNeedRow = 6;
-    string rows = 7;
+    repeated string row = 7;
 }
 message StandartsResponse {
     repeated Standart standarts = 1;
