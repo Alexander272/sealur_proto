@@ -372,6 +372,10 @@ message Standart {
     string id = 1;
     string title = 2;
     string typeId = 3;
+    string titleDn = 4;
+    string titlePn = 5;
+    bool isNeedRow = 6;
+    string rows = 7;
 }
 message StandartsResponse {
     repeated Standart standarts = 1;
