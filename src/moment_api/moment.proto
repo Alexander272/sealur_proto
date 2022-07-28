@@ -194,10 +194,12 @@ message GasketType {
 message GetGasketTypeRequest {}
 message CreateGasketTypeRequest {
     string title = 1;
+    string label = 2;
 }
 message UpdateGasketTypeRequest {
     string id = 1;
     string title = 2;
+    string label = 3;
 }
 message DeleteGasketTypeRequest {
     string id = 1;
@@ -323,10 +325,12 @@ message BoltsResponse {
 message GetTypeFlangeRequest {}
 message CreateTypeFlangeRequest {
     string title = 1;
+    string label = 2;
 }
 message UpdateTypeFlangeRequest {
     string id = 1;
     string title = 2;
+    string label = 3;
 }
 message DeleteTypeFlangeRequest {
     string id = 1;
@@ -347,11 +351,19 @@ message GetStandartsRequest {
 message CreateStandartRequest {
     string title = 1;
     string typeId = 2;
+    string titleDn = 3;
+    string titlePn = 4;
+    bool isNeedRow = 5;
+    repeated string row = 6;
 }
 message UpdateStandartRequest {
     string id = 1;
     string title = 2;
     string typeId = 3;
+    string titleDn = 4;
+    string titlePn = 5;
+    bool isNeedRow = 6;
+    repeated string row = 7;
 }
 message DeleteStandartRequest {
     string id = 1;
