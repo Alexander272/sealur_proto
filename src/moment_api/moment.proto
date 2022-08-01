@@ -496,6 +496,11 @@ message FlangeData {
         double s1 = 5;
         double l = 6;
         double d6 = 7;
+        double dnk = 8;
+        double dk = 9;
+        double ds = 10;
+        double h0 = 11;
+        double hk = 12;
     }
 
     Type type = 1;
@@ -604,6 +609,19 @@ message CalcFlangeRequest {
     bool isNeedFormulas = 18;
 }
 
+message DataResult {
+    double pressure = 1;
+    int32 axialForce = 2;
+    int32 bendingMoment = 3;
+    double temp = 4;
+    string work = 5;
+    string flanges = 6;
+    string sameFlange = 7;
+    string embedded = 8;
+    string type = 9;
+    string condition = 10;
+}
+
 message FlangeResult {
     double dOut = 1;
 	double d = 2;
@@ -634,6 +652,8 @@ message FlangeResult {
 	double sigmaR = 27;
 	double sigmaRAt20 = 28;
 	string material = 29;
+    string ringMaterial = 30;
+    double h0 = 31;
 }
 
 message BoltResult {
@@ -647,11 +667,12 @@ message BoltResult {
 	double epsilon = 8;
 	double sigmaAt20 = 9;
 	double sigma = 10;
+    string material = 11;
 }
 
 message GasketResult {
-    string gasketId = 1;
-    string envId = 2;
+    string gasket = 1;
+    string env = 2;
     double thickness = 3;
     double d_out = 4;
     double width = 5;
@@ -660,10 +681,11 @@ message GasketResult {
     double compression = 8;
     double epsilon = 9;
     double permissiblePres = 10;
+    string type = 11;
 }
 
 message EmbedResult {
-    string markId = 1;
+    string material = 1;
     double thickness = 2;
     double alpfa = 3;
     double temp = 4;
@@ -896,6 +918,7 @@ message FlangeResponse {
     EmbedResult embed = 5;
     CalculatedFlange calc = 6;
     CalcFormulas formulas = 7;
+    DataResult data = 8;
 }
 
 service CalcFlangeService {
