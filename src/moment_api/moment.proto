@@ -776,6 +776,7 @@ message CalcMomentStrength {
     bool vTetaK1 = 31;
     bool vTeta2 = 32;
     bool vTetaK2 = 33;
+    double minB = 34;
 }
 
 message CalcMomentBasis {
@@ -797,6 +798,7 @@ message CalcMomentBasis {
     double Qmax = 16;
     bool VSigmaB1 = 17;
     bool VSigmaB2 = 18;
+    double minB = 19;
 }
 
 message CalculatedFlange {
