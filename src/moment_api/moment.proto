@@ -654,6 +654,7 @@ message FlangeResult {
 	string material = 29;
     string ringMaterial = 30;
     double h0 = 31;
+    string type = 32;
 }
 
 message BoltResult {
@@ -685,6 +686,14 @@ message GasketResult {
 }
 
 message EmbedResult {
+    string material = 1;
+    double thickness = 2;
+    double alpfa = 3;
+    double temp = 4;
+}
+
+
+message WasherResult {
     string material = 1;
     double thickness = 2;
     double alpfa = 3;
@@ -919,6 +928,7 @@ message FlangeResponse {
     CalculatedFlange calc = 6;
     CalcFormulas formulas = 7;
     DataResult data = 8;
+    repeated WasherResult washers = 9;
 }
 
 service CalcFlangeService {
