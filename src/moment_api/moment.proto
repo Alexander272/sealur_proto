@@ -796,8 +796,8 @@ message CalcMomentBasis {
     double Qrek = 14;
     double Mmax = 15;
     double Qmax = 16;
-    bool VSigmaB1 = 17;
-    bool VSigmaB2 = 18;
+    bool vSigmaB1 = 17;
+    bool vSigmaB2 = 18;
     double minB = 19;
 }
 
