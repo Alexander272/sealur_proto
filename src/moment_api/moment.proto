@@ -716,51 +716,49 @@ message WasherResult {
 }
 
 message StrengthResult {
-    double Mkp = 1;
-    double Mkp1 = 2;
-    double Cf = 3;
-    double Dzv = 4;
-    double MM = 5;
-    double MMk = 6;
-    double Mpk = 7;
-	double Mp = 8;
-	double sigmaM1 = 9;
-	double sigmaM0 = 10;
-	double sigmaT = 11;
-	double sigmaR = 12;
-	double sigmaTp = 13;
-	double sigmaRp = 14;
-	double sigmaK = 15;
-	double sigmaP1 = 16;
-	double sigmaP0 = 17;
-	double sigmaMp = 18;
-	double sigmaMpm = 19;
-	double sigmaMp0 = 20;
-	double sigmaMpm0 = 21;
-	double sigmaMop = 22;
-	double sigmaKp = 23;
-	double teta = 24;
-	double dTeta = 25;
-	double dTetaK = 26;
-	double tetaK = 27;
+    double Cf = 1;
+    double Dzv = 2;
+    double MM = 3;
+    double MMk = 4;
+    double Mpk = 5;
+	double Mp = 6;
+	double sigmaM1 = 7;
+	double sigmaM0 = 8;
+	double sigmaT = 9;
+	double sigmaR = 10;
+	double sigmaTp = 11;
+	double sigmaRp = 12;
+	double sigmaK = 13;
+	double sigmaP1 = 14;
+	double sigmaP0 = 15;
+	double sigmaMp = 16;
+	double sigmaMpm = 17;
+	double sigmaMp0 = 18;
+	double sigmaMpm0 = 19;
+	double sigmaMop = 20;
+	double sigmaKp = 21;
+	double teta = 22;
+	double dTeta = 23;
+	double dTetaK = 24;
+	double tetaK = 25;
 
-	double Max1 = 28;
-    double Max2 = 29;
-    double Max3 = 30;
-    double Max4 = 31;
-    double Max5 = 32;
-    double Max6 = 33;
-    double Max7 = 34;
-    double Max8 = 35;
-    double Max9 = 36;
-    double Max10 = 37;
-    double Max11 = 38;
+	double Max1 = 26;
+    double Max2 = 27;
+    double Max3 = 28;
+    double Max4 = 29;
+    double Max5 = 30;
+    double Max6 = 31;
+    double Max7 = 32;
+    double Max8 = 33;
+    double Max9 = 34;
+    double Max10 = 35;
+    double Max11 = 36;
 
-    double condSigmaM = 39; 
-    double condSigmaR = 40;
-    double condSigma1 = 41;
-    double condSigma2 = 42;
-    bool isSameSigma = 43;
+    double condSigmaM = 37; 
+    double condSigmaR = 38;
+    double condSigma1 = 39;
+    double condSigma2 = 40;
+    bool isSameSigma = 41;
 }
 
 message CalcMomentStrength {
@@ -773,34 +771,36 @@ message CalcMomentStrength {
     double fDSigmaM = 7;
     double fDSigmaR = 8;
     double fQ = 9;
-    double sPb = 10;
-    double sPb1 = 11;
-    double sPb2 = 12;
-    double sPbr = 13;
-    double sSigmaB1 = 14;
-    double sSigmaB2 = 15;
-    double sDSigmaM = 16;
-    double sDSigmaR = 17;
-    double sQ = 18;
-    double minB = 19;
-    double Mkp = 20;
-    double Mkp1 = 21;
-    double Mrek = 22;
-    double Qrek = 23;
-    double Mmax = 24;
-    double Qmax = 25;
-    repeated StrengthResult strength = 26;
-    bool vSigmaB1 = 27;
-    bool vSigmaB2 = 28;
-    bool vQmax = 29;
+    double fMkp = 10;
+    double fMkp1 = 11;
+    double sPb = 12;
+    double sPb1 = 13;
+    double sPb2 = 14;
+    double sPbr = 15;
+    double sSigmaB1 = 16;
+    double sSigmaB2 = 17;
+    double sDSigmaM = 18;
+    double sDSigmaR = 19;
+    double sQ = 20;
+    double minB = 21;
+    double sMkp = 22;
+    double sMkp1 = 23;
+    double Mrek = 24;
+    double Qrek = 25;
+    double Mmax = 26;
+    double Qmax = 27;
+    repeated StrengthResult strength = 28;
+    bool vSigmaB1 = 29;
+    bool vSigmaB2 = 30;
+    bool vQmax = 31;
     //TODO похоже vTeta мне вообще не нужны
-    bool vTeta1 = 30;
-    bool vTetaK1 = 31;
-    bool vTeta2 = 32;
-    bool vTetaK2 = 33;
-    double yp = 34;
-    double yb = 35;
-    double Lb = 36;
+    bool vTeta1 = 32;
+    bool vTetaK1 = 33;
+    bool vTeta2 = 34;
+    bool vTetaK2 = 35;
+    double yp = 36;
+    double yb = 37;
+    double Lb = 38;
 }
 
 message CalcMomentBasis {
@@ -881,21 +881,21 @@ message CalcFormulas {
     }
 
     message Flange {
-        double a = 1;
-        double b = 2;
-        double e = 3;
-        double Se = 4;
-        double xi = 5;
-        double x = 6;
-        double l0 = 7;
-        double lymda = 8;
-        double yf = 9;
-        double psik = 10;
-        double yk = 11;
-        double yfn = 12;
-        double yfc = 13;
-        double k = 14;
-        double beta = 15;
+        string a = 1;
+        string b = 2;
+        string e = 3;
+        string Se = 4;
+        string xi = 5;
+        string x = 6;
+        string l0 = 7;
+        string lymda = 8;
+        string yf = 9;
+        string psik = 10;
+        string yk = 11;
+        string yfn = 12;
+        string yfc = 13;
+        string k = 14;
+        string beta = 15;
     }
 
     message Strength {
