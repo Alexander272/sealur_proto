@@ -655,6 +655,21 @@ message FlangeResult {
     string ringMaterial = 30;
     double h0 = 31;
     string type = 32;
+    double a = 33;
+    double b = 34;
+    double e = 35;
+    double Se = 36;
+    double xi = 37;
+    double x = 38;
+    double l0 = 39;
+    double lymda = 40;
+    double yf = 41;
+    double psik = 42;
+    double yk = 43;
+    double yfn = 44;
+    double yfc = 45;
+    double k = 46;
+    double beta = 47;
 }
 
 message BoltResult {
@@ -740,6 +755,12 @@ message StrengthResult {
     double Max9 = 36;
     double Max10 = 37;
     double Max11 = 38;
+
+    double condSigmaM = 39; 
+    double condSigmaR = 40;
+    double condSigma1 = 41;
+    double condSigma2 = 42;
+    bool isSameSigma = 43;
 }
 
 message CalcMomentStrength {
@@ -761,7 +782,7 @@ message CalcMomentStrength {
     double sDSigmaM = 16;
     double sDSigmaR = 17;
     double sQ = 18;
-    double qP = 19;
+    double minB = 19;
     double Mkp = 20;
     double Mkp1 = 21;
     double Mrek = 22;
@@ -772,11 +793,14 @@ message CalcMomentStrength {
     bool vSigmaB1 = 27;
     bool vSigmaB2 = 28;
     bool vQmax = 29;
+    //TODO похоже vTeta мне вообще не нужны
     bool vTeta1 = 30;
     bool vTetaK1 = 31;
     bool vTeta2 = 32;
     bool vTetaK2 = 33;
-    double minB = 34;
+    double yp = 34;
+    double yb = 35;
+    double Lb = 36;
 }
 
 message CalcMomentBasis {
@@ -789,7 +813,7 @@ message CalcMomentBasis {
     double dSigmaM = 7;
     double dSigmaR = 8;
     double q = 9;
-    double qP = 10;
+    double minB = 10;
     double Mkp = 11;
     double Mkp1 = 12;
     double Mrek = 13;
@@ -798,7 +822,6 @@ message CalcMomentBasis {
     double Qmax = 16;
     bool vSigmaB1 = 17;
     bool vSigmaB2 = 18;
-    double minB = 19;
 }
 
 message CalculatedFlange {
@@ -818,45 +841,61 @@ message CalculatedFlange {
 
 message CalcFormulas {
     message StrengthF {
-        string Mkp = 1;
-        string Mkp1 = 2;
-        string Cf = 3;
-        string Dzv = 4;
-        string MM = 5;
-        string MMk = 6;
-        string Mpk = 7;
-        string Mp = 8;
-        string sigmaM1 = 9;
-        string sigmaM0 = 10;
-        string sigmaT = 11;
-        string sigmaR = 12;
-        string sigmaTp = 13;
-        string sigmaRp = 14;
-        string sigmaK = 15;
-        string sigmaP1 = 16;
-        string sigmaP0 = 17;
-        string sigmaMp = 18;
-        string sigmaMpm = 19;
-        string sigmaMp0 = 20;
-        string sigmaMpm0 = 21;
-        string sigmaMop = 22;
-        string sigmaKp = 23;
-        string teta = 24;
-        string dTeta = 25;
-        string dTetaK = 26;
-        string tetaK = 27;
+        string Cf = 1;
+        string Dzv = 2;
+        string MM = 3;
+        string MMk = 4;
+        string Mpk = 5;
+        string Mp = 6;
+        string sigmaM1 = 7;
+        string sigmaM0 = 8;
+        string sigmaT = 9;
+        string sigmaR = 10;
+        string sigmaTp = 11;
+        string sigmaRp = 12;
+        string sigmaK = 13;
+        string sigmaP1 = 14;
+        string sigmaP0 = 15;
+        string sigmaMp = 16;
+        string sigmaMpm = 17;
+        string sigmaMp0 = 18;
+        string sigmaMpm0 = 19;
+        string sigmaMop = 20;
+        string sigmaKp = 21;
+        string teta = 22;
+        string dTeta = 23;
+        string dTetaK = 24;
+        string tetaK = 25;
 
-        string Max1 = 28;
-        string Max2 = 29;
-        string Max3 = 30;
-        string Max4 = 31;
-        string Max5 = 32;
-        string Max6 = 33;
-        string Max7 = 34;
-        string Max8 = 35;
-        string Max9 = 36;
-        string Max10 = 37;
-        string Max11 = 38;
+        string Max1 = 26;
+        string Max2 = 27;
+        string Max3 = 28;
+        string Max4 = 29;
+        string Max5 = 30;
+        string Max6 = 31;
+        string Max7 = 32;
+        string Max8 = 33;
+        string Max9 = 34;
+        string Max10 = 35;
+        string Max11 = 36;
+    }
+
+    message Flange {
+        double a = 1;
+        double b = 2;
+        double e = 3;
+        double Se = 4;
+        double xi = 5;
+        double x = 6;
+        double l0 = 7;
+        double lymda = 8;
+        double yf = 9;
+        double psik = 10;
+        double yk = 11;
+        double yfn = 12;
+        double yfc = 13;
+        double k = 14;
+        double beta = 15;
     }
 
     message Strength {
@@ -869,23 +908,28 @@ message CalcFormulas {
         string fDSigmaM = 7;
         string fDSigmaR = 8;
         string fQ = 9;
-        string sPb = 10;
-        string sPb1 = 11;
-        string sPb2 = 12;
-        string sPbr = 13;
-        string sSigmaB1 = 14;
-        string sSigmaB2 = 15;
-        string sDSigmaM = 16;
-        string sDSigmaR = 17;
-        string sQ = 18;
-        string qP = 19;
-        string Mkp = 20;
-        string Mkp1 = 21;
-        string Mrek = 22;
-        string Qrek = 23;
-        string Mmax = 24;
-        string Qmax = 25;
-        repeated StrengthF strength = 26;
+        string fMkp = 10;
+        string fMkp1 = 11;
+        string sPb = 12;
+        string sPb1 = 13;
+        string sPb2 = 14;
+        string sPbr = 15;
+        string sSigmaB1 = 16;
+        string sSigmaB2 = 17;
+        string sDSigmaM = 18;
+        string sDSigmaR = 19;
+        string sQ = 20;
+        string sMkp = 21;
+        string sMkp1 = 22;
+        string Mrek = 23;
+        string Qrek = 24;
+        string Mmax = 25;
+        string Qmax = 26;
+        repeated StrengthF strength = 27;
+        repeated Flange flange = 28;
+        string yp = 29;
+        string yb = 30;
+        string Lb = 31;
     }
 
     message Basis {
@@ -898,13 +942,12 @@ message CalcFormulas {
         string dSigmaM = 7;
         string dSigmaR = 8;
         string q = 9;
-        string qP = 10;
-        string Mkp = 11;
-        string Mkp1 = 12;
-        string Mrek = 13;
-        string Qrek = 14;
-        string Mmax = 15;
-        string Qmax = 16;
+        string Mkp = 10;
+        string Mkp1 = 11;
+        string Mrek = 12;
+        string Qrek = 13;
+        string Mmax = 14;
+        string Qmax = 15;
     }
 
     string b0 = 1;
