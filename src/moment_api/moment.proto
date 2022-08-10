@@ -703,7 +703,7 @@ message GasketResult {
 message EmbedResult {
     string material = 1;
     double thickness = 2;
-    double alpfa = 3;
+    double alpha = 3;
     double temp = 4;
 }
 
@@ -711,7 +711,7 @@ message EmbedResult {
 message WasherResult {
     string material = 1;
     double thickness = 2;
-    double alpfa = 3;
+    double alpha = 3;
     double temp = 4;
 }
 
