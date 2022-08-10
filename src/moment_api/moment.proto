@@ -670,6 +670,13 @@ message FlangeResult {
     double yfc = 45;
     double k = 46;
     double beta = 47;
+    double betaT = 48;
+    double betaU = 49;
+    double betaY = 50;
+    double betaZ = 51;
+    double betaF = 52;
+    double betaV = 53;
+    double f = 54;
 }
 
 message BoltResult {
