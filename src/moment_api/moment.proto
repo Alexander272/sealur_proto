@@ -761,11 +761,19 @@ message StrengthResult {
     double Max10 = 35;
     double Max11 = 36;
 
-    double condSigmaM = 37; 
-    double condSigmaR = 38;
-    double condSigma1 = 39;
-    double condSigma2 = 40;
-    bool isSameSigma = 41;
+    bool isSameSigma = 37;
+
+    double condMax1 = 38;
+    double condMax2 = 39;
+    double condMax3 = 40;
+    double condMax4 = 41;
+    double condMax5 = 42;
+    double condMax6 = 43;
+    double condMax7 = 44;
+    double condMax8 = 45;
+    double condMax9 = 46;
+    double condMax10 = 47;
+    double condMax11 = 48;
 }
 
 message CalcMomentStrength {
@@ -808,6 +816,7 @@ message CalcMomentStrength {
     double yp = 36;
     double yb = 37;
     double Lb = 38;
+    double gamma = 39;
 }
 
 message CalcMomentBasis {
@@ -937,6 +946,7 @@ message CalcFormulas {
         string yp = 29;
         string yb = 30;
         string Lb = 31;
+        string gamma = 32;
     }
 
     message Basis {
