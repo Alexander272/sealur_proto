@@ -698,6 +698,7 @@ var MaterialsService_ServiceDesc = grpc.ServiceDesc{
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type GasketServiceClient interface {
+	GetFullData(ctx context.Context, in *GetFullDataRequest, opts ...grpc.CallOption) (*FullDataResponse, error)
 	GetGasket(ctx context.Context, in *GetGasketRequest, opts ...grpc.CallOption) (*GasketResponse, error)
 	GetGasketWithThick(ctx context.Context, in *GetGasketRequest, opts ...grpc.CallOption) (*GasketWithThickResponse, error)
 	CreateGasket(ctx context.Context, in *CreateGasketRequest, opts ...grpc.CallOption) (*IdResponse, error)
@@ -725,6 +726,15 @@ type gasketServiceClient struct {
 
 func NewGasketServiceClient(cc grpc.ClientConnInterface) GasketServiceClient {
 	return &gasketServiceClient{cc}
+}
+
+func (c *gasketServiceClient) GetFullData(ctx context.Context, in *GetFullDataRequest, opts ...grpc.CallOption) (*FullDataResponse, error) {
+	out := new(FullDataResponse)
+	err := c.cc.Invoke(ctx, "/moment_api.GasketService/GetFullData", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *gasketServiceClient) GetGasket(ctx context.Context, in *GetGasketRequest, opts ...grpc.CallOption) (*GasketResponse, error) {
@@ -902,6 +912,7 @@ func (c *gasketServiceClient) DeleteGasketData(ctx context.Context, in *DeleteGa
 // All implementations must embed UnimplementedGasketServiceServer
 // for forward compatibility
 type GasketServiceServer interface {
+	GetFullData(context.Context, *GetFullDataRequest) (*FullDataResponse, error)
 	GetGasket(context.Context, *GetGasketRequest) (*GasketResponse, error)
 	GetGasketWithThick(context.Context, *GetGasketRequest) (*GasketWithThickResponse, error)
 	CreateGasket(context.Context, *CreateGasketRequest) (*IdResponse, error)
@@ -928,6 +939,9 @@ type GasketServiceServer interface {
 type UnimplementedGasketServiceServer struct {
 }
 
+func (UnimplementedGasketServiceServer) GetFullData(context.Context, *GetFullDataRequest) (*FullDataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetFullData not implemented")
+}
 func (UnimplementedGasketServiceServer) GetGasket(context.Context, *GetGasketRequest) (*GasketResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetGasket not implemented")
 }
@@ -996,6 +1010,24 @@ type UnsafeGasketServiceServer interface {
 
 func RegisterGasketServiceServer(s grpc.ServiceRegistrar, srv GasketServiceServer) {
 	s.RegisterService(&GasketService_ServiceDesc, srv)
+}
+
+func _GasketService_GetFullData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetFullDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GasketServiceServer).GetFullData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/moment_api.GasketService/GetFullData",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GasketServiceServer).GetFullData(ctx, req.(*GetFullDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _GasketService_GetGasket_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -1347,6 +1379,10 @@ var GasketService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "moment_api.GasketService",
 	HandlerType: (*GasketServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetFullData",
+			Handler:    _GasketService_GetFullData_Handler,
+		},
 		{
 			MethodName: "GetGasket",
 			Handler:    _GasketService_GetGasket_Handler,

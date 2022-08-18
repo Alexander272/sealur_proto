@@ -268,7 +268,37 @@ message DeleteGasketDataRequest {
     string id = 1;
 }
 
+message Full_GasketData {
+    string id = 1;
+    string gasketId = 2;
+    double permissiblePres = 3;
+    double compression = 4;
+    double epsilon = 5;
+    double thickness = 6;
+    string typeId = 7;
+}
+
+message Full_EnvData {
+    string id = 1;
+    string envId = 2;
+    string gasketId = 3;
+    double m = 4;
+    double specificPres = 5;
+}
+
+message GetFullDataRequest {
+    string gasketId = 1;
+}
+
+message FullDataResponse {
+    Full_GasketData gasketData = 1;
+    repeated GasketType gasketType = 2;
+    Full_EnvData envData = 3;
+    repeated Env envType = 4; 
+}
+
 service GasketService {
+    rpc GetFullData (GetFullDataRequest) returns (FullDataResponse);
     rpc GetGasket (GetGasketRequest) returns (GasketResponse);
     rpc GetGasketWithThick (GetGasketRequest) returns (GasketWithThickResponse);
     rpc CreateGasket (CreateGasketRequest) returns (IdResponse);
@@ -879,6 +909,7 @@ message CalcFormulas {
         string sigmaMop = 20;
         string sigmaKp = 21;
         string teta = 22;
+        //TODO dTeta and DTetaK вроде как не нужны
         string dTeta = 23;
         string dTetaK = 24;
         string tetaK = 25;
