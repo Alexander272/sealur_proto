@@ -230,6 +230,16 @@ message EnvResponse {
     repeated Env env = 1;
 }
 
+message CreateManyEnvDataRequest {
+    message Data {
+        double m = 1;
+        double specificPres = 2;
+    }
+
+    string envId = 1;
+    string gasketId = 2;
+    repeated Data data = 3;
+}
 message CreateEnvDataRequest {
     string envId = 1;
     string gasketId = 2;
@@ -247,6 +257,18 @@ message DeleteEnvDataRequest {
     string id = 1;
 }
 
+message CreateManyGasketDataRequest {
+    message Data {
+        double permissiblePres = 1;
+        double compression = 2;
+        double epsilon = 3;
+        double thickness = 4;
+    }
+
+    string gasketId = 1;
+    string typeId = 2;
+    repeated Data data = 3;
+}
 message CreateGasketDataRequest {
     string gasketId = 1;
     double permissiblePres = 2;
@@ -315,10 +337,12 @@ service GasketService {
     rpc UpdateEnv (UpdateEnvRequest) returns (Response);
     rpc DeleteEnv (DeleteEnvRequest) returns (Response);
 
+    rpc CreateManyEnvData (CreateManyEnvDataRequest) returns (Response);
     rpc CreateEnvData (CreateEnvDataRequest) returns (Response);
     rpc UpdateEnvData (UpdateEnvDataRequest) returns (Response);
     rpc DeleteEnvData (DeleteEnvDataRequest) returns (Response);
 
+    rpc CreateManyGasketData (CreateManyGasketDataRequest) returns (Response);
     rpc CreateGasketData (CreateGasketDataRequest) returns (Response);
     rpc UpdateGasketData (UpdateGasketDataRequest) returns (Response);
     rpc DeleteGasketData (DeleteGasketDataRequest) returns (Response);

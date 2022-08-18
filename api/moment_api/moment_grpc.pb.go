@@ -712,9 +712,11 @@ type GasketServiceClient interface {
 	CreateEnv(ctx context.Context, in *CreateEnvRequest, opts ...grpc.CallOption) (*IdResponse, error)
 	UpdateEnv(ctx context.Context, in *UpdateEnvRequest, opts ...grpc.CallOption) (*Response, error)
 	DeleteEnv(ctx context.Context, in *DeleteEnvRequest, opts ...grpc.CallOption) (*Response, error)
+	CreateManyEnvData(ctx context.Context, in *CreateManyEnvDataRequest, opts ...grpc.CallOption) (*Response, error)
 	CreateEnvData(ctx context.Context, in *CreateEnvDataRequest, opts ...grpc.CallOption) (*Response, error)
 	UpdateEnvData(ctx context.Context, in *UpdateEnvDataRequest, opts ...grpc.CallOption) (*Response, error)
 	DeleteEnvData(ctx context.Context, in *DeleteEnvDataRequest, opts ...grpc.CallOption) (*Response, error)
+	CreateManyGasketData(ctx context.Context, in *CreateManyGasketDataRequest, opts ...grpc.CallOption) (*Response, error)
 	CreateGasketData(ctx context.Context, in *CreateGasketDataRequest, opts ...grpc.CallOption) (*Response, error)
 	UpdateGasketData(ctx context.Context, in *UpdateGasketDataRequest, opts ...grpc.CallOption) (*Response, error)
 	DeleteGasketData(ctx context.Context, in *DeleteGasketDataRequest, opts ...grpc.CallOption) (*Response, error)
@@ -854,6 +856,15 @@ func (c *gasketServiceClient) DeleteEnv(ctx context.Context, in *DeleteEnvReques
 	return out, nil
 }
 
+func (c *gasketServiceClient) CreateManyEnvData(ctx context.Context, in *CreateManyEnvDataRequest, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
+	err := c.cc.Invoke(ctx, "/moment_api.GasketService/CreateManyEnvData", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *gasketServiceClient) CreateEnvData(ctx context.Context, in *CreateEnvDataRequest, opts ...grpc.CallOption) (*Response, error) {
 	out := new(Response)
 	err := c.cc.Invoke(ctx, "/moment_api.GasketService/CreateEnvData", in, out, opts...)
@@ -875,6 +886,15 @@ func (c *gasketServiceClient) UpdateEnvData(ctx context.Context, in *UpdateEnvDa
 func (c *gasketServiceClient) DeleteEnvData(ctx context.Context, in *DeleteEnvDataRequest, opts ...grpc.CallOption) (*Response, error) {
 	out := new(Response)
 	err := c.cc.Invoke(ctx, "/moment_api.GasketService/DeleteEnvData", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gasketServiceClient) CreateManyGasketData(ctx context.Context, in *CreateManyGasketDataRequest, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
+	err := c.cc.Invoke(ctx, "/moment_api.GasketService/CreateManyGasketData", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -926,9 +946,11 @@ type GasketServiceServer interface {
 	CreateEnv(context.Context, *CreateEnvRequest) (*IdResponse, error)
 	UpdateEnv(context.Context, *UpdateEnvRequest) (*Response, error)
 	DeleteEnv(context.Context, *DeleteEnvRequest) (*Response, error)
+	CreateManyEnvData(context.Context, *CreateManyEnvDataRequest) (*Response, error)
 	CreateEnvData(context.Context, *CreateEnvDataRequest) (*Response, error)
 	UpdateEnvData(context.Context, *UpdateEnvDataRequest) (*Response, error)
 	DeleteEnvData(context.Context, *DeleteEnvDataRequest) (*Response, error)
+	CreateManyGasketData(context.Context, *CreateManyGasketDataRequest) (*Response, error)
 	CreateGasketData(context.Context, *CreateGasketDataRequest) (*Response, error)
 	UpdateGasketData(context.Context, *UpdateGasketDataRequest) (*Response, error)
 	DeleteGasketData(context.Context, *DeleteGasketDataRequest) (*Response, error)
@@ -981,6 +1003,9 @@ func (UnimplementedGasketServiceServer) UpdateEnv(context.Context, *UpdateEnvReq
 func (UnimplementedGasketServiceServer) DeleteEnv(context.Context, *DeleteEnvRequest) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteEnv not implemented")
 }
+func (UnimplementedGasketServiceServer) CreateManyEnvData(context.Context, *CreateManyEnvDataRequest) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateManyEnvData not implemented")
+}
 func (UnimplementedGasketServiceServer) CreateEnvData(context.Context, *CreateEnvDataRequest) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateEnvData not implemented")
 }
@@ -989,6 +1014,9 @@ func (UnimplementedGasketServiceServer) UpdateEnvData(context.Context, *UpdateEn
 }
 func (UnimplementedGasketServiceServer) DeleteEnvData(context.Context, *DeleteEnvDataRequest) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteEnvData not implemented")
+}
+func (UnimplementedGasketServiceServer) CreateManyGasketData(context.Context, *CreateManyGasketDataRequest) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateManyGasketData not implemented")
 }
 func (UnimplementedGasketServiceServer) CreateGasketData(context.Context, *CreateGasketDataRequest) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateGasketData not implemented")
@@ -1264,6 +1292,24 @@ func _GasketService_DeleteEnv_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _GasketService_CreateManyEnvData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateManyEnvDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GasketServiceServer).CreateManyEnvData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/moment_api.GasketService/CreateManyEnvData",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GasketServiceServer).CreateManyEnvData(ctx, req.(*CreateManyEnvDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _GasketService_CreateEnvData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateEnvDataRequest)
 	if err := dec(in); err != nil {
@@ -1314,6 +1360,24 @@ func _GasketService_DeleteEnvData_Handler(srv interface{}, ctx context.Context, 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(GasketServiceServer).DeleteEnvData(ctx, req.(*DeleteEnvDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _GasketService_CreateManyGasketData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateManyGasketDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GasketServiceServer).CreateManyGasketData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/moment_api.GasketService/CreateManyGasketData",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GasketServiceServer).CreateManyGasketData(ctx, req.(*CreateManyGasketDataRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1436,6 +1500,10 @@ var GasketService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _GasketService_DeleteEnv_Handler,
 		},
 		{
+			MethodName: "CreateManyEnvData",
+			Handler:    _GasketService_CreateManyEnvData_Handler,
+		},
+		{
 			MethodName: "CreateEnvData",
 			Handler:    _GasketService_CreateEnvData_Handler,
 		},
@@ -1446,6 +1514,10 @@ var GasketService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteEnvData",
 			Handler:    _GasketService_DeleteEnvData_Handler,
+		},
+		{
+			MethodName: "CreateManyGasketData",
+			Handler:    _GasketService_CreateManyGasketData_Handler,
 		},
 		{
 			MethodName: "CreateGasketData",
