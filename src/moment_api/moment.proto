@@ -291,9 +291,9 @@ message GetFullDataRequest {
 }
 
 message FullDataResponse {
-    Full_GasketData gasketData = 1;
+    repeated Full_GasketData gasketData = 1;
     repeated GasketType gasketType = 2;
-    Full_EnvData envData = 3;
+    repeated Full_EnvData envData = 3;
     repeated Env envType = 4; 
 }
 
