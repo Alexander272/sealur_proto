@@ -232,13 +232,13 @@ message EnvResponse {
 
 message CreateManyEnvDataRequest {
     message Data {
-        double m = 1;
-        double specificPres = 2;
+        string envId = 1;
+        double m = 2;
+        double specificPres = 3;
     }
 
-    string envId = 1;
-    string gasketId = 2;
-    repeated Data data = 3;
+    string gasketId = 1;
+    repeated Data data = 2;
 }
 message CreateEnvDataRequest {
     string envId = 1;
