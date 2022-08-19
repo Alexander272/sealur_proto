@@ -506,6 +506,30 @@ message BasisFlangeSizeResponse {
     repeated BasisFlangeSize sizeRow2 = 2;
 }
 
+message GetFullFlangeSizeRequest {
+    string standId = 1;
+}
+
+message FullFlangeSize {
+    string id = 1;
+    string standId = 2;
+    double pn = 3;
+    double d = 4;
+    double d6 = 5;
+    double dOut = 6;
+    double h = 7;
+    double s0 = 8;
+    double s1 = 9;
+    double length = 10;
+    int32 count = 11;
+    string boltId = 12;
+}
+
+message FullFlangeSizeResponse {
+    repeated FullFlangeSize sizeRow1 = 1;
+    repeated FullFlangeSize sizeRow2 = 2;
+}
+
 service FlangeService {
     rpc GetBolts (GetBoltsRequest) returns (BoltsResponse);
     rpc CreateBolt (CreateBoltRequest) returns (Response);
@@ -528,6 +552,7 @@ service FlangeService {
     rpc DeleteFlangeSize (DeleteFlangeSizeRequest) returns (Response);
 
     rpc GetBasisFlangeSize (GetBasisFlangeSizeRequest) returns (BasisFlangeSizeResponse);
+    rpc GetFlangeSize (GetFullFlangeSizeRequest) returns (FullFlangeSizeResponse);
 }
 
 // -----------------------------------------------------------------------

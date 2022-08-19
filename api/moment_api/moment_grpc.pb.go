@@ -1593,6 +1593,7 @@ type FlangeServiceClient interface {
 	UpdateFlangeSize(ctx context.Context, in *UpdateFlangeSizeRequest, opts ...grpc.CallOption) (*Response, error)
 	DeleteFlangeSize(ctx context.Context, in *DeleteFlangeSizeRequest, opts ...grpc.CallOption) (*Response, error)
 	GetBasisFlangeSize(ctx context.Context, in *GetBasisFlangeSizeRequest, opts ...grpc.CallOption) (*BasisFlangeSizeResponse, error)
+	GetFlangeSize(ctx context.Context, in *GetFullFlangeSizeRequest, opts ...grpc.CallOption) (*FullFlangeSizeResponse, error)
 }
 
 type flangeServiceClient struct {
@@ -1756,6 +1757,15 @@ func (c *flangeServiceClient) GetBasisFlangeSize(ctx context.Context, in *GetBas
 	return out, nil
 }
 
+func (c *flangeServiceClient) GetFlangeSize(ctx context.Context, in *GetFullFlangeSizeRequest, opts ...grpc.CallOption) (*FullFlangeSizeResponse, error) {
+	out := new(FullFlangeSizeResponse)
+	err := c.cc.Invoke(ctx, "/moment_api.FlangeService/GetFlangeSize", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // FlangeServiceServer is the server API for FlangeService service.
 // All implementations must embed UnimplementedFlangeServiceServer
 // for forward compatibility
@@ -1777,6 +1787,7 @@ type FlangeServiceServer interface {
 	UpdateFlangeSize(context.Context, *UpdateFlangeSizeRequest) (*Response, error)
 	DeleteFlangeSize(context.Context, *DeleteFlangeSizeRequest) (*Response, error)
 	GetBasisFlangeSize(context.Context, *GetBasisFlangeSizeRequest) (*BasisFlangeSizeResponse, error)
+	GetFlangeSize(context.Context, *GetFullFlangeSizeRequest) (*FullFlangeSizeResponse, error)
 	mustEmbedUnimplementedFlangeServiceServer()
 }
 
@@ -1834,6 +1845,9 @@ func (UnimplementedFlangeServiceServer) DeleteFlangeSize(context.Context, *Delet
 }
 func (UnimplementedFlangeServiceServer) GetBasisFlangeSize(context.Context, *GetBasisFlangeSizeRequest) (*BasisFlangeSizeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBasisFlangeSize not implemented")
+}
+func (UnimplementedFlangeServiceServer) GetFlangeSize(context.Context, *GetFullFlangeSizeRequest) (*FullFlangeSizeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetFlangeSize not implemented")
 }
 func (UnimplementedFlangeServiceServer) mustEmbedUnimplementedFlangeServiceServer() {}
 
@@ -2154,6 +2168,24 @@ func _FlangeService_GetBasisFlangeSize_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FlangeService_GetFlangeSize_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetFullFlangeSizeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FlangeServiceServer).GetFlangeSize(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/moment_api.FlangeService/GetFlangeSize",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FlangeServiceServer).GetFlangeSize(ctx, req.(*GetFullFlangeSizeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // FlangeService_ServiceDesc is the grpc.ServiceDesc for FlangeService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -2228,6 +2260,10 @@ var FlangeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetBasisFlangeSize",
 			Handler:    _FlangeService_GetBasisFlangeSize_Handler,
+		},
+		{
+			MethodName: "GetFlangeSize",
+			Handler:    _FlangeService_GetFlangeSize_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
