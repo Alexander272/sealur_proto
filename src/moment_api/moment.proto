@@ -286,6 +286,10 @@ message UpdateGasketDataRequest {
     double thickness = 6;
     string typeId = 7;
 }
+message UpdateGasketTypeIdRequest {
+    string gasketId = 1;
+    string typeId = 2;
+}
 message DeleteGasketDataRequest {
     string id = 1;
 }
@@ -344,6 +348,7 @@ service GasketService {
 
     rpc CreateManyGasketData (CreateManyGasketDataRequest) returns (Response);
     rpc CreateGasketData (CreateGasketDataRequest) returns (Response);
+    rpc UpdateGasketTypeId (UpdateGasketTypeIdRequest) returns (Response);
     rpc UpdateGasketData (UpdateGasketDataRequest) returns (Response);
     rpc DeleteGasketData (DeleteGasketDataRequest) returns (Response);
 }

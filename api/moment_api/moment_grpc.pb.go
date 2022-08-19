@@ -718,6 +718,7 @@ type GasketServiceClient interface {
 	DeleteEnvData(ctx context.Context, in *DeleteEnvDataRequest, opts ...grpc.CallOption) (*Response, error)
 	CreateManyGasketData(ctx context.Context, in *CreateManyGasketDataRequest, opts ...grpc.CallOption) (*Response, error)
 	CreateGasketData(ctx context.Context, in *CreateGasketDataRequest, opts ...grpc.CallOption) (*Response, error)
+	UpdateGasketTypeId(ctx context.Context, in *UpdateGasketTypeIdRequest, opts ...grpc.CallOption) (*Response, error)
 	UpdateGasketData(ctx context.Context, in *UpdateGasketDataRequest, opts ...grpc.CallOption) (*Response, error)
 	DeleteGasketData(ctx context.Context, in *DeleteGasketDataRequest, opts ...grpc.CallOption) (*Response, error)
 }
@@ -910,6 +911,15 @@ func (c *gasketServiceClient) CreateGasketData(ctx context.Context, in *CreateGa
 	return out, nil
 }
 
+func (c *gasketServiceClient) UpdateGasketTypeId(ctx context.Context, in *UpdateGasketTypeIdRequest, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
+	err := c.cc.Invoke(ctx, "/moment_api.GasketService/UpdateGasketTypeId", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *gasketServiceClient) UpdateGasketData(ctx context.Context, in *UpdateGasketDataRequest, opts ...grpc.CallOption) (*Response, error) {
 	out := new(Response)
 	err := c.cc.Invoke(ctx, "/moment_api.GasketService/UpdateGasketData", in, out, opts...)
@@ -952,6 +962,7 @@ type GasketServiceServer interface {
 	DeleteEnvData(context.Context, *DeleteEnvDataRequest) (*Response, error)
 	CreateManyGasketData(context.Context, *CreateManyGasketDataRequest) (*Response, error)
 	CreateGasketData(context.Context, *CreateGasketDataRequest) (*Response, error)
+	UpdateGasketTypeId(context.Context, *UpdateGasketTypeIdRequest) (*Response, error)
 	UpdateGasketData(context.Context, *UpdateGasketDataRequest) (*Response, error)
 	DeleteGasketData(context.Context, *DeleteGasketDataRequest) (*Response, error)
 	mustEmbedUnimplementedGasketServiceServer()
@@ -1020,6 +1031,9 @@ func (UnimplementedGasketServiceServer) CreateManyGasketData(context.Context, *C
 }
 func (UnimplementedGasketServiceServer) CreateGasketData(context.Context, *CreateGasketDataRequest) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateGasketData not implemented")
+}
+func (UnimplementedGasketServiceServer) UpdateGasketTypeId(context.Context, *UpdateGasketTypeIdRequest) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateGasketTypeId not implemented")
 }
 func (UnimplementedGasketServiceServer) UpdateGasketData(context.Context, *UpdateGasketDataRequest) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateGasketData not implemented")
@@ -1400,6 +1414,24 @@ func _GasketService_CreateGasketData_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _GasketService_UpdateGasketTypeId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateGasketTypeIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GasketServiceServer).UpdateGasketTypeId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/moment_api.GasketService/UpdateGasketTypeId",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GasketServiceServer).UpdateGasketTypeId(ctx, req.(*UpdateGasketTypeIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _GasketService_UpdateGasketData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateGasketDataRequest)
 	if err := dec(in); err != nil {
@@ -1522,6 +1554,10 @@ var GasketService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateGasketData",
 			Handler:    _GasketService_CreateGasketData_Handler,
+		},
+		{
+			MethodName: "UpdateGasketTypeId",
+			Handler:    _GasketService_UpdateGasketTypeId_Handler,
 		},
 		{
 			MethodName: "UpdateGasketData",
