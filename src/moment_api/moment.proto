@@ -355,17 +355,21 @@ service GasketService {
 
 // -----------------------------------------------------------------------
 
-message GetBoltsRequest {}
+message GetBoltsRequest {
+    bool isInch = 1;
+}
 message CreateBoltRequest {
     string title = 1;
-    int32 diameter = 2;
+    double diameter = 2;
     double area = 3;
+    bool isInch = 4;
 }
 message UpdateBoltRequest {
     string id = 1;
     string title = 2;
-    int32 diameter = 3;
+    double diameter = 3;
     double area = 4;
+    bool isInch = 5;
 }
 message DeleteBoltRequest {
     string id = 1;
@@ -374,8 +378,9 @@ message DeleteBoltRequest {
 message Bolt {
     string id = 1;
     string title = 2;
-    int32 diameter = 3;
+    double diameter = 3;
     double area = 4;
+    bool isInch = 5;
 }
 message BoltsResponse {
     repeated Bolt bolts = 1;
@@ -414,6 +419,7 @@ message CreateStandartRequest {
     string titlePn = 4;
     bool isNeedRow = 5;
     repeated string rows = 6;
+    bool isInch = 7;
 }
 message UpdateStandartRequest {
     string id = 1;
@@ -423,6 +429,7 @@ message UpdateStandartRequest {
     string titlePn = 5;
     bool isNeedRow = 6;
     repeated string rows = 7;
+    bool isInch = 8;
 }
 message DeleteStandartRequest {
     string id = 1;
@@ -437,6 +444,7 @@ message StandartWithSize {
     string titlePn = 6;
     bool isNeedRow = 7;
     repeated string rows = 8;
+    bool isInch = 9;
 }
 
 message Standart {
@@ -447,6 +455,7 @@ message Standart {
     string titlePn = 5;
     bool isNeedRow = 6;
     repeated string rows = 7;
+    bool isInch = 8;
 }
 message StandartsResponse {
     repeated Standart standarts = 1;
@@ -472,6 +481,7 @@ message CreateFlangeSizeRequest {
     double length = 9;
     int32 count = 10;
     string boltId = 11;
+    int32 row = 12;
 }
 message UpdateFlangeSizeRequest {
     string id = 1;
@@ -602,7 +612,7 @@ message FlangeData {
 
 message BoltData {
     string markId = 1;
-    int32 diameter = 2;
+    double diameter = 2;
     int32 count = 3;
     MaterialData material = 4;
     double temp = 5;
@@ -764,7 +774,7 @@ message FlangeResult {
 }
 
 message BoltResult {
-    int32 diameter = 1;
+    double diameter = 1;
 	double area = 2;
     int32 count = 3;
     double lenght = 4;
