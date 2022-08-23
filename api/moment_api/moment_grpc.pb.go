@@ -1577,7 +1577,9 @@ var GasketService_ServiceDesc = grpc.ServiceDesc{
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type FlangeServiceClient interface {
 	GetBolts(ctx context.Context, in *GetBoltsRequest, opts ...grpc.CallOption) (*BoltsResponse, error)
+	GetAllBolts(ctx context.Context, in *GetBoltsRequest, opts ...grpc.CallOption) (*BoltsResponse, error)
 	CreateBolt(ctx context.Context, in *CreateBoltRequest, opts ...grpc.CallOption) (*Response, error)
+	CreateBolts(ctx context.Context, in *CreateBoltsRequest, opts ...grpc.CallOption) (*Response, error)
 	UpdateBolt(ctx context.Context, in *UpdateBoltRequest, opts ...grpc.CallOption) (*Response, error)
 	DeleteBolt(ctx context.Context, in *DeleteBoltRequest, opts ...grpc.CallOption) (*Response, error)
 	GetTypeFlange(ctx context.Context, in *GetTypeFlangeRequest, opts ...grpc.CallOption) (*TypeFlangeResponse, error)
@@ -1613,9 +1615,27 @@ func (c *flangeServiceClient) GetBolts(ctx context.Context, in *GetBoltsRequest,
 	return out, nil
 }
 
+func (c *flangeServiceClient) GetAllBolts(ctx context.Context, in *GetBoltsRequest, opts ...grpc.CallOption) (*BoltsResponse, error) {
+	out := new(BoltsResponse)
+	err := c.cc.Invoke(ctx, "/moment_api.FlangeService/GetAllBolts", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *flangeServiceClient) CreateBolt(ctx context.Context, in *CreateBoltRequest, opts ...grpc.CallOption) (*Response, error) {
 	out := new(Response)
 	err := c.cc.Invoke(ctx, "/moment_api.FlangeService/CreateBolt", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *flangeServiceClient) CreateBolts(ctx context.Context, in *CreateBoltsRequest, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
+	err := c.cc.Invoke(ctx, "/moment_api.FlangeService/CreateBolts", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1771,7 +1791,9 @@ func (c *flangeServiceClient) GetFlangeSize(ctx context.Context, in *GetFullFlan
 // for forward compatibility
 type FlangeServiceServer interface {
 	GetBolts(context.Context, *GetBoltsRequest) (*BoltsResponse, error)
+	GetAllBolts(context.Context, *GetBoltsRequest) (*BoltsResponse, error)
 	CreateBolt(context.Context, *CreateBoltRequest) (*Response, error)
+	CreateBolts(context.Context, *CreateBoltsRequest) (*Response, error)
 	UpdateBolt(context.Context, *UpdateBoltRequest) (*Response, error)
 	DeleteBolt(context.Context, *DeleteBoltRequest) (*Response, error)
 	GetTypeFlange(context.Context, *GetTypeFlangeRequest) (*TypeFlangeResponse, error)
@@ -1798,8 +1820,14 @@ type UnimplementedFlangeServiceServer struct {
 func (UnimplementedFlangeServiceServer) GetBolts(context.Context, *GetBoltsRequest) (*BoltsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBolts not implemented")
 }
+func (UnimplementedFlangeServiceServer) GetAllBolts(context.Context, *GetBoltsRequest) (*BoltsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllBolts not implemented")
+}
 func (UnimplementedFlangeServiceServer) CreateBolt(context.Context, *CreateBoltRequest) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateBolt not implemented")
+}
+func (UnimplementedFlangeServiceServer) CreateBolts(context.Context, *CreateBoltsRequest) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateBolts not implemented")
 }
 func (UnimplementedFlangeServiceServer) UpdateBolt(context.Context, *UpdateBoltRequest) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateBolt not implemented")
@@ -1880,6 +1908,24 @@ func _FlangeService_GetBolts_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FlangeService_GetAllBolts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBoltsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FlangeServiceServer).GetAllBolts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/moment_api.FlangeService/GetAllBolts",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FlangeServiceServer).GetAllBolts(ctx, req.(*GetBoltsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _FlangeService_CreateBolt_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateBoltRequest)
 	if err := dec(in); err != nil {
@@ -1894,6 +1940,24 @@ func _FlangeService_CreateBolt_Handler(srv interface{}, ctx context.Context, dec
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(FlangeServiceServer).CreateBolt(ctx, req.(*CreateBoltRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FlangeService_CreateBolts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateBoltsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FlangeServiceServer).CreateBolts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/moment_api.FlangeService/CreateBolts",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FlangeServiceServer).CreateBolts(ctx, req.(*CreateBoltsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2198,8 +2262,16 @@ var FlangeService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _FlangeService_GetBolts_Handler,
 		},
 		{
+			MethodName: "GetAllBolts",
+			Handler:    _FlangeService_GetAllBolts_Handler,
+		},
+		{
 			MethodName: "CreateBolt",
 			Handler:    _FlangeService_CreateBolt_Handler,
+		},
+		{
+			MethodName: "CreateBolts",
+			Handler:    _FlangeService_CreateBolts_Handler,
 		},
 		{
 			MethodName: "UpdateBolt",

@@ -364,6 +364,9 @@ message CreateBoltRequest {
     double area = 3;
     bool isInch = 4;
 }
+message CreateBoltsRequest {
+    repeated CreateBoltRequest bolts = 1;
+}
 message UpdateBoltRequest {
     string id = 1;
     string title = 2;
@@ -542,7 +545,9 @@ message FullFlangeSizeResponse {
 
 service FlangeService {
     rpc GetBolts (GetBoltsRequest) returns (BoltsResponse);
+    rpc GetAllBolts (GetBoltsRequest) returns (BoltsResponse);
     rpc CreateBolt (CreateBoltRequest) returns (Response);
+    rpc CreateBolts (CreateBoltsRequest) returns (Response);
     rpc UpdateBolt (UpdateBoltRequest) returns (Response);
     rpc DeleteBolt (DeleteBoltRequest) returns (Response);
 
