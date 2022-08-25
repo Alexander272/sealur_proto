@@ -486,6 +486,9 @@ message CreateFlangeSizeRequest {
     string boltId = 11;
     int32 row = 12;
 }
+message CreateFlangeSizesRequest {
+    repeated CreateFlangeSizeRequest sizes = 1;
+}
 message UpdateFlangeSizeRequest {
     string id = 1;
     string standId = 2;
@@ -563,6 +566,7 @@ service FlangeService {
     rpc DeleteStandart (DeleteStandartRequest) returns (Response);
 
     rpc CreateFlangeSize (CreateFlangeSizeRequest) returns (Response);
+    rpc CreateFlangeSizes (CreateFlangeSizesRequest) returns (Response);
     rpc UpdateFlangeSize (UpdateFlangeSizeRequest) returns (Response);
     rpc DeleteFlangeSize (DeleteFlangeSizeRequest) returns (Response);
 

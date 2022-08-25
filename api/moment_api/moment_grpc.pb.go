@@ -1592,6 +1592,7 @@ type FlangeServiceClient interface {
 	UpdateStandart(ctx context.Context, in *UpdateStandartRequest, opts ...grpc.CallOption) (*Response, error)
 	DeleteStandart(ctx context.Context, in *DeleteStandartRequest, opts ...grpc.CallOption) (*Response, error)
 	CreateFlangeSize(ctx context.Context, in *CreateFlangeSizeRequest, opts ...grpc.CallOption) (*Response, error)
+	CreateFlangeSizes(ctx context.Context, in *CreateFlangeSizesRequest, opts ...grpc.CallOption) (*Response, error)
 	UpdateFlangeSize(ctx context.Context, in *UpdateFlangeSizeRequest, opts ...grpc.CallOption) (*Response, error)
 	DeleteFlangeSize(ctx context.Context, in *DeleteFlangeSizeRequest, opts ...grpc.CallOption) (*Response, error)
 	GetBasisFlangeSize(ctx context.Context, in *GetBasisFlangeSizeRequest, opts ...grpc.CallOption) (*BasisFlangeSizeResponse, error)
@@ -1750,6 +1751,15 @@ func (c *flangeServiceClient) CreateFlangeSize(ctx context.Context, in *CreateFl
 	return out, nil
 }
 
+func (c *flangeServiceClient) CreateFlangeSizes(ctx context.Context, in *CreateFlangeSizesRequest, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
+	err := c.cc.Invoke(ctx, "/moment_api.FlangeService/CreateFlangeSizes", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *flangeServiceClient) UpdateFlangeSize(ctx context.Context, in *UpdateFlangeSizeRequest, opts ...grpc.CallOption) (*Response, error) {
 	out := new(Response)
 	err := c.cc.Invoke(ctx, "/moment_api.FlangeService/UpdateFlangeSize", in, out, opts...)
@@ -1806,6 +1816,7 @@ type FlangeServiceServer interface {
 	UpdateStandart(context.Context, *UpdateStandartRequest) (*Response, error)
 	DeleteStandart(context.Context, *DeleteStandartRequest) (*Response, error)
 	CreateFlangeSize(context.Context, *CreateFlangeSizeRequest) (*Response, error)
+	CreateFlangeSizes(context.Context, *CreateFlangeSizesRequest) (*Response, error)
 	UpdateFlangeSize(context.Context, *UpdateFlangeSizeRequest) (*Response, error)
 	DeleteFlangeSize(context.Context, *DeleteFlangeSizeRequest) (*Response, error)
 	GetBasisFlangeSize(context.Context, *GetBasisFlangeSizeRequest) (*BasisFlangeSizeResponse, error)
@@ -1864,6 +1875,9 @@ func (UnimplementedFlangeServiceServer) DeleteStandart(context.Context, *DeleteS
 }
 func (UnimplementedFlangeServiceServer) CreateFlangeSize(context.Context, *CreateFlangeSizeRequest) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateFlangeSize not implemented")
+}
+func (UnimplementedFlangeServiceServer) CreateFlangeSizes(context.Context, *CreateFlangeSizesRequest) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateFlangeSizes not implemented")
 }
 func (UnimplementedFlangeServiceServer) UpdateFlangeSize(context.Context, *UpdateFlangeSizeRequest) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateFlangeSize not implemented")
@@ -2178,6 +2192,24 @@ func _FlangeService_CreateFlangeSize_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FlangeService_CreateFlangeSizes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateFlangeSizesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FlangeServiceServer).CreateFlangeSizes(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/moment_api.FlangeService/CreateFlangeSizes",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FlangeServiceServer).CreateFlangeSizes(ctx, req.(*CreateFlangeSizesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _FlangeService_UpdateFlangeSize_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateFlangeSizeRequest)
 	if err := dec(in); err != nil {
@@ -2320,6 +2352,10 @@ var FlangeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateFlangeSize",
 			Handler:    _FlangeService_CreateFlangeSize_Handler,
+		},
+		{
+			MethodName: "CreateFlangeSizes",
+			Handler:    _FlangeService_CreateFlangeSizes_Handler,
 		},
 		{
 			MethodName: "UpdateFlangeSize",
