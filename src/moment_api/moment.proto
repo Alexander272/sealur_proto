@@ -1102,6 +1102,69 @@ service CalcFlangeService {
 }
 
 // ------------------------------------------------------
+
+message CalcCapRequest {
+    enum Flanges {
+        isolated = 0;
+        nonIsolated = 1;
+        manually = 2;
+    }
+
+    enum Type {
+        bolt = 0;
+        pin = 1;
+    }
+
+    enum Condition {
+        uncontrollable = 0;
+        controllable = 1;
+        controllablePin = 2;
+    }
+
+    enum Calcutation {
+        basis = 0;
+        strength = 1;
+    }
+
+    double pressure = 1;
+    int32 axialForce = 2;
+    int32 bendingMoment = 3;
+    double temp = 4;
+    bool isWork = 5;
+    Flanges flanges = 6;
+    bool isSameFlange = 7;
+    bool isEmbedded = 8;
+    Type type = 9;
+    Condition condition = 10;
+    Calcutation calculation = 11;
+
+    FlangeData flangesData = 12;
+    BoltData bolts = 13;
+    GasketData gasket = 14;
+    EmbedData embed = 15;
+    bool isUseWasher = 16;
+    repeated WasherData washer = 17; 
+
+    bool isNeedFormulas = 18;
+}
+
+message CapResponse {
+    bool isSameFlange = 1;
+    // repeated FlangeResult flanges = 2;
+    // BoltResult bolt = 3;
+    // GasketResult gasket = 4;
+    // EmbedResult embed = 5;
+    // CalculatedFlange calc = 6;
+    // CalcFormulas formulas = 7;
+    DataResult data = 8;
+    // repeated WasherResult washers = 9;
+}
+
+service CalcCapService {
+    rpc CalculateCap (CalcCapRequest) returns (CapResponse);
+}
+
+// ------------------------------------------------------
 message GetFlangeRequest {}
 
 message GetFlangeResponse {

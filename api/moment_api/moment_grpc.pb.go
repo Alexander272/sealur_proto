@@ -2464,6 +2464,92 @@ var CalcFlangeService_ServiceDesc = grpc.ServiceDesc{
 	Metadata: "moment_api/moment.proto",
 }
 
+// CalcCapServiceClient is the client API for CalcCapService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type CalcCapServiceClient interface {
+	CalculateCap(ctx context.Context, in *CalcCapRequest, opts ...grpc.CallOption) (*CapResponse, error)
+}
+
+type calcCapServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewCalcCapServiceClient(cc grpc.ClientConnInterface) CalcCapServiceClient {
+	return &calcCapServiceClient{cc}
+}
+
+func (c *calcCapServiceClient) CalculateCap(ctx context.Context, in *CalcCapRequest, opts ...grpc.CallOption) (*CapResponse, error) {
+	out := new(CapResponse)
+	err := c.cc.Invoke(ctx, "/moment_api.CalcCapService/CalculateCap", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// CalcCapServiceServer is the server API for CalcCapService service.
+// All implementations must embed UnimplementedCalcCapServiceServer
+// for forward compatibility
+type CalcCapServiceServer interface {
+	CalculateCap(context.Context, *CalcCapRequest) (*CapResponse, error)
+	mustEmbedUnimplementedCalcCapServiceServer()
+}
+
+// UnimplementedCalcCapServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedCalcCapServiceServer struct {
+}
+
+func (UnimplementedCalcCapServiceServer) CalculateCap(context.Context, *CalcCapRequest) (*CapResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CalculateCap not implemented")
+}
+func (UnimplementedCalcCapServiceServer) mustEmbedUnimplementedCalcCapServiceServer() {}
+
+// UnsafeCalcCapServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to CalcCapServiceServer will
+// result in compilation errors.
+type UnsafeCalcCapServiceServer interface {
+	mustEmbedUnimplementedCalcCapServiceServer()
+}
+
+func RegisterCalcCapServiceServer(s grpc.ServiceRegistrar, srv CalcCapServiceServer) {
+	s.RegisterService(&CalcCapService_ServiceDesc, srv)
+}
+
+func _CalcCapService_CalculateCap_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CalcCapRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CalcCapServiceServer).CalculateCap(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/moment_api.CalcCapService/CalculateCap",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CalcCapServiceServer).CalculateCap(ctx, req.(*CalcCapRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// CalcCapService_ServiceDesc is the grpc.ServiceDesc for CalcCapService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var CalcCapService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "moment_api.CalcCapService",
+	HandlerType: (*CalcCapServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CalculateCap",
+			Handler:    _CalcCapService_CalculateCap_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "moment_api/moment.proto",
+}
+
 // ReadServiceClient is the client API for ReadService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
