@@ -1102,6 +1102,19 @@ service CalcFlangeService {
 }
 
 // ------------------------------------------------------
+message CapData {
+    enum Type {
+        flat = 0;
+        sphere = 1;
+    }
+
+    Type type = 1;
+    double h = 2;
+    double radius = 3;
+    double delta = 4;
+    string markId = 5;
+    MaterialData material = 6;
+}
 
 message CalcCapRequest {
     enum Flanges {
@@ -1138,14 +1151,15 @@ message CalcCapRequest {
     Condition condition = 10;
     Calcutation calculation = 11;
 
-    FlangeData flangesData = 12;
-    BoltData bolts = 13;
-    GasketData gasket = 14;
-    EmbedData embed = 15;
-    bool isUseWasher = 16;
-    repeated WasherData washer = 17; 
+    FlangeData flangeData = 12;
+    CapData capData = 13;
+    BoltData bolts = 14;
+    GasketData gasket = 15;
+    EmbedData embed = 16;
+    bool isUseWasher = 17;
+    repeated WasherData washer = 18; 
 
-    bool isNeedFormulas = 18;
+    bool isNeedFormulas = 19;
 }
 
 message CapResponse {
