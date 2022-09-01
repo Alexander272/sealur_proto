@@ -1169,6 +1169,24 @@ message CapResult {
 	double epsilonAt20 = 6;
 	double epsilon = 7;
 	string material = 8;
+    double y = 9;
+    double k = 10;
+    double x = 11;
+}
+
+message CalculatedCap {
+    double b0 = 1;
+    double Dsp = 2;
+    double Po = 3;
+    double Rp = 4;
+    double A = 5;
+    double Qd = 6;
+    double Qfm = 7;
+    double Qt = 8;
+    double alpha = 9;
+    double alphaM = 10;
+    // CalcMomentStrength strength = 11;
+    CalcMomentBasis basis = 12;
 }
 
 message CapResponse {
@@ -1177,7 +1195,7 @@ message CapResponse {
     BoltResult bolt = 3;
     GasketResult gasket = 4;
     EmbedResult embed = 5;
-    // CalculatedFlange calc = 6;
+    CalculatedCap calc = 6;
     // CalcFormulas formulas = 7;
     DataResult data = 8;
     repeated WasherResult washers = 9;
