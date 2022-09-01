@@ -1141,37 +1141,46 @@ message CalcCapRequest {
 
     double pressure = 1;
     int32 axialForce = 2;
-    int32 bendingMoment = 3;
-    double temp = 4;
-    bool isWork = 5;
-    Flanges flanges = 6;
-    bool isSameFlange = 7;
-    bool isEmbedded = 8;
-    Type type = 9;
-    Condition condition = 10;
-    Calcutation calculation = 11;
+    double temp = 3;
+    bool isWork = 4;
+    Flanges flanges = 5;
+    bool isEmbedded = 6;
+    Type type = 7;
+    Condition condition = 8;
+    Calcutation calculation = 9;
 
-    FlangeData flangeData = 12;
-    CapData capData = 13;
-    BoltData bolts = 14;
-    GasketData gasket = 15;
-    EmbedData embed = 16;
-    bool isUseWasher = 17;
-    repeated WasherData washer = 18; 
+    FlangeData flangeData = 10;
+    CapData capData = 11;
+    BoltData bolts = 12;
+    GasketData gasket = 13;
+    EmbedData embed = 14;
+    bool isUseWasher = 15;
+    repeated WasherData washer = 16; 
 
-    bool isNeedFormulas = 19;
+    bool isNeedFormulas = 17;
+}
+
+message CapResult {
+    double h = 1;
+	double radius = 2;
+	double delta = 3;
+	double t = 4;
+	double alpha = 5;
+	double epsilonAt20 = 6;
+	double epsilon = 7;
+	string material = 8;
 }
 
 message CapResponse {
-    bool isSameFlange = 1;
-    // repeated FlangeResult flanges = 2;
-    // BoltResult bolt = 3;
-    // GasketResult gasket = 4;
-    // EmbedResult embed = 5;
+    FlangeResult flange = 1;
+    CapResult cap = 2;
+    BoltResult bolt = 3;
+    GasketResult gasket = 4;
+    EmbedResult embed = 5;
     // CalculatedFlange calc = 6;
     // CalcFormulas formulas = 7;
     DataResult data = 8;
-    // repeated WasherResult washers = 9;
+    repeated WasherResult washers = 9;
 }
 
 service CalcCapService {
