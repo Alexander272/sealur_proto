@@ -1169,6 +1169,7 @@ message CapResult {
     double y = 9;
     double k = 10;
     double x = 11;
+    string type = 12;
 }
 
 message CalculatedCap {
