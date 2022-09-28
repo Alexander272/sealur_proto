@@ -486,7 +486,8 @@ message CreateFlangeSizeRequest {
     int32 count = 10;
     string boltId = 11;
     int32 row = 12;
-    double dn = 13;
+    string dn = 13;
+    double dmm = 14;
 }
 message CreateFlangeSizesRequest {
     repeated CreateFlangeSizeRequest sizes = 1;
@@ -504,7 +505,8 @@ message UpdateFlangeSizeRequest {
     double length = 10;
     int32 count = 11;
     string boltId = 12;
-    double dn = 13;
+    string dn = 13;
+    double dmm = 14;
 }
 message DeleteFlangeSizeRequest {
     string id = 1;
@@ -527,6 +529,7 @@ message BasisFlangeSizeResponse {
 
 message GetFullFlangeSizeRequest {
     string standId = 1;
+    bool isInch = 2;
 }
 
 message FullFlangeSize {
@@ -542,7 +545,8 @@ message FullFlangeSize {
     double length = 10;
     int32 count = 11;
     string boltId = 12;
-    double dn = 13;
+    string dn = 13;
+    double dmm = 14;
 }
 
 message FullFlangeSizeResponse {
