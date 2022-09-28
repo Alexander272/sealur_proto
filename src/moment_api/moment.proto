@@ -485,6 +485,7 @@ message CreateFlangeSizeRequest {
     int32 count = 10;
     string boltId = 11;
     int32 row = 12;
+    double dn = 13;
 }
 message CreateFlangeSizesRequest {
     repeated CreateFlangeSizeRequest sizes = 1;
@@ -502,6 +503,7 @@ message UpdateFlangeSizeRequest {
     double length = 10;
     int32 count = 11;
     string boltId = 12;
+    double dn = 13;
 }
 message DeleteFlangeSizeRequest {
     string id = 1;
