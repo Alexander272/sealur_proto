@@ -471,6 +471,7 @@ message GetFlangeSizeRequest {
     string standId = 1;
     double pn = 2;
     double d = 3;
+    int32 row = 4;
 }
 message CreateFlangeSizeRequest {
     string standId = 1;
@@ -541,6 +542,7 @@ message FullFlangeSize {
     double length = 10;
     int32 count = 11;
     string boltId = 12;
+    double dn = 13;
 }
 
 message FullFlangeSizeResponse {
