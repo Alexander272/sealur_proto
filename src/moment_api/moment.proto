@@ -515,10 +515,11 @@ message DeleteFlangeSizeRequest {
 message GetBasisFlangeSizeRequest {
     bool isUseRow = 1;
     string standId = 2;
+    bool isInch = 3;
 }
 
 message BasisFlangeSize {
-    double dn = 1;
+    string dn = 1;
     repeated double pn = 2;    
 }
 
@@ -529,7 +530,6 @@ message BasisFlangeSizeResponse {
 
 message GetFullFlangeSizeRequest {
     string standId = 1;
-    bool isInch = 2;
 }
 
 message FullFlangeSize {
