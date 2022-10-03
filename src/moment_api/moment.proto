@@ -476,6 +476,7 @@ message GetFlangeSizeRequest {
     double pn = 2;
     double d = 3;
     int32 row = 4;
+    string dn = 5;
 }
 message CreateFlangeSizeRequest {
     string standId = 1;
