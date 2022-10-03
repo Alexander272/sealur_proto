@@ -493,6 +493,8 @@ message CreateFlangeSizeRequest {
     int32 row = 12;
     string dn = 13;
     double dmm = 14;
+    double x = 15;
+    double a = 16;
 }
 message CreateFlangeSizesRequest {
     repeated CreateFlangeSizeRequest sizes = 1;
@@ -512,6 +514,8 @@ message UpdateFlangeSizeRequest {
     string boltId = 12;
     string dn = 13;
     double dmm = 14;
+    double x = 15;
+    double a = 16;
 }
 message DeleteFlangeSizeRequest {
     string id = 1;
@@ -626,7 +630,7 @@ message FlangeData {
     Type type = 1;
     string standartId = 2;
     string markId = 3;
-    int32 dy = 4;
+    double dy = 4;
     double py = 5;
     double corrosion = 6;
     Size size = 7;
@@ -636,6 +640,7 @@ message FlangeData {
     MaterialData ringMaterial = 11;
     double b = 12;
     int32 row = 13;
+    string dn = 14;
 }
 
 message BoltData {
