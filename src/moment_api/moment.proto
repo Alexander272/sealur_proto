@@ -633,6 +633,8 @@ message FlangeData {
     double temp = 9;
     string ringMarkId = 10;
     MaterialData ringMaterial = 11;
+    double b = 12;
+    int32 row = 13;
 }
 
 message BoltData {
