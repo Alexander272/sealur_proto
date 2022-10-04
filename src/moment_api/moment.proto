@@ -1196,6 +1196,8 @@ message CapResult {
     double k = 10;
     double x = 11;
     string type = 12;
+    double lambda = 13;
+    double omega = 14;
 }
 
 message CalculatedCap {
@@ -1216,6 +1218,8 @@ message CapFormulas {
     string x = 1;
     string y = 2;
     string k = 3;
+    string lambda = 4;
+    string omega = 5;
 }
 
 message CalcCapFormulas {
