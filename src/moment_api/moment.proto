@@ -560,6 +560,8 @@ message FullFlangeSize {
     string boltId = 12;
     string dn = 13;
     double dmm = 14;
+    double x = 15;
+    double a = 16;
 }
 
 message FullFlangeSizeResponse {
