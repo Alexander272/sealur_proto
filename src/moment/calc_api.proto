@@ -1,0 +1,125 @@
+syntax = "proto3";
+
+package calc_api;
+option go_package = "github.com/Alexander272/sealur_proto/api/moment/calc_api";
+
+import "moment/calc_api/flange_model.proto";
+import "moment/calc_api/cap_model.proto";
+
+message FlangeRequest {
+    enum Flanges {
+        isolated = 0;
+        nonIsolated = 1;
+        manually = 2;
+    }
+
+    enum Type {
+        bolt = 0;
+        pin = 1;
+    }
+
+    enum Condition {
+        uncontrollable = 0;
+        controllable = 1;
+        controllablePin = 2;
+    }
+
+    enum Calcutation {
+        basis = 0;
+        strength = 1;
+    }
+
+    double pressure = 1;
+    int32 axialForce = 2;
+    int32 bendingMoment = 3;
+    double temp = 4;
+    bool isWork = 5;
+    Flanges flanges = 6;
+    bool isSameFlange = 7;
+    bool isEmbedded = 8;
+    Type type = 9;
+    Condition condition = 10;
+    Calcutation calculation = 11;
+
+    repeated flange_model.FlangeData flangesData = 12;
+    flange_model.BoltData bolts = 13;
+    flange_model.GasketData gasket = 14;
+    flange_model.EmbedData embed = 15;
+    bool isUseWasher = 16;
+    repeated flange_model.WasherData washer = 17; 
+
+    bool isNeedFormulas = 18;
+}
+
+message FlangeResponse {
+    bool isSameFlange = 1;
+    repeated flange_model.FlangeResult flanges = 2;
+    flange_model.BoltResult bolt = 3;
+    flange_model.GasketResult gasket = 4;
+    flange_model.EmbedResult embed = 5;
+    flange_model.CalculatedFlange calc = 6;
+    flange_model.CalcFlangeFormulas formulas = 7;
+    flange_model.DataResult data = 8;
+    repeated flange_model.WasherResult washers = 9;
+}
+
+message CapRequest {
+    enum Flanges {
+        isolated = 0;
+        nonIsolated = 1;
+        manually = 2;
+    }
+
+    enum Type {
+        bolt = 0;
+        pin = 1;
+    }
+
+    enum Condition {
+        uncontrollable = 0;
+        controllable = 1;
+        controllablePin = 2;
+    }
+
+    enum Calcutation {
+        basis = 0;
+        strength = 1;
+    }
+
+    double pressure = 1;
+    int32 axialForce = 2;
+    double temp = 3;
+    bool isWork = 4;
+    Flanges flanges = 5;
+    bool isEmbedded = 6;
+    Type type = 7;
+    Condition condition = 8;
+    Calcutation calculation = 9;
+
+    cap_model.FlangeData flangeData = 10;
+    cap_model.CapData capData = 11;
+    cap_model.BoltData bolts = 12;
+    cap_model.GasketData gasket = 13;
+    cap_model.EmbedData embed = 14;
+    bool isUseWasher = 15;
+    repeated cap_model.WasherData washer = 16; 
+
+    bool isNeedFormulas = 17;
+}
+
+message CapResponse {
+    cap_model.FlangeResult flange = 1;
+    cap_model.CapResult cap = 2;
+    cap_model.BoltResult bolt = 3;
+    cap_model.GasketResult gasket = 4;
+    cap_model.EmbedResult embed = 5;
+    cap_model.CalculatedCap calc = 6;
+    cap_model.CalcCapFormulas formulas = 7;
+    cap_model.DataResult data = 8;
+    repeated cap_model.WasherResult washers = 9;
+}
+
+service CalcService {
+    rpc CalculateFlange (FlangeRequest) returns (FlangeResponse);
+    rpc CalculateCap (CapRequest) returns (CapResponse);
+}
