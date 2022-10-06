@@ -653,7 +653,7 @@ message BoltData {
     double temp = 5;
     string title = 6;
     double area = 7;
-    string name = 8;
+    string boldId = 8;
 }
 
 message WasherData {
@@ -1120,10 +1120,6 @@ message FlangeResponse {
     repeated WasherResult washers = 9;
 }
 
-service CalcFlangeService {
-    rpc CalculateFlange (CalcFlangeRequest) returns (FlangeResponse);
-}
-
 // ------------------------------------------------------
 message CapData {
     enum Type {
@@ -1284,7 +1280,50 @@ message CapResponse {
     repeated WasherResult washers = 9;
 }
 
-service CalcCapService {
+// ----------------------------------------------------------------
+
+message CalcFloatingHeadRequest {
+    enum Condition {
+        uncontrollable = 0;
+        controllable = 1;
+        controllablePin = 2;
+    }
+    enum Type {
+        bolt = 0;
+        pin = 1;
+    }
+
+    double pressure = 1;
+    bool isWork = 2;
+    bool hasThorn = 3;
+    Type type = 4;
+
+    Condition condition = 10;
+
+    FlangeData flangesData = 12;
+    BoltData bolts = 13;
+    GasketData gasket = 14;
+ 
+    // bool isUseWasher = 16;
+    // repeated WasherData washer = 17; 
+
+    bool isNeedFormulas = 18;
+
+    // pressure: string
+    // isWork: boolean
+    // hasThorn: boolean
+    // type: "bolt" | "pin"
+    // condition: "uncontrollable" | "controllable" | "controllablePin"
+    // flange: IFlange
+    // cap: ICap
+    // gasket: IGasket
+    // bolt: IBolt
+
+    // isNeedFormulas: boolean
+}
+
+service CalcService {
+    rpc CalculateFlange (CalcFlangeRequest) returns (FlangeResponse);
     rpc CalculateCap (CalcCapRequest) returns (CapResponse);
 }
 

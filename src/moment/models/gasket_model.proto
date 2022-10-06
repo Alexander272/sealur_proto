@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package gasket_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/moment/models/gasket_model";
+
+message Gasket {
+    string id = 1;
+    string title = 2;
+}
+
+message GasketWithThick {
+    string id = 1;
+    string title = 2;
+    repeated double thickness = 3;
+}
+
+message GasketType {
+    string id = 1;
+    string title = 2;
+    string label = 3;
+}
+
+message Env {
+    string id = 1;
+    string title = 2;
+}
+
+message Full_GasketData {
+    string id = 1;
+    string gasketId = 2;
+    double permissiblePres = 3;
+    double compression = 4;
+    double epsilon = 5;
+    double thickness = 6;
+    string typeId = 7;
+}
+
+message Full_EnvData {
+    string id = 1;
+    string envId = 2;
+    string gasketId = 3;
+    double m = 4;
+    double specificPres = 5;
+}

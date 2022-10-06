@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package material_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/moment/models/material_model";
+
+message Material {
+    string id = 1;
+    string title = 2;
+}
+message MaterialWithIsEmpty {
+    string id = 1;
+    string title = 2;
+    bool IsEmptyAlpha = 3;
+    bool IsEmptyElasticity = 4;
+    bool IsEmptyVoltage = 5;
+}
+
+message Voltage {
+    double temperature = 1;
+    double voltage = 2;
+}
+message Elasticity {
+    double temperature = 1;
+    double elasticity = 2;
+}
+message Alpha {
+    double temperature = 1;
+    double alpha = 2;
+}

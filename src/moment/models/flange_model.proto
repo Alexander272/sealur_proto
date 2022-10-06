@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package flange_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/moment/models/flange_model";
+
+message Bolt {
+    string id = 1;
+    string title = 2;
+    double diameter = 3;
+    double area = 4;
+    bool isInch = 5;
+}
+
+message TypeFlange {
+    string id = 1;
+    string title = 2;
+    string label = 3;
+}
+
+message StandartWithSize {
+    string id = 1;
+    string title = 2;
+    string typeId = 3;
+    BasisFlangeSizeResponse sizes = 4;
+    string titleDn = 5;
+    string titlePn = 6;
+    bool isNeedRow = 7;
+    repeated string rows = 8;
+    bool isInch = 9;
+    bool hasDesignation = 10;
+}
+
+message Standart {
+    string id = 1;
+    string title = 2;
+    string typeId = 3;
+    string titleDn = 4;
+    string titlePn = 5;
+    bool isNeedRow = 6;
+    repeated string rows = 7;
+    bool isInch = 8;
+    bool hasDesignation = 9;
+}
+
+message BasisFlangeSize {
+    message Pn {
+        double pn = 1;
+        bool isEmptyD = 2;
+    }
+    string dn = 1;
+    repeated Pn pn = 2;    
+}
+
+message BasisFlangeSizeResponse {
+    repeated BasisFlangeSize sizeRow1 = 1;
+    repeated BasisFlangeSize sizeRow2 = 2;
+}
+
+message FullFlangeSize {
+    string id = 1;
+    string standId = 2;
+    double pn = 3;
+    double d = 4;
+    double d6 = 5;
+    double dOut = 6;
+    double h = 7;
+    double s0 = 8;
+    double s1 = 9;
+    double length = 10;
+    int32 count = 11;
+    string boltId = 12;
+    string dn = 13;
+    double dmm = 14;
+    double x = 15;
+    double a = 16;
+}

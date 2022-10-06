@@ -1,0 +1,169 @@
+syntax = "proto3";
+
+package gasket_api;
+option go_package = "github.com/Alexander272/sealur_proto/api/moment/gasket_api";
+
+import "moment/models/gasket_model.proto";
+
+message IdResponse {
+    string id = 1;
+}
+message Response {}
+
+message GetGasketRequest {}
+message CreateGasketRequest {
+    string title = 1;
+}
+message UpdateGasketRequest {
+    string id = 1;
+    string title = 2;
+}
+message DeleteGasketRequest {
+    string id = 1;
+}
+
+message GasketResponse {
+    repeated gasket_model.Gasket gasket = 1;
+}
+message GasketWithThickResponse {
+    repeated gasket_model.GasketWithThick gasket = 1;
+}
+
+message GetGasketTypeRequest {}
+message CreateGasketTypeRequest {
+    string title = 1;
+    string label = 2;
+}
+message UpdateGasketTypeRequest {
+    string id = 1;
+    string title = 2;
+    string label = 3;
+}
+message DeleteGasketTypeRequest {
+    string id = 1;
+}
+
+message GasketTypeResponse {
+    repeated gasket_model.GasketType gasketType = 1;
+}
+
+message GetEnvRequest {}
+message CreateEnvRequest {
+    string title = 1;
+}
+message UpdateEnvRequest {
+    string id = 1;
+    string title = 2;
+}
+message DeleteEnvRequest {
+    string id = 1;
+}
+
+message EnvResponse {
+    repeated gasket_model.Env env = 1;
+}
+
+message CreateManyEnvDataRequest {
+    message Data {
+        string envId = 1;
+        double m = 2;
+        double specificPres = 3;
+    }
+
+    string gasketId = 1;
+    repeated Data data = 2;
+}
+message CreateEnvDataRequest {
+    string envId = 1;
+    string gasketId = 2;
+    double m = 3;
+    double specificPres = 4;
+}
+message UpdateEnvDataRequest {
+    string id = 1;
+    string envId = 2;
+    string gasketId = 3;
+    double m = 4;
+    double specificPres = 5;
+}
+message DeleteEnvDataRequest {
+    string id = 1;
+}
+
+message CreateManyGasketDataRequest {
+    message Data {
+        double permissiblePres = 1;
+        double compression = 2;
+        double epsilon = 3;
+        double thickness = 4;
+    }
+
+    string gasketId = 1;
+    string typeId = 2;
+    repeated Data data = 3;
+}
+message CreateGasketDataRequest {
+    string gasketId = 1;
+    double permissiblePres = 2;
+    double compression = 3;
+    double epsilon = 4;
+    double thickness = 5;
+    string typeId = 6;
+}
+message UpdateGasketDataRequest {
+    string id = 1;
+    string gasketId = 2;
+    double permissiblePres = 3;
+    double compression = 4;
+    double epsilon = 5;
+    double thickness = 6;
+    string typeId = 7;
+}
+message UpdateGasketTypeIdRequest {
+    string gasketId = 1;
+    string typeId = 2;
+}
+message DeleteGasketDataRequest {
+    string id = 1;
+}
+
+message GetFullDataRequest {
+    string gasketId = 1;
+}
+
+message FullDataResponse {
+    repeated gasket_model.Full_GasketData gasketData = 1;
+    repeated gasket_model.GasketType gasketType = 2;
+    repeated gasket_model.Full_EnvData envData = 3;
+    repeated gasket_model.Env envType = 4; 
+}
+
+service GasketService {
+    rpc GetFullData (GetFullDataRequest) returns (FullDataResponse);
+    rpc GetGasket (GetGasketRequest) returns (GasketResponse);
+    rpc GetGasketWithThick (GetGasketRequest) returns (GasketWithThickResponse);
+    rpc CreateGasket (CreateGasketRequest) returns (IdResponse);
+    rpc UpdateGasket (UpdateGasketRequest) returns (Response);
+    rpc DeleteGasket (DeleteGasketRequest) returns (Response);
+
+    rpc GetGasketType (GetGasketTypeRequest) returns (GasketTypeResponse);
+    rpc CreateGasketType (CreateGasketTypeRequest) returns (IdResponse);
+    rpc UpdateGasketType (UpdateGasketTypeRequest) returns (Response);
+    rpc DeleteGasketType (DeleteGasketTypeRequest) returns (Response);
+
+    rpc GetEnv (GetEnvRequest) returns (EnvResponse);
+    rpc CreateEnv (CreateEnvRequest) returns (IdResponse);
+    rpc UpdateEnv (UpdateEnvRequest) returns (Response);
+    rpc DeleteEnv (DeleteEnvRequest) returns (Response);
+
+    rpc CreateManyEnvData (CreateManyEnvDataRequest) returns (Response);
+    rpc CreateEnvData (CreateEnvDataRequest) returns (Response);
+    rpc UpdateEnvData (UpdateEnvDataRequest) returns (Response);
+    rpc DeleteEnvData (DeleteEnvDataRequest) returns (Response);
+
+    rpc CreateManyGasketData (CreateManyGasketDataRequest) returns (Response);
+    rpc CreateGasketData (CreateGasketDataRequest) returns (Response);
+    rpc UpdateGasketTypeId (UpdateGasketTypeIdRequest) returns (Response);
+    rpc UpdateGasketData (UpdateGasketDataRequest) returns (Response);
+    rpc DeleteGasketData (DeleteGasketDataRequest) returns (Response);
+}

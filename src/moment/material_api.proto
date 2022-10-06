@@ -1,0 +1,119 @@
+syntax = "proto3";
+
+package material_api;
+option go_package = "github.com/Alexander272/sealur_proto/api/moment/material_api";
+
+import "moment/models/material_model.proto";
+
+message IdResponse {
+    string id = 1;
+}
+message Response {}
+
+message GetMaterialsRequest {}
+message CreateMaterialRequest {
+    string title = 1;
+}
+message UpdateMaterialRequest {
+    string id = 1;
+    string title = 2;
+}
+message DeleteMaterialRequest {
+    string id = 1;
+}
+
+message MaterialsResponse {
+    repeated material_model.Material materials = 1;
+}
+message MaterialsWithIsEmptyResponse {
+    repeated material_model.MaterialWithIsEmpty materials = 1;
+}
+
+message GetMaterialsDataRequest {
+    string markId = 1;
+}
+
+message MaterialsDataResponse {
+    message Voltage {
+        string id = 1;
+        double temperature = 2;
+        double voltage = 3;
+    }
+    message Elasticity {
+        string id = 1;
+        double temperature = 2;
+        double elasticity = 3;
+    }
+    message Alpha {
+        string id = 1;
+        double temperature = 2;
+        double alpha = 3;
+    }
+
+    repeated Voltage voltage = 1;
+    repeated Elasticity elasticity = 2;
+    repeated Alpha alpha = 3;
+}
+
+message CreateVoltageRequest {
+    string markId = 1;
+    repeated material_model.Voltage voltage = 2;
+}
+message UpdateVoltageRequest {
+    string id = 1;
+    string markId = 2;
+    double temperature = 3;
+    double voltage = 4;
+}
+message DeleteVoltageRequest {
+    string id = 1;
+}
+
+message CreateElasticityRequest {
+    string markId = 1;
+    repeated material_model.Elasticity elasticity = 2;
+}
+message UpdateElasticityRequest {
+    string id = 1;
+    string markId = 2;
+    double temperature = 3;
+    double elasticity = 4;
+}
+message DeleteElasticityRequest {
+    string id = 1;
+}
+
+message CreateAlphaRequest {
+    string markId = 1;
+    repeated material_model.Alpha alpha = 2;
+}
+message UpdateAlphaRequest {
+    string id = 1;
+    string markId = 2;
+    double temperature = 3;
+    double alpha = 4;
+}
+message DeleteAlphaRequest {
+    string id = 1;
+}
+
+service MaterialsService {
+    rpc GetMaterials (GetMaterialsRequest) returns (MaterialsResponse);
+    rpc GetMaterialsData (GetMaterialsDataRequest) returns (MaterialsDataResponse);
+    rpc GetMaterialsWithIsEmpty (GetMaterialsRequest) returns (MaterialsWithIsEmptyResponse);
+    rpc CreateMaterial (CreateMaterialRequest) returns (IdResponse);
+    rpc UpdateMaterial (UpdateMaterialRequest) returns (Response);
+    rpc DeleteMaterial (DeleteMaterialRequest) returns (Response);
+
+    rpc CreateVoltage (CreateVoltageRequest) returns (Response);
+    rpc UpdateVoltage (UpdateVoltageRequest) returns (Response);
+    rpc DeleteVoltage (DeleteVoltageRequest) returns (Response);
+
+    rpc CreateElasticity (CreateElasticityRequest) returns (Response);
+    rpc UpdateElasticity (UpdateElasticityRequest) returns (Response);
+    rpc DeleteElasticity (DeleteElasticityRequest) returns (Response);
+
+    rpc CreateAlpha (CreateAlphaRequest) returns (Response);
+    rpc UpdateAlpha (UpdateAlphaRequest) returns (Response);
+    rpc DeleteAlpha (DeleteAlphaRequest) returns (Response);
+}

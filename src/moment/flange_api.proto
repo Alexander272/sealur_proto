@@ -1,0 +1,189 @@
+syntax = "proto3";
+
+package flange_api;
+option go_package = "github.com/Alexander272/sealur_proto/api/moment/flange_api";
+
+import "moment/models/flange_model.proto";
+
+message IdResponse {
+    string id = 1;
+}
+message Response {}
+
+message GetBoltsRequest {
+    bool isInch = 1;
+}
+message CreateBoltRequest {
+    string title = 1;
+    double diameter = 2;
+    double area = 3;
+    bool isInch = 4;
+}
+message CreateBoltsRequest {
+    repeated CreateBoltRequest bolts = 1;
+}
+message UpdateBoltRequest {
+    string id = 1;
+    string title = 2;
+    double diameter = 3;
+    double area = 4;
+    bool isInch = 5;
+}
+message DeleteBoltRequest {
+    string id = 1;
+}
+
+message BoltsResponse {
+    repeated flange_model.Bolt bolts = 1;
+}
+
+message GetTypeFlangeRequest {}
+message CreateTypeFlangeRequest {
+    string title = 1;
+    string label = 2;
+}
+message UpdateTypeFlangeRequest {
+    string id = 1;
+    string title = 2;
+    string label = 3;
+}
+message DeleteTypeFlangeRequest {
+    string id = 1;
+}
+
+message TypeFlangeResponse {
+    repeated flange_model.TypeFlange typeFlanges = 1;
+}
+
+message GetStandartsRequest {
+    string typeId = 1;
+}
+message CreateStandartRequest {
+    string title = 1;
+    string typeId = 2;
+    string titleDn = 3;
+    string titlePn = 4;
+    bool isNeedRow = 5;
+    repeated string rows = 6;
+    bool isInch = 7;
+    bool hasDesignation = 8;
+}
+message UpdateStandartRequest {
+    string id = 1;
+    string title = 2;
+    string typeId = 3;
+    string titleDn = 4;
+    string titlePn = 5;
+    bool isNeedRow = 6;
+    repeated string rows = 7;
+    bool isInch = 8;
+    bool hasDesignation = 9;
+}
+message DeleteStandartRequest {
+    string id = 1;
+}
+
+message StandartsResponse {
+    repeated flange_model.Standart standarts = 1;
+}
+message StandartsWithSizeResponse {
+    repeated flange_model.StandartWithSize standarts = 1;
+}
+
+message GetFlangeSizeRequest {
+    string standId = 1;
+    double pn = 2;
+    double d = 3;
+    int32 row = 4;
+    string dn = 5;
+}
+message CreateFlangeSizeRequest {
+    string standId = 1;
+    double pn = 2;
+    double d = 3;
+    double d6 = 4;
+    double dOut = 5;
+    double h = 6;
+    double s0 = 7;
+    double s1 = 8;
+    double length = 9;
+    int32 count = 10;
+    string boltId = 11;
+    int32 row = 12;
+    string dn = 13;
+    double dmm = 14;
+    double x = 15;
+    double a = 16;
+}
+message CreateFlangeSizesRequest {
+    repeated CreateFlangeSizeRequest sizes = 1;
+}
+message UpdateFlangeSizeRequest {
+    string id = 1;
+    string standId = 2;
+    double pn = 3;
+    double d = 4;
+    double d6 = 5;
+    double dOut = 6;
+    double h = 7;
+    double s0 = 8;
+    double s1 = 9;
+    double length = 10;
+    int32 count = 11;
+    string boltId = 12;
+    string dn = 13;
+    double dmm = 14;
+    double x = 15;
+    double a = 16;
+}
+message DeleteFlangeSizeRequest {
+    string id = 1;
+}
+
+message GetBasisFlangeSizeRequest {
+    bool isUseRow = 1;
+    string standId = 2;
+    bool isInch = 3;
+}
+
+message BasisFlangeSizeResponse {
+    repeated flange_model.BasisFlangeSize sizeRow1 = 1;
+    repeated flange_model.BasisFlangeSize sizeRow2 = 2;
+}
+
+message GetFullFlangeSizeRequest {
+    string standId = 1;
+}
+
+message FullFlangeSizeResponse {
+    repeated flange_model.FullFlangeSize sizeRow1 = 1;
+    repeated flange_model.FullFlangeSize sizeRow2 = 2;
+}
+
+service FlangeService {
+    rpc GetBolts (GetBoltsRequest) returns (BoltsResponse);
+    rpc GetAllBolts (GetBoltsRequest) returns (BoltsResponse);
+    rpc CreateBolt (CreateBoltRequest) returns (Response);
+    rpc CreateBolts (CreateBoltsRequest) returns (Response);
+    rpc UpdateBolt (UpdateBoltRequest) returns (Response);
+    rpc DeleteBolt (DeleteBoltRequest) returns (Response);
+
+    rpc GetTypeFlange (GetTypeFlangeRequest) returns (TypeFlangeResponse);
+    rpc CreateTypeFlange (CreateTypeFlangeRequest) returns (IdResponse);
+    rpc UpdateTypeFlange (UpdateTypeFlangeRequest) returns (Response);
+    rpc DeleteTypeFlange (DeleteTypeFlangeRequest) returns (Response);
+
+    rpc GetStandarts (GetStandartsRequest) returns (StandartsResponse);
+    rpc GetStandartsWithSize (GetStandartsRequest) returns (StandartsWithSizeResponse);
+    rpc CreateStandart (CreateStandartRequest) returns (IdResponse);
+    rpc UpdateStandart (UpdateStandartRequest) returns (Response);
+    rpc DeleteStandart (DeleteStandartRequest) returns (Response);
+
+    rpc CreateFlangeSize (CreateFlangeSizeRequest) returns (Response);
+    rpc CreateFlangeSizes (CreateFlangeSizesRequest) returns (Response);
+    rpc UpdateFlangeSize (UpdateFlangeSizeRequest) returns (Response);
+    rpc DeleteFlangeSize (DeleteFlangeSizeRequest) returns (Response);
+
+    rpc GetBasisFlangeSize (GetBasisFlangeSizeRequest) returns (flange_model.BasisFlangeSizeResponse);
+    rpc GetFlangeSize (GetFullFlangeSizeRequest) returns (FullFlangeSizeResponse);
+}

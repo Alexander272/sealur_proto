@@ -1,0 +1,563 @@
+syntax = "proto3";
+
+package cap;
+option go_package = "github.com/Alexander272/sealur_proto/api/moment_api/calc/cap";
+
+message CapData {
+    enum Type {
+        flat = 0;
+        sphere = 1;
+    }
+
+    Type type = 1;
+    double h = 2;
+    double radius = 3;
+    double delta = 4;
+    string markId = 5;
+    MaterialData material = 6;
+}
+
+message MaterialData {
+    string title = 1;
+    double alphaF = 2;
+    double epsilonAt20 = 3;
+    double epsilon = 4;
+    double sigmaAt20 = 5;
+    double sigma = 6;
+}
+
+message CapResult {
+    double h = 1;
+	double radius = 2;
+	double delta = 3;
+	double t = 4;
+	double alpha = 5;
+	double epsilonAt20 = 6;
+	double epsilon = 7;
+	string material = 8;
+    double y = 9;
+    double k = 10;
+    double x = 11;
+    string type = 12;
+    double lambda = 13;
+    double omega = 14;
+}
+
+message FlangeData {
+    enum Type {
+        welded = 0;
+        flat = 1;
+        free = 2;
+    }
+
+    message Size {
+        double dOut = 1;
+        double d = 2;
+        double h = 3;
+        double s0 = 4;
+        double s1 = 5;
+        double l = 6;
+        double d6 = 7;
+        double dnk = 8;
+        double dk = 9;
+        double ds = 10;
+        double h0 = 11;
+        double hk = 12;
+    }
+
+    Type type = 1;
+    string standartId = 2;
+    string markId = 3;
+    double dy = 4;
+    double py = 5;
+    double corrosion = 6;
+    Size size = 7;
+    MaterialData material = 8;
+    double temp = 9;
+    string ringMarkId = 10;
+    MaterialData ringMaterial = 11;
+    double b = 12;
+    int32 row = 13;
+    string dn = 14;
+}
+
+message BoltData {
+    string markId = 1;
+    double diameter = 2;
+    int32 count = 3;
+    MaterialData material = 4;
+    double temp = 5;
+    string title = 6;
+    double area = 7;
+    string boldId = 8;
+}
+
+message WasherData {
+    string markId = 1;
+    double thickness = 2;
+    MaterialData material = 3;
+}
+
+message GasketData {
+    enum Type {
+        Soft = 0;
+        Oval = 1;
+        Metal = 2;
+    }
+
+    message Data {
+        string title = 1;
+        Type type = 2;
+        double qo = 3;
+        double m = 4;
+        double compression = 5;
+        double epsilon = 6;
+        double permissiblePres = 7;
+    }
+
+    string gasketId = 1;
+    string envId = 2;
+    double thickness = 3;
+    double d_out = 4;
+    double d_in = 5;
+    Data data = 6;
+}
+
+message EmbedData {
+    string markId = 1;
+    double thickness = 2;
+    MaterialData material = 3;
+}
+
+message DataResult {
+    double pressure = 1;
+    int32 axialForce = 2;
+    int32 bendingMoment = 3;
+    double temp = 4;
+    string work = 5;
+    string flanges = 6;
+    string sameFlange = 7;
+    string embedded = 8;
+    string type = 9;
+    string condition = 10;
+}
+
+message FlangeResult {
+    double dOut = 1;
+	double d = 2;
+	double dk = 3;
+	double dnk = 4;
+	double ds = 5;
+	double h = 6;
+	double hk = 7;
+	double s0 = 8;
+	double s1 = 9;
+	double l = 10;
+	double d6 = 11;
+	double c = 12;
+	double tf = 13;
+	double tk = 14;
+	double alphaK = 15;
+	double epsilonKAt20 = 16;
+	double epsilonK = 17;
+	double sigmaKAt20 = 18;
+	double sigmaK = 19;
+	double alphaF = 20;
+	double epsilonAt20 = 21;
+	double epsilon = 22;
+	double sigmaAt20 = 23;
+	double sigma = 24;
+	double sigmaM = 25;
+	double sigmaMAt20 = 26;
+	double sigmaR = 27;
+	double sigmaRAt20 = 28;
+	string material = 29;
+    string ringMaterial = 30;
+    double h0 = 31;
+    string type = 32;
+    double a = 33;
+    double b = 34;
+    double e = 35;
+    double Se = 36;
+    double xi = 37;
+    double x = 38;
+    double l0 = 39;
+    double lymda = 40;
+    double yf = 41;
+    double psik = 42;
+    double yk = 43;
+    double yfn = 44;
+    double yfc = 45;
+    double k = 46;
+    double beta = 47;
+    double betaT = 48;
+    double betaU = 49;
+    double betaY = 50;
+    double betaZ = 51;
+    double betaF = 52;
+    double betaV = 53;
+    double f = 54;
+}
+
+message BoltResult {
+    double diameter = 1;
+	double area = 2;
+    int32 count = 3;
+    double lenght = 4;
+    double temp = 5;
+    double alpha = 6;
+	double epsilonAt20 = 7;
+	double epsilon = 8;
+	double sigmaAt20 = 9;
+	double sigma = 10;
+    string material = 11;
+}
+
+message GasketResult {
+    string gasket = 1;
+    string env = 2;
+    double thickness = 3;
+    double d_out = 4;
+    double width = 5;
+    double m = 6;
+    double pres = 7;
+    double compression = 8;
+    double epsilon = 9;
+    double permissiblePres = 10;
+    string type = 11;
+}
+
+message EmbedResult {
+    string material = 1;
+    double thickness = 2;
+    double alpha = 3;
+    double temp = 4;
+}
+
+
+message WasherResult {
+    string material = 1;
+    double thickness = 2;
+    double alpha = 3;
+    double temp = 4;
+}
+
+message StrengthResult {
+    double Cf = 1;
+    double Dzv = 2;
+    double MM = 3;
+    double MMk = 4;
+    double Mpk = 5;
+	double Mp = 6;
+	double sigmaM1 = 7;
+	double sigmaM0 = 8;
+	double sigmaT = 9;
+	double sigmaR = 10;
+	double sigmaTp = 11;
+	double sigmaRp = 12;
+	double sigmaK = 13;
+	double sigmaP1 = 14;
+	double sigmaP0 = 15;
+	double sigmaMp = 16;
+	double sigmaMpm = 17;
+	double sigmaMp0 = 18;
+	double sigmaMpm0 = 19;
+	double sigmaMop = 20;
+	double sigmaKp = 21;
+	double teta = 22;
+	double dTeta = 23;
+	double dTetaK = 24;
+	double tetaK = 25;
+
+	double Max1 = 26;
+    double Max2 = 27;
+    double Max3 = 28;
+    double Max4 = 29;
+    double Max5 = 30;
+    double Max6 = 31;
+    double Max7 = 32;
+    double Max8 = 33;
+    double Max9 = 34;
+    double Max10 = 35;
+    double Max11 = 36;
+
+    bool isSameSigma = 37;
+
+    double condMax1 = 38;
+    double condMax2 = 39;
+    double condMax3 = 40;
+    double condMax4 = 41;
+    double condMax5 = 42;
+    double condMax6 = 43;
+    double condMax7 = 44;
+    double condMax8 = 45;
+    double condMax9 = 46;
+    double condMax10 = 47;
+    double condMax11 = 48;
+}
+
+message CalcMomentStrength {
+    double fPb = 1;
+    double fPb1 = 2;
+    double fPb2 = 3;
+    double fPbr = 4;
+    double fSigmaB1 = 5;
+    double fSigmaB2 = 6;
+    double fDSigmaM = 7;
+    double fDSigmaR = 8;
+    double fQ = 9;
+    double fMkp = 10;
+    double fMkp1 = 11;
+    double sPb = 12;
+    double sPb1 = 13;
+    double sPb2 = 14;
+    double sPbr = 15;
+    double sSigmaB1 = 16;
+    double sSigmaB2 = 17;
+    double sDSigmaM = 18;
+    double sDSigmaR = 19;
+    double sQ = 20;
+    double minB = 21;
+    double sMkp = 22;
+    double sMkp1 = 23;
+    double Mrek = 24;
+    double Qrek = 25;
+    double Mmax = 26;
+    double Qmax = 27;
+    repeated StrengthResult strength = 28;
+    bool vSigmaB1 = 29;
+    bool vSigmaB2 = 30;
+    bool vQmax = 31;
+    bool vTeta1 = 32;
+    bool vTetaK1 = 33;
+    bool vTeta2 = 34;
+    bool vTetaK2 = 35;
+    double yp = 36;
+    double yb = 37;
+    double Lb = 38;
+    double gamma = 39;
+}
+
+message CalcMomentBasis {
+    double Pb = 1;
+    double Pb1 = 2;
+    double Pb2 = 3;
+    double Pbr = 4;
+    double sigmaB1 = 5;
+    double sigmaB2 = 6;
+    double dSigmaM = 7;
+    double dSigmaR = 8;
+    double q = 9;
+    double minB = 10;
+    double Mkp = 11;
+    double Mkp1 = 12;
+    double Mrek = 13;
+    double Qrek = 14;
+    double Mmax = 15;
+    double Qmax = 16;
+    bool vSigmaB1 = 17;
+    bool vSigmaB2 = 18;
+}
+
+message CalculatedCap {
+    double b0 = 1;
+    double Dsp = 2;
+    double Po = 3;
+    double Rp = 4;
+    double A = 5;
+    double Qd = 6;
+    double Qfm = 7;
+    double Qt = 8;
+    double alpha = 9;
+    CalcMomentStrength strength = 10;
+    CalcMomentBasis basis = 11;
+}
+
+message CapFormulas {
+    string x = 1;
+    string y = 2;
+    string k = 3;
+    string lambda = 4;
+    string omega = 5;
+}
+
+message AddStrengthFormulas {
+    string Cf = 1;
+    string Dzv = 2;
+    string MM = 3;
+    string MMk = 4;
+    string Mpk = 5;
+    string Mp = 6;
+    string sigmaM1 = 7;
+    string sigmaM0 = 8;
+    string sigmaT = 9;
+    string sigmaR = 10;
+    string sigmaTp = 11;
+    string sigmaRp = 12;
+    string sigmaK = 13;
+    string sigmaP1 = 14;
+    string sigmaP0 = 15;
+    string sigmaMp = 16;
+    string sigmaMpm = 17;
+    string sigmaMp0 = 18;
+    string sigmaMpm0 = 19;
+    string sigmaMop = 20;
+    string sigmaKp = 21;
+    string teta = 22;
+    string dTeta = 23;
+    string dTetaK = 24;
+    string tetaK = 25;
+    string Max1 = 26;
+    string Max2 = 27;
+    string Max3 = 28;
+    string Max4 = 29;
+    string Max5 = 30;
+    string Max6 = 31;
+    string Max7 = 32;
+    string Max8 = 33;
+    string Max9 = 34;
+    string Max10 = 35;
+    string Max11 = 36;
+}
+
+message FlangeFormulas {
+    string a = 1;
+    string b = 2;
+    string e = 3;
+    string Se = 4;
+    string xi = 5;
+    string x = 6;
+    string l0 = 7;
+    string lymda = 8;
+    string yf = 9;
+    string psik = 10;
+    string yk = 11;
+    string yfn = 12;
+    string yfc = 13;
+    string k = 14;
+    string beta = 15;
+}
+
+message StrengthFormulas {
+    string fPb = 1;
+    string fPb1 = 2;
+    string fPb2 = 3;
+    string fPbr = 4;
+    string fSigmaB1 = 5;
+    string fSigmaB2 = 6;
+    string fDSigmaM = 7;
+    string fDSigmaR = 8;
+    string fQ = 9;
+    string fMkp = 10;
+    string fMkp1 = 11;
+    string sPb = 12;
+    string sPb1 = 13;
+    string sPb2 = 14;
+    string sPbr = 15;
+    string sSigmaB1 = 16;
+    string sSigmaB2 = 17;
+    string sDSigmaM = 18;
+    string sDSigmaR = 19;
+    string sQ = 20;
+    string sMkp = 21;
+    string sMkp1 = 22;
+    string Mrek = 23;
+    string Qrek = 24;
+    string Mmax = 25;
+    string Qmax = 26;
+    repeated AddStrengthFormulas strength = 27;
+    FlangeFormulas flange = 28;
+    CapFormulas cap = 29;
+    string yp = 30;
+    string yb = 31;
+    string Lb = 32;
+    string gamma = 33;
+}
+
+message BasisFormulas {
+    string Pb = 1;
+    string Pb1 = 2;
+    string Pb2 = 3;
+    string Pbr = 4;
+    string sigmaB1 = 5;
+    string sigmaB2 = 6;
+    string dSigmaM = 7;
+    string dSigmaR = 8;
+    string q = 9;
+    string Mkp = 10;
+    string Mkp1 = 11;
+    string Mrek = 12;
+    string Qrek = 13;
+    string Mmax = 14;
+    string Qmax = 15;
+}
+
+message CalcCapFormulas {
+    string b0 = 1;
+    string Dcp = 2;
+    string Po = 3;
+    string Rp = 4;
+    string A = 5;
+    string Qd = 6;
+    string Qfm = 7;
+    string Qt = 8;
+    string alpha = 9;
+    BasisFormulas basis = 10;
+    StrengthFormulas strength = 11;
+}
+
+message CalcRequest {
+    enum Flanges {
+        isolated = 0;
+        nonIsolated = 1;
+        manually = 2;
+    }
+
+    enum Type {
+        bolt = 0;
+        pin = 1;
+    }
+
+    enum Condition {
+        uncontrollable = 0;
+        controllable = 1;
+        controllablePin = 2;
+    }
+
+    enum Calcutation {
+        basis = 0;
+        strength = 1;
+    }
+
+    double pressure = 1;
+    int32 axialForce = 2;
+    double temp = 3;
+    bool isWork = 4;
+    Flanges flanges = 5;
+    bool isEmbedded = 6;
+    Type type = 7;
+    Condition condition = 8;
+    Calcutation calculation = 9;
+
+    FlangeData flangeData = 10;
+    CapData capData = 11;
+    BoltData bolts = 12;
+    GasketData gasket = 13;
+    EmbedData embed = 14;
+    bool isUseWasher = 15;
+    repeated WasherData washer = 16; 
+
+    bool isNeedFormulas = 17;
+}
+
+message CalcResponse {
+    FlangeResult flange = 1;
+    CapResult cap = 2;
+    BoltResult bolt = 3;
+    GasketResult gasket = 4;
+    EmbedResult embed = 5;
+    CalculatedCap calc = 6;
+    CalcCapFormulas formulas = 7;
+    DataResult data = 8;
+    repeated WasherResult washers = 9;
+}
