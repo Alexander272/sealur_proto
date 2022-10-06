@@ -2378,172 +2378,122 @@ var FlangeService_ServiceDesc = grpc.ServiceDesc{
 	Metadata: "moment_api/moment.proto",
 }
 
-// CalcFlangeServiceClient is the client API for CalcFlangeService service.
+// CalcServiceClient is the client API for CalcService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type CalcFlangeServiceClient interface {
+type CalcServiceClient interface {
 	CalculateFlange(ctx context.Context, in *CalcFlangeRequest, opts ...grpc.CallOption) (*FlangeResponse, error)
+	CalculateCap(ctx context.Context, in *CalcCapRequest, opts ...grpc.CallOption) (*CapResponse, error)
 }
 
-type calcFlangeServiceClient struct {
+type calcServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewCalcFlangeServiceClient(cc grpc.ClientConnInterface) CalcFlangeServiceClient {
-	return &calcFlangeServiceClient{cc}
+func NewCalcServiceClient(cc grpc.ClientConnInterface) CalcServiceClient {
+	return &calcServiceClient{cc}
 }
 
-func (c *calcFlangeServiceClient) CalculateFlange(ctx context.Context, in *CalcFlangeRequest, opts ...grpc.CallOption) (*FlangeResponse, error) {
+func (c *calcServiceClient) CalculateFlange(ctx context.Context, in *CalcFlangeRequest, opts ...grpc.CallOption) (*FlangeResponse, error) {
 	out := new(FlangeResponse)
-	err := c.cc.Invoke(ctx, "/moment_api.CalcFlangeService/CalculateFlange", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/moment_api.CalcService/CalculateFlange", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// CalcFlangeServiceServer is the server API for CalcFlangeService service.
-// All implementations must embed UnimplementedCalcFlangeServiceServer
+func (c *calcServiceClient) CalculateCap(ctx context.Context, in *CalcCapRequest, opts ...grpc.CallOption) (*CapResponse, error) {
+	out := new(CapResponse)
+	err := c.cc.Invoke(ctx, "/moment_api.CalcService/CalculateCap", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// CalcServiceServer is the server API for CalcService service.
+// All implementations must embed UnimplementedCalcServiceServer
 // for forward compatibility
-type CalcFlangeServiceServer interface {
+type CalcServiceServer interface {
 	CalculateFlange(context.Context, *CalcFlangeRequest) (*FlangeResponse, error)
-	mustEmbedUnimplementedCalcFlangeServiceServer()
+	CalculateCap(context.Context, *CalcCapRequest) (*CapResponse, error)
+	mustEmbedUnimplementedCalcServiceServer()
 }
 
-// UnimplementedCalcFlangeServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedCalcFlangeServiceServer struct {
+// UnimplementedCalcServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedCalcServiceServer struct {
 }
 
-func (UnimplementedCalcFlangeServiceServer) CalculateFlange(context.Context, *CalcFlangeRequest) (*FlangeResponse, error) {
+func (UnimplementedCalcServiceServer) CalculateFlange(context.Context, *CalcFlangeRequest) (*FlangeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CalculateFlange not implemented")
 }
-func (UnimplementedCalcFlangeServiceServer) mustEmbedUnimplementedCalcFlangeServiceServer() {}
+func (UnimplementedCalcServiceServer) CalculateCap(context.Context, *CalcCapRequest) (*CapResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CalculateCap not implemented")
+}
+func (UnimplementedCalcServiceServer) mustEmbedUnimplementedCalcServiceServer() {}
 
-// UnsafeCalcFlangeServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to CalcFlangeServiceServer will
+// UnsafeCalcServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to CalcServiceServer will
 // result in compilation errors.
-type UnsafeCalcFlangeServiceServer interface {
-	mustEmbedUnimplementedCalcFlangeServiceServer()
+type UnsafeCalcServiceServer interface {
+	mustEmbedUnimplementedCalcServiceServer()
 }
 
-func RegisterCalcFlangeServiceServer(s grpc.ServiceRegistrar, srv CalcFlangeServiceServer) {
-	s.RegisterService(&CalcFlangeService_ServiceDesc, srv)
+func RegisterCalcServiceServer(s grpc.ServiceRegistrar, srv CalcServiceServer) {
+	s.RegisterService(&CalcService_ServiceDesc, srv)
 }
 
-func _CalcFlangeService_CalculateFlange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _CalcService_CalculateFlange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CalcFlangeRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CalcFlangeServiceServer).CalculateFlange(ctx, in)
+		return srv.(CalcServiceServer).CalculateFlange(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/moment_api.CalcFlangeService/CalculateFlange",
+		FullMethod: "/moment_api.CalcService/CalculateFlange",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CalcFlangeServiceServer).CalculateFlange(ctx, req.(*CalcFlangeRequest))
+		return srv.(CalcServiceServer).CalculateFlange(ctx, req.(*CalcFlangeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// CalcFlangeService_ServiceDesc is the grpc.ServiceDesc for CalcFlangeService service.
-// It's only intended for direct use with grpc.RegisterService,
-// and not to be introspected or modified (even as a copy)
-var CalcFlangeService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "moment_api.CalcFlangeService",
-	HandlerType: (*CalcFlangeServiceServer)(nil),
-	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "CalculateFlange",
-			Handler:    _CalcFlangeService_CalculateFlange_Handler,
-		},
-	},
-	Streams:  []grpc.StreamDesc{},
-	Metadata: "moment_api/moment.proto",
-}
-
-// CalcCapServiceClient is the client API for CalcCapService service.
-//
-// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type CalcCapServiceClient interface {
-	CalculateCap(ctx context.Context, in *CalcCapRequest, opts ...grpc.CallOption) (*CapResponse, error)
-}
-
-type calcCapServiceClient struct {
-	cc grpc.ClientConnInterface
-}
-
-func NewCalcCapServiceClient(cc grpc.ClientConnInterface) CalcCapServiceClient {
-	return &calcCapServiceClient{cc}
-}
-
-func (c *calcCapServiceClient) CalculateCap(ctx context.Context, in *CalcCapRequest, opts ...grpc.CallOption) (*CapResponse, error) {
-	out := new(CapResponse)
-	err := c.cc.Invoke(ctx, "/moment_api.CalcCapService/CalculateCap", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-// CalcCapServiceServer is the server API for CalcCapService service.
-// All implementations must embed UnimplementedCalcCapServiceServer
-// for forward compatibility
-type CalcCapServiceServer interface {
-	CalculateCap(context.Context, *CalcCapRequest) (*CapResponse, error)
-	mustEmbedUnimplementedCalcCapServiceServer()
-}
-
-// UnimplementedCalcCapServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedCalcCapServiceServer struct {
-}
-
-func (UnimplementedCalcCapServiceServer) CalculateCap(context.Context, *CalcCapRequest) (*CapResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CalculateCap not implemented")
-}
-func (UnimplementedCalcCapServiceServer) mustEmbedUnimplementedCalcCapServiceServer() {}
-
-// UnsafeCalcCapServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to CalcCapServiceServer will
-// result in compilation errors.
-type UnsafeCalcCapServiceServer interface {
-	mustEmbedUnimplementedCalcCapServiceServer()
-}
-
-func RegisterCalcCapServiceServer(s grpc.ServiceRegistrar, srv CalcCapServiceServer) {
-	s.RegisterService(&CalcCapService_ServiceDesc, srv)
-}
-
-func _CalcCapService_CalculateCap_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _CalcService_CalculateCap_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CalcCapRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CalcCapServiceServer).CalculateCap(ctx, in)
+		return srv.(CalcServiceServer).CalculateCap(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/moment_api.CalcCapService/CalculateCap",
+		FullMethod: "/moment_api.CalcService/CalculateCap",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CalcCapServiceServer).CalculateCap(ctx, req.(*CalcCapRequest))
+		return srv.(CalcServiceServer).CalculateCap(ctx, req.(*CalcCapRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// CalcCapService_ServiceDesc is the grpc.ServiceDesc for CalcCapService service.
+// CalcService_ServiceDesc is the grpc.ServiceDesc for CalcService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var CalcCapService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "moment_api.CalcCapService",
-	HandlerType: (*CalcCapServiceServer)(nil),
+var CalcService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "moment_api.CalcService",
+	HandlerType: (*CalcServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "CalculateFlange",
+			Handler:    _CalcService_CalculateFlange_Handler,
+		},
+		{
 			MethodName: "CalculateCap",
-			Handler:    _CalcCapService_CalculateCap_Handler,
+			Handler:    _CalcService_CalculateCap_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
