@@ -58,7 +58,7 @@ message BoltData {
     double temp = 5;
     string title = 6;
     double area = 7;
-    string boldId = 8;
+    string boltId = 8;
 }
 
 message WasherData {

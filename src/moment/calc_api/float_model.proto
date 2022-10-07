@@ -1,0 +1,164 @@
+syntax = "proto3";
+
+package float_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/moment/calc_api/float_model";
+
+message MaterialData {
+    string title = 1;
+    double epsilonAt20 = 2;
+    double epsilon = 3;
+    double sigmaAt20 = 4;
+    double sigma = 5;
+}
+
+message FlangeData {
+    double dOut = 1;
+    double d = 2;
+    double d6 = 3;
+    double t = 4;
+    string markId = 5;
+    MaterialData material = 6;
+    double width = 7;
+    double dIn = 8;
+}
+
+message CapData {
+    double h = 1;
+    double radius = 2;
+    double s = 3;
+    double t = 4;
+    string markId = 5;
+    MaterialData material = 6;
+}
+
+message GasketData {
+    enum Type {
+        Soft = 0;
+        Oval = 1;
+        Metal = 2;
+    }
+
+    message Data {
+        string title = 1;
+        Type type = 2;
+        double qo = 3;
+        double m = 4;
+        double compression = 5;
+        double epsilon = 6;
+        double permissiblePres = 7;
+    }
+
+    string gasketId = 1;
+    string envId = 2;
+    double thickness = 3;
+    double d_out = 4;
+    double d_in = 5;
+    Data data = 6;
+}
+
+message BoltData {
+    string boltId = 1;
+    int32 count = 2;
+    double distance = 3;
+    double temp = 4;
+    string markId = 5;
+    MaterialData material = 6;
+    double diameter = 7;
+    double area = 8;
+    string title = 9;
+}
+
+message DataResult {
+    double pressure = 1;
+    string work = 2;
+    bool hasThorn = 3;
+    string type = 4;
+    string condition = 5;
+}
+
+message FlangeResult {
+    double dOut = 1;
+	double d = 2;
+	double d6 = 3;
+	double tf = 4;
+    double width = 5;
+    double dIn = 6;
+	double epsilonAt20 = 7;
+	double epsilon = 8;
+	double sigmaAt20 = 9;
+	double sigma = 10;
+	string material = 11;
+    double yp = 12;
+    double yb = 13;
+    double Lb = 14;
+    double a = 15;
+    double b = 16;
+    double l0 = 17;
+    double y = 18;
+}
+
+message CapResult {
+    double h = 1;
+	double radius = 2;
+	double s = 3;
+	double t = 4;
+	double epsilonAt20 = 5;
+	double epsilon = 6;
+	string material = 7;
+    double y = 8;
+    double lambda = 9;
+    double omega = 10;
+}
+
+message BoltResult {
+    double diameter = 1;
+	double area = 2;
+    int32 count = 3;
+    double lenght = 4;
+    double temp = 5;
+	double epsilonAt20 = 6;
+	double epsilon = 7;
+	double sigmaAt20 = 8;
+	double sigma = 9;
+    string material = 10;
+}
+
+message GasketResult {
+    string gasket = 1;
+    string env = 2;
+    double thickness = 3;
+    double d_out = 4;
+    double width = 5;
+    double m = 6;
+    double pres = 7;
+    double compression = 8;
+    double epsilon = 9;
+    double permissiblePres = 10;
+    string type = 11;
+}
+
+message Calculated {
+    double b0 = 1;
+    double Dcp = 2;  
+    double Po = 3;
+    double Rp = 4;
+    double Qd = 5;
+    double Pb = 6;
+    double Pb1 = 7;
+    double Pb2 = 8;
+    double Pbr = 9;
+    double sigmaB1 = 10;
+    double sigmaB2 = 11;
+    double dSigmaM = 12;
+    double dSigmaR = 13;
+    double q = 14;
+    double minB = 15;
+    double Mkp = 16;
+    double Mkp1 = 17;
+    double Mrek = 18;
+    double Qrek = 19;
+    double Mmax = 20;
+    double Qmax = 21;
+    bool vSigmaB1 = 22;
+    bool vSigmaB2 = 23;
+}

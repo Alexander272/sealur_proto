@@ -5,6 +5,7 @@ option go_package = "github.com/Alexander272/sealur_proto/api/moment/calc_api";
 
 import "moment/calc_api/flange_model.proto";
 import "moment/calc_api/cap_model.proto";
+import "moment/calc_api/float_model.proto";
 
 message FlangeRequest {
     enum Flanges {
@@ -119,7 +120,43 @@ message CapResponse {
     repeated cap_model.WasherResult washers = 9;
 }
 
+message FloatRequest {
+    enum Condition {
+        uncontrollable = 0;
+        controllable = 1;
+        controllablePin = 2;
+    }
+    enum Type {
+        bolt = 0;
+        pin = 1;
+    }
+
+    double pressure = 1;
+    bool isWork = 2;
+    bool hasThorn = 3;
+    Type type = 4;
+    Condition condition = 5;
+
+    float_model.FlangeData flangeData = 6;
+    float_model.CapData capData = 7;
+    float_model.BoltData bolts = 8;
+    float_model.GasketData gasket = 9;
+
+    bool isNeedFormulas = 10;
+}
+
+message FloatResponse {
+    float_model.DataResult data = 1;
+    float_model.FlangeResult flange = 2;
+    float_model.CapResult cap = 3;
+    float_model.BoltResult bolt = 4;
+    float_model.GasketResult gasket = 5;
+    float_model.Calculated calc = 6;
+    // float_model.CalcCapFormulas formulas = 7;
+}
+
 service CalcService {
     rpc CalculateFlange (FlangeRequest) returns (FlangeResponse);
     rpc CalculateCap (CapRequest) returns (CapResponse);
+    rpc CalculateFloat (FloatRequest) returns (FloatResponse);
 }

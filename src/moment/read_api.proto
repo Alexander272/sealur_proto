@@ -17,6 +17,15 @@ message GetFlangeResponse {
     repeated material_model.Material materials = 5;
 }
 
+message GetFloatRequest {}
+
+message GetFloatResponse {
+    repeated gasket_model.GasketWithThick gaskets = 1;
+    repeated material_model.Material materials = 2;
+    repeated gasket_model.Env env = 3;
+}
+
 service ReadService {
     rpc GetFlange (GetFlangeRequest) returns (GetFlangeResponse);
+    rpc GetFloat (GetFloatRequest) returns (GetFloatResponse);
 }
