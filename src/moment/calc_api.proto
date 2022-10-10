@@ -152,7 +152,7 @@ message FloatResponse {
     float_model.BoltResult bolt = 4;
     float_model.GasketResult gasket = 5;
     float_model.Calculated calc = 6;
-    // float_model.CalcCapFormulas formulas = 7;
+    float_model.Formulas formulas = 7;
 }
 
 service CalcService {

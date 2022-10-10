@@ -88,13 +88,9 @@ message FlangeResult {
 	double sigmaAt20 = 9;
 	double sigma = 10;
 	string material = 11;
-    double yp = 12;
-    double yb = 13;
-    double Lb = 14;
-    double a = 15;
-    double b = 16;
-    double l0 = 17;
-    double y = 18;
+    double b = 12;
+    double l0 = 13;
+    double y = 14;
 }
 
 message CapResult {
@@ -139,26 +135,73 @@ message GasketResult {
 
 message Calculated {
     double b0 = 1;
-    double Dcp = 2;  
-    double Po = 3;
-    double Rp = 4;
-    double Qd = 5;
-    double Pb = 6;
-    double Pb1 = 7;
-    double Pb2 = 8;
-    double Pbr = 9;
-    double sigmaB1 = 10;
-    double sigmaB2 = 11;
-    double dSigmaM = 12;
-    double dSigmaR = 13;
-    double q = 14;
-    double minB = 15;
-    double Mkp = 16;
-    double Mkp1 = 17;
-    double Mrek = 18;
-    double Qrek = 19;
-    double Mmax = 20;
-    double Qmax = 21;
-    bool vSigmaB1 = 22;
-    bool vSigmaB2 = 23;
+    double Dcp = 2; 
+    double yp = 3;
+    double yb = 4;
+    double Lb = 5; 
+    double Po = 6;
+    double Rp = 7;
+    double A = 8;
+    double Qd = 9;
+    double alpha = 10;
+    double Pb = 11;
+    double Pb1 = 12;
+    double Pb2 = 13;
+    double Pbr = 14;
+    double sigmaB1 = 15;
+    double sigmaB2 = 16;
+    double dSigmaM = 17;
+    double dSigmaR = 18;
+    double q = 19;
+    double minB = 20;
+    double Mkp = 21;
+    double Mkp1 = 22;
+    double Mrek = 23;
+    double Qrek = 24;
+    double Mmax = 25;
+    double Qmax = 26;
+    bool vSigmaB1 = 27;
+    bool vSigmaB2 = 28;
+}
+
+message FlangeFormulas {
+    string b = 1;
+    string l0 = 2;
+    string y = 3;
+}
+
+message CapFormulas {
+    string y = 1;
+    string lambda = 2;
+    string omega = 3;
+}
+
+message Formulas {
+    string b0 = 1;
+    string Dcp = 2;
+    string yp = 3;
+    string yb = 4;
+    string Lb = 5;
+    string Po = 6;
+    string Rp = 7;
+    string A = 8;
+    string Qd = 9;
+    string alpha = 10;
+    string Pb = 11;
+    string Pb1 = 12;
+    string Pb2 = 13;
+    string Pbr = 14;
+    string sigmaB1 = 15;
+    string sigmaB2 = 16;
+    string dSigmaM = 17;
+    string dSigmaR = 18;
+    string q = 19;
+    string Mkp = 20;
+    string Mkp1 = 21;
+    string Mrek = 22;
+    string Qrek = 23;
+    string Mmax = 24;
+    string Qmax = 25;
+    FlangeFormulas flange = 26;
+    CapFormulas cap = 27;
 }
