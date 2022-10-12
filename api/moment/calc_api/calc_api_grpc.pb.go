@@ -25,6 +25,7 @@ type CalcServiceClient interface {
 	CalculateFlange(ctx context.Context, in *FlangeRequest, opts ...grpc.CallOption) (*FlangeResponse, error)
 	CalculateCap(ctx context.Context, in *CapRequest, opts ...grpc.CallOption) (*CapResponse, error)
 	CalculateFloat(ctx context.Context, in *FloatRequest, opts ...grpc.CallOption) (*FloatResponse, error)
+	CalculateDevCooling(ctx context.Context, in *DevCoolingRequest, opts ...grpc.CallOption) (*DevCoolingResponse, error)
 }
 
 type calcServiceClient struct {
@@ -62,6 +63,15 @@ func (c *calcServiceClient) CalculateFloat(ctx context.Context, in *FloatRequest
 	return out, nil
 }
 
+func (c *calcServiceClient) CalculateDevCooling(ctx context.Context, in *DevCoolingRequest, opts ...grpc.CallOption) (*DevCoolingResponse, error) {
+	out := new(DevCoolingResponse)
+	err := c.cc.Invoke(ctx, "/calc_api.CalcService/CalculateDevCooling", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CalcServiceServer is the server API for CalcService service.
 // All implementations must embed UnimplementedCalcServiceServer
 // for forward compatibility
@@ -69,6 +79,7 @@ type CalcServiceServer interface {
 	CalculateFlange(context.Context, *FlangeRequest) (*FlangeResponse, error)
 	CalculateCap(context.Context, *CapRequest) (*CapResponse, error)
 	CalculateFloat(context.Context, *FloatRequest) (*FloatResponse, error)
+	CalculateDevCooling(context.Context, *DevCoolingRequest) (*DevCoolingResponse, error)
 	mustEmbedUnimplementedCalcServiceServer()
 }
 
@@ -84,6 +95,9 @@ func (UnimplementedCalcServiceServer) CalculateCap(context.Context, *CapRequest)
 }
 func (UnimplementedCalcServiceServer) CalculateFloat(context.Context, *FloatRequest) (*FloatResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CalculateFloat not implemented")
+}
+func (UnimplementedCalcServiceServer) CalculateDevCooling(context.Context, *DevCoolingRequest) (*DevCoolingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CalculateDevCooling not implemented")
 }
 func (UnimplementedCalcServiceServer) mustEmbedUnimplementedCalcServiceServer() {}
 
@@ -152,6 +166,24 @@ func _CalcService_CalculateFloat_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CalcService_CalculateDevCooling_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DevCoolingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CalcServiceServer).CalculateDevCooling(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/calc_api.CalcService/CalculateDevCooling",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CalcServiceServer).CalculateDevCooling(ctx, req.(*DevCoolingRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CalcService_ServiceDesc is the grpc.ServiceDesc for CalcService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -170,6 +202,10 @@ var CalcService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CalculateFloat",
 			Handler:    _CalcService_CalculateFloat_Handler,
+		},
+		{
+			MethodName: "CalculateDevCooling",
+			Handler:    _CalcService_CalculateDevCooling_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

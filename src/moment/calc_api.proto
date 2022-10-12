@@ -6,6 +6,7 @@ option go_package = "github.com/Alexander272/sealur_proto/api/moment/calc_api";
 import "moment/calc_api/flange_model.proto";
 import "moment/calc_api/cap_model.proto";
 import "moment/calc_api/float_model.proto";
+import "moment/calc_api/dev_cooling_model.proto";
 
 message FlangeRequest {
     enum Flanges {
@@ -155,8 +156,82 @@ message FloatResponse {
     float_model.Formulas formulas = 7;
 }
 
+message DevCoolingRequest {
+    enum TypeBolt {
+        bolt = 0;
+        pin = 1;
+    }
+
+    enum MountingMethod {
+        AllThickness = 0;
+        PartThickness = 1;
+        SteelSheet = 2;
+    }
+
+    enum Mounting {
+        flaring = 0;
+        welding = 1;
+        rolling = 2;
+    }
+
+    enum TypeMounting {
+        nothing = 0;
+        flat = 1;
+        groove = 2;
+    }
+
+    enum CameraDiagram {
+        schema1 = 0;
+        schema2 = 1;
+        schema3 = 2;
+        schema4 = 3;
+        schema5 = 4;
+    }
+
+    enum Layout {
+        lSchema1 = 0;
+        lSchema2 = 1;
+    }
+
+    // Расчетное давление
+    double pressure = 1;
+    // Расчетная температура
+    double temp = 2;
+    // Способ крепления труб
+    MountingMethod method = 3;
+    // Тип соединения
+    TypeBolt typeBolt = 4;
+    // Способ крепления труб в трубной решетке
+    Mounting mounting = 5;
+    // Тип крепления труб в трубной решетке
+    TypeMounting typeMounting = 6;
+    // Схема камеры аппарата воздушного охлаждения
+    CameraDiagram cameraDiagram = 7;
+    // Схема размещения отверстий
+    Layout layout = 8;
+
+    dev_cooling_model.CapData cap = 9;
+    dev_cooling_model.TubeSheetData tubeSheet = 10;
+    dev_cooling_model.TubeData tube = 11;
+    dev_cooling_model.BoltData bolts = 12;
+    dev_cooling_model.GasketData gasket = 13;
+
+    bool isNeedFormulas = 14;
+}
+
+message DevCoolingResponse {
+    dev_cooling_model.DataResult data = 1;
+    dev_cooling_model.CapResult cap = 2;
+    dev_cooling_model.TubeSheetResult tubeSheet = 3;
+    dev_cooling_model.TubeResult tube = 4;
+    dev_cooling_model.BoltResult bolts = 5;
+    dev_cooling_model.GasketResult gasket = 6;
+    dev_cooling_model.Calculated calc = 7;
+}
+
 service CalcService {
     rpc CalculateFlange (FlangeRequest) returns (FlangeResponse);
     rpc CalculateCap (CapRequest) returns (CapResponse);
     rpc CalculateFloat (FloatRequest) returns (FloatResponse);
+    rpc CalculateDevCooling (DevCoolingRequest) returns (DevCoolingResponse);
 }

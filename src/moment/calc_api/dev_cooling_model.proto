@@ -1,0 +1,292 @@
+syntax = "proto3";
+
+package dev_cooling_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/moment/calc_api/dev_cooling_model";
+
+message MaterialData {
+    string title = 1;
+    double epsilon = 2;
+    double sigmaAt20 = 3;
+    double sigma = 4;
+}
+
+message CapData {
+    // s4 - Толщина донышка крышки
+    double bottomThick = 1;
+    // s5 - Толщина стенки крышки в месте присоединения к фланцу
+    double wallThick = 2;
+    // s6 - Толщина фланца крышки
+    double flangeThick = 3;
+    // s7 - Толщина боковой стенки
+    double sideWallThick = 4;
+    // B0 - Внутренний размер камеры в поперечном направлении
+    double innerSize = 5;
+    // B4 - Наружный размер камеры в поперечном направлении
+    double outerSize = 6;
+    // H - Глубина камеры (крышки)
+    double depth = 7;
+    // L0 - Внутренний размер камеры в продольном направлении
+    double L = 8;
+    // φ - Коэффициент прочности сварного шва
+    double strength = 9;
+    // cк - Прибавка на коррозию
+    double corrosion = 10;
+    // R - Радиус гиба в углу крышки камеры
+    double radius = 11;
+    // Id Материала крышки
+    string markId = 12;
+    MaterialData material = 13;
+}
+
+message TubeSheetData {
+    // s1 - Толщина трубной решетки в пределах зоны перфорации
+    double zoneThick = 1;
+    // s2 - Толщина трубной решетки в месте уплотнения
+    double placeThick = 2;
+    // s3 - Толщина трубной решетки вне зоны уплотнения
+    double outZoneThick = 3;
+    // B1 - Ширина зоны решетки толщиной s1
+    double width = 4;
+    // t1 - Шаг отверстий под трубы в продольном направлении
+    double stepLong = 5;
+    // t2 - Шаг отверстий под трубы в поперечном направлении
+    double stepTrans = 6;
+    // z - Число рядов труб в поперечном направлении
+    int32 count = 7;
+    // d0 - Диаметр трубных отверстий в решетках
+    double diameter = 8;
+    // ср - Прибавка на коррозию
+    double corrosion = 9;
+    // Id Материала трубной решетки
+    string markId = 10;
+    MaterialData material = 11;
+}
+
+message TubeData {
+    // L - Длина труб
+    double length = 1;
+    // Lк - Приведенная длина труб при продольном изгибе
+    double reducedLength = 2;
+    // dТ - Наружный диаметр трубы
+    double diameter = 3;
+    // sT - Толщина стенки трубы
+    double thickness = 4;
+    // сT - Прибавка на коррозию
+    double corrosion = 5;
+    // l0 - Глубина развальцовки
+    double depth = 6;
+    // aT - Размер сварного шва приварки труб
+    double size = 7;
+    // Id Материала труб
+    string markId = 8;
+    MaterialData material = 9;
+}
+
+message BoltData {
+    // B3 - Расстояние между осями болтов/шпилек в поперечном направлении
+    double distance = 1;
+    // n - Количество болтов/шпилек
+    int32 count = 2;
+    // Id болта
+    string boltId = 3;
+    // lб - Длина болта/шпильки между опорными поверхностями
+    double lenght = 4;
+    // Id Материала болтов
+    string markId = 5;
+    MaterialData material = 6;
+    // d - Наружный диаметр болта/шпильки
+    double diameter = 7;
+    // fб - Площадь болта/шпильки
+    double area = 8;
+}
+
+message GasketData {
+    enum Type {
+        Soft = 0;
+        Oval = 1;
+        Metal = 2;
+    }
+
+    message Data {
+        string title = 1;
+        Type type = 2;
+        double qo = 3;
+        double m = 4;
+        double compression = 5;
+        double epsilon = 6;
+        double permissiblePres = 7;
+    }
+
+    // Id прокладки
+    string gasketId = 1;
+    // Id среды
+    string envId = 2;
+    // Толщина прокладки
+    double thickness = 3;
+    // bp - Ширина прокладки
+    double width = 4;
+    // L2 - Размер прокладки в продольном направлении
+    double sizeLong = 5;
+    // B2 - Размер прокладки в поперечном направление
+    double sizeTrans = 6;
+    // данные для не стандартной прокладки
+    Data data = 7;
+}
+
+message DataResult {
+    // Расчетное давление
+    double pressure = 1;
+    // Расчетная температура
+    double temp = 2;
+    // Способ крепления труб
+    string method = 3;
+    // Тип соединения
+    string typeBolt = 4;
+    // Способ крепления труб в трубной решетке
+    string mounting = 5;
+    // Тип крепления труб в трубной решетке
+    string typeMounting = 6;
+    // Схема камеры аппарата воздушного охлаждения
+    string cameraDiagram = 7;
+    // Схема размещения отверстий
+    string layout = 8;
+}
+
+message CapResult {
+    // s4 - Толщина донышка крышки
+    double bottomThick = 1;
+    // s5 - Толщина стенки крышки в месте присоединения к фланцу
+    double wallThick = 2;
+    // s6 - Толщина фланца крышки
+    double flangeThick = 3;
+    // s7 - Толщина боковой стенки
+    double sideWallThick = 4;
+    // B0 - Внутренний размер камеры в поперечном направлении
+    double innerSize = 5;
+    // B4 - Наружный размер камеры в поперечном направлении
+    double outerSize = 6;
+    // H - Глубина камеры (крышки)
+    double depth = 7;
+    // L0 - Внутренний размер камеры в продольном направлении
+    double L = 8;
+    // φ - Коэффициент прочности сварного шва
+    double strength = 9;
+    // cк - Прибавка на коррозию
+    double corrosion = 10;
+    // R - Радиус гиба в углу крышки камеры
+    double radius = 11;
+    // Материал крышки
+    string material = 12;
+    // Модуль продольной упругости крышки
+    double epsilon = 13;
+    // Допускаемое напряжение при 20 C
+    double sigmaAt20 = 14;
+    // Допускаемое напряжение при расчетной температуре
+    double sigma = 15;
+}
+
+message TubeSheetResult {
+    // s1 - Толщина трубной решетки в пределах зоны перфорации
+    double zoneThick = 1;
+    // s2 - Толщина трубной решетки в месте уплотнения
+    double placeThick = 2;
+    // s3 - Толщина трубной решетки вне зоны уплотнения
+    double outZoneThick = 3;
+    // B1 - Ширина зоны решетки толщиной s1
+    double width = 4;
+    // t1 - Шаг отверстий под трубы в продольном направлении
+    double stepLong = 5;
+    // t2 - Шаг отверстий под трубы в поперечном направлении
+    double stepTrans = 6;
+    // z - Число рядов труб в поперечном направлении
+    int32 count = 7;
+    // d0 - Диаметр трубных отверстий в решетках
+    double diameter = 8;
+    // ср - Прибавка на коррозию
+    double corrosion = 9;
+    // Материал трубной решетки
+    string material = 10;
+    // Модуль продольной упругости трубной решетки
+    double epsilon = 11;
+    // Допускаемое напряжение при 20 C
+    double sigmaAt20 = 12;
+    // Допускаемое напряжение при расчетной температуре
+    double sigma = 13;
+}
+
+message TubeResult {
+    // L - Длина труб
+    double length = 1;
+    // Lк - Приведенная длина труб при продольном изгибе
+    double reducedLength = 2;
+    // dТ - Наружный диаметр трубы
+    double diameter = 3;
+    // sT - Толщина стенки трубы
+    double thickness = 4;
+    // сT - Прибавка на коррозию
+    double corrosion = 5;
+    // l0 - Глубина развальцовки
+    double depth = 6;
+    // aT - Размер сварного шва приварки труб
+    double size = 7;
+    // Материал труб
+    string material = 8;
+    // Модуль продольной упругости трубы
+    double epsilon = 9;
+    // Допускаемое напряжение при 20 C
+    double sigmaAt20 = 10;
+    // Допускаемое напряжение при расчетной температуре
+    double sigma = 11;
+}
+
+message BoltResult {
+    // B3 - Расстояние между осями болтов/шпилек в поперечном направлении
+    double distance = 1;
+    // n - Количество болтов/шпилек
+    int32 count = 2;
+    // Id болта
+    string boltId = 3;
+    // lб - Длина болта/шпильки между опорными поверхностями
+    double lenght = 4;
+    // Материал болта/шпильки
+    string material = 5;
+    // d - Наружный диаметр болта/шпильки
+    double diameter = 7;
+    // fб - Площадь болта/шпильки
+    double area = 8;
+    // Модуль продольной упругости болта/шпильки
+    double epsilon = 9;
+    // Допускаемое напряжение при 20 C
+    double sigmaAt20 = 10;
+    // Допускаемое напряжение при расчетной температуре
+    double sigma = 11;
+}
+
+message GasketResult {
+    // название прокладки
+    string gasket = 1;
+    // название среды
+    string env = 2;
+    // Толщина прокладки
+    double thickness = 3;
+    // bp - Ширина прокладки
+    double width = 4;
+    // L2 - Размер прокладки в продольном направлении
+    double sizeLong = 5;
+    // B2 - Размер прокладки в поперечном направление
+    double sizeTrans = 6;
+    // m - Прокладочный коэффициент
+    double m = 7;
+    // qобж - Удельное давление обжатия прокладки
+    double pres = 8;
+    // Kобж - Коэффициент обжатия
+    double compression = 9;
+    // Ep - Условный модуль сжатия прокладки
+    double epsilon = 10;
+    // [q] - Допускаемое удельное давление
+    double permissiblePres = 11;
+}
+
+message Calculated {
+    
+}
