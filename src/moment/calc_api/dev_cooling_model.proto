@@ -244,22 +244,20 @@ message BoltResult {
     double distance = 1;
     // n - Количество болтов/шпилек
     int32 count = 2;
-    // Id болта
-    string boltId = 3;
     // lб - Длина болта/шпильки между опорными поверхностями
-    double lenght = 4;
+    double lenght = 3;
     // Материал болта/шпильки
-    string material = 5;
+    string material = 4;
     // d - Наружный диаметр болта/шпильки
-    double diameter = 7;
+    double diameter = 5;
     // fб - Площадь болта/шпильки
-    double area = 8;
+    double area = 6;
     // Модуль продольной упругости болта/шпильки
-    double epsilon = 9;
+    double epsilon = 7;
     // Допускаемое напряжение при 20 C
-    double sigmaAt20 = 10;
+    double sigmaAt20 = 8;
     // Допускаемое напряжение при расчетной температуре
-    double sigma = 11;
+    double sigma = 9;
 }
 
 message GasketResult {
@@ -285,8 +283,259 @@ message GasketResult {
     double epsilon = 10;
     // [q] - Допускаемое удельное давление
     double permissiblePres = 11;
+    // Название типа прокладки
+    string type = 12;
 }
 
-message Calculated {
-    
+message Condition {
+    double x = 1;
+    double y = 2;
+}
+
+message Calculated {  
+    // Условия применения формул
+    Condition condition1 = 1;
+    Condition condition2 = 2;
+    bool isConditionsMet = 3;
+    // Pпр - Пробное давление
+    double pressure = 4;
+    CalcAuxiliary auxiliary = 5;
+    CalcBolt bolt = 6;
+    Condition gasketCond = 7;
+    CalcTubeSheet tubeSheet = 8;
+    CalcCap cap = 9;
+    CalcMoment moment = 10;
+}
+
+message CalcAuxiliary {
+    // Bт - Расчетная ширина перфорированной зоны решетки
+    double estimatedZoneWidth = 1;
+    // lambda Относительная ширина беструбного края
+    double relativeWidth = 2;
+    // Вспомогательные коэффициенты
+    double upsilon = 3;
+    double eta = 4;
+    // Коэффициент ослабления решетки и задней стенки
+    double phi = 5;
+    double d = 6;
+    // [q] Допускаемая нагрузка из условия прочности труб
+    double loadTube = 7;
+    // [q]s Допускаемая нагрузка из условия прочности крепления трубы в решетке
+    double load = 8;
+    double mu = 9;
+    // Коэффициент уменьшения допускаемых напряжений при продольном изгибе
+    double phiT = 10;
+    // b pR - Расчетная ширина плоской прокладки
+    double estimatedGasketWidth = 11;
+    // l1 - Плечи изгибающих моментов
+    double arm1 = 12;
+    // l2 - Плечи изгибающих моментов
+    double arm2 = 13;
+    // расчетный размер решетки в поперечном направлении
+    double Bp = 14;
+}
+
+message CalcBolt {
+    // Fв - Расчетное усилие в болтах (шпильках) в условиях эксплуатации
+    double workEffort = 1;
+    double Lp = 2;
+    // F0 - Расчетное усилие в болтах (шпильках) в условиях испытаний или монтажа
+    double effort = 3;
+    // Коэффициент податливости фланцевого соединения крышки и решетки
+    double eta = 4;
+    // YkP Угловые податливости крышки
+    double capUpsilonP = 5;
+    // YkM Угловые податливости крышки
+    double capUpsilonM = 6;
+    // YpP Угловые податливости решетки
+    double sheetUpsilonP = 7;
+    // YpM Угловые податливости решетки
+    double sheetUpsilonM = 8;
+    // Yb Линейная податливость болта (шпильки)
+    double upsilonB = 9;
+    // Yp Линейная податливость прокладки
+    double upsilonP = 10;
+    // Условия прочности болтов/шпилек - в условиях испытания или монтажа
+    Condition testCond = 11;
+    // Условия прочности болтов/шпилек - в условиях эксплуатации
+    Condition workCond = 12;
+}
+
+message CalcTubeSheet {
+    // s1 - Толщина трубной решетки в пределах зоны перфорации
+    double zoneThick = 1;
+    // где коэффициенты:
+    double Lambda = 2;
+    double Psi = 3;
+    double OmegaP = 4;
+    // Условия применения формул
+    Condition condition = 5;
+    // s2 - Толщина трубной решетки в месте уплотнения
+    double placeThick = 6;
+    // s3 - Толщина трубной решетки вне зоны уплотнения
+    double outZoneThick = 7;
+    // F1 - Расчетное усилие
+    double effort = 8;
+    // Условие прочности крепления труб в решетке
+    Condition strength = 9;
+    // где коэффициенты:
+    double omega = 10;
+    double zF = 11;
+    double zM = 12;
+}
+
+message CalcCap {
+    // s4 - Толщина донышка крышки
+    double bottomThick = 1;
+    // где коэффициенты:
+    double Lambda = 2;
+    double Psi = 3;
+    double f1 = 4;
+    double f2 = 5;
+    double chiK = 6;
+    // s5 - Толщина стенки крышки в месте присоединения к фланцу
+    double wallThick = 7;
+    // где коэффициенты:
+    double chi = 8;
+    // s6 - Толщина фланца крышки
+    double flangeThick = 9;
+    // s7 - Толщина боковой стенки
+    double sideWallThick = 10;
+}
+
+message CalcMoment {
+    // Крутящий момент при затяжке болтов/шпилек
+    double Mkp = 1;
+    // Крутящий момент при затяжке болтов/шпилек со смазкой снижается на 25%
+	double Mkp1 = 2;
+    // Напряжение на прокладке
+	double Qrek = 3;
+    // Момент затяжки при применении уплотнения на старых (изношенных) фланцах, имеющих перекосы
+	double Mrek = 4;
+    // Максимальный крутящий момент при затяжке болтов/шпилек
+    double Mmax = 5;
+    // Максимальное напряжение на прокладке
+    double Qmax = 6;
+}
+
+message Formulas {
+    // Условия применения формул
+    string condition1 = 1;
+    string condition2 = 2;
+    // Pпр - Пробное давление
+    string pressure = 3;
+    AuxiliaryFormulas auxiliary = 4;
+    BoltFormulas bolt = 5;
+    string gasketCond = 6;
+    TubeSheetFormulas tubeSheet = 7;
+    CapFormulas cap = 8;
+    MomentFormulas moment = 9;
+}
+
+message AuxiliaryFormulas {
+    // Bт - Расчетная ширина перфорированной зоны решетки
+    string estimatedZoneWidth = 1;
+    // lambda Относительная ширина беструбного края
+    string relativeWidth = 2;
+    // Вспомогательные коэффициенты
+    string upsilon = 3;
+    string eta = 4;
+    // Коэффициент ослабления решетки и задней стенки
+    string phi = 5;
+    string d = 6;
+    // [q] Допускаемая нагрузка из условия прочности труб
+    string loadTube = 7;
+    // [q]s Допускаемая нагрузка из условия прочности крепления трубы в решетке
+    string load = 8;
+    // Коэффициент уменьшения допускаемых напряжений при продольном изгибе
+    string phiT = 9;
+    // b pR - Расчетная ширина плоской прокладки
+    string estimatedGasketWidth = 10;
+    // l1 - Плечи изгибающих моментов
+    string arm1 = 11;
+    // l2 - Плечи изгибающих моментов
+    string arm2 = 12;
+    // расчетный размер решетки в поперечном направлении
+    string Bp = 13;
+}
+
+message BoltFormulas {
+    // Fв - Расчетное усилие в болтах (шпильках) в условиях эксплуатации
+    string workEffort = 1;
+    string Lp = 2;
+    // F0 - Расчетное усилие в болтах (шпильках) в условиях испытаний или монтажа
+    string effort = 3;
+    // Коэффициент податливости фланцевого соединения крышки и решетки
+    string eta = 4;
+    // YkP Угловые податливости крышки
+    string capUpsilonP = 5;
+    // YkM Угловые податливости крышки
+    string capUpsilonM = 6;
+    // YpP Угловые податливости решетки
+    string sheetUpsilonP = 7;
+    // YpM Угловые податливости решетки
+    string sheetUpsilonM = 8;
+    // Yb Линейная податливость болта (шпильки)
+    string upsilonB = 9;
+    // Yp Линейная податливость прокладки
+    string upsilonP = 10;
+    // Условия прочности болтов/шпилек - в условиях испытания или монтажа
+    string testCond = 11;
+    // Условия прочности болтов/шпилек - в условиях эксплуатации
+    string workCond = 12;
+}
+
+message TubeSheetFormulas {
+    // s1 - Толщина трубной решетки в пределах зоны перфорации
+    string zoneThick = 1;
+    // где коэффициенты:
+    string Lambda = 2;
+    string Psi = 3;
+    string OmegaP = 4;
+    // s2 - Толщина трубной решетки в месте уплотнения
+    string placeThick = 5;
+    // s3 - Толщина трубной решетки вне зоны уплотнения
+    string outZoneThick = 6;
+    // F1 - Расчетное усилие
+    string effort = 7;
+    // Условие прочности крепления труб в решетке
+    string strength = 8;
+    // где коэффициенты:
+    string omega = 9;
+    string zF = 10;
+    string zM = 11;
+}
+
+message CapFormulas {
+    // s4 - Толщина донышка крышки
+    string bottomThick = 1;
+    // где коэффициенты:
+    string Lambda = 2;
+    string Psi = 3;
+    string f1 = 4;
+    string f2 = 5;
+    string chiK = 6;
+    // s5 - Толщина стенки крышки в месте присоединения к фланцу
+    string wallThick = 7;
+    // где коэффициенты:
+    string chi = 8;
+    // s6 - Толщина фланца крышки
+    string flangeThick = 9;
+    // s7 - Толщина боковой стенки
+    string sideWallThick = 10;
+}
+
+message MomentFormulas {
+    // Крутящий момент при затяжке болтов/шпилек
+    string Mkp = 1;
+    // Крутящий момент при затяжке болтов/шпилек со смазкой снижается на 25%
+	string Mkp1 = 2;
+    // Напряжение на прокладке
+	string Qrek = 3;
+    // Момент затяжки при применении уплотнения на старых (изношенных) фланцах, имеющих перекосы
+	string Mrek = 4;
+    // Максимальный крутящий момент при затяжке болтов/шпилек
+    string Mmax = 5;
+    // Максимальное напряжение на прокладке
+    string Qmax = 6;
 }

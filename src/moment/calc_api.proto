@@ -227,6 +227,7 @@ message DevCoolingResponse {
     dev_cooling_model.BoltResult bolts = 5;
     dev_cooling_model.GasketResult gasket = 6;
     dev_cooling_model.Calculated calc = 7;
+    dev_cooling_model.Formulas formulas = 8;
 }
 
 service CalcService {
