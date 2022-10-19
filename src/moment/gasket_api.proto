@@ -10,7 +10,16 @@ message IdResponse {
 }
 message Response {}
 
-message GetGasketRequest {}
+enum TypeGasket {
+        All = 0;
+        Soft = 1;
+        Oval = 2;
+        Metal = 3;
+    }
+
+message GetGasketRequest { 
+    repeated TypeGasket typeGasket = 1;
+}
 message CreateGasketRequest {
     string title = 1;
 }
@@ -29,7 +38,9 @@ message GasketWithThickResponse {
     repeated gasket_model.GasketWithThick gasket = 1;
 }
 
-message GetGasketTypeRequest {}
+message GetGasketTypeRequest {
+    repeated TypeGasket typeGasket = 1;
+}
 message CreateGasketTypeRequest {
     string title = 1;
     string label = 2;

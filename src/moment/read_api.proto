@@ -8,7 +8,6 @@ import "moment/models/gasket_model.proto";
 import "moment/models/material_model.proto";
 
 message GetFlangeRequest {}
-
 message GetFlangeResponse {
     repeated flange_model.TypeFlange typeFlange = 1;
     repeated flange_model.StandartWithSize standarts = 2;
@@ -18,8 +17,14 @@ message GetFlangeResponse {
 }
 
 message GetFloatRequest {}
-
 message GetFloatResponse {
+    repeated gasket_model.GasketWithThick gaskets = 1;
+    repeated material_model.Material materials = 2;
+    repeated gasket_model.Env env = 3;
+}
+
+message GetDevCoolingtRequest {}
+message GetDevCoolingResponse {
     repeated gasket_model.GasketWithThick gaskets = 1;
     repeated material_model.Material materials = 2;
     repeated gasket_model.Env env = 3;
@@ -28,4 +33,5 @@ message GetFloatResponse {
 service ReadService {
     rpc GetFlange (GetFlangeRequest) returns (GetFlangeResponse);
     rpc GetFloat (GetFloatRequest) returns (GetFloatResponse);
+    rpc GetDevCooling (GetDevCoolingtRequest) returns (GetDevCoolingResponse);
 }
