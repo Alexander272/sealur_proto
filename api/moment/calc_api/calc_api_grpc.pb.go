@@ -26,6 +26,8 @@ type CalcServiceClient interface {
 	CalculateCap(ctx context.Context, in *CapRequest, opts ...grpc.CallOption) (*CapResponse, error)
 	CalculateFloat(ctx context.Context, in *FloatRequest, opts ...grpc.CallOption) (*FloatResponse, error)
 	CalculateDevCooling(ctx context.Context, in *DevCoolingRequest, opts ...grpc.CallOption) (*DevCoolingResponse, error)
+	CalculateGasCooling(ctx context.Context, in *GasCoolingRequest, opts ...grpc.CallOption) (*GasCoolingResponse, error)
+	CalculateExCircle(ctx context.Context, in *ExpressCircleRequest, opts ...grpc.CallOption) (*ExpressCircleResponse, error)
 }
 
 type calcServiceClient struct {
@@ -72,6 +74,24 @@ func (c *calcServiceClient) CalculateDevCooling(ctx context.Context, in *DevCool
 	return out, nil
 }
 
+func (c *calcServiceClient) CalculateGasCooling(ctx context.Context, in *GasCoolingRequest, opts ...grpc.CallOption) (*GasCoolingResponse, error) {
+	out := new(GasCoolingResponse)
+	err := c.cc.Invoke(ctx, "/calc_api.CalcService/CalculateGasCooling", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *calcServiceClient) CalculateExCircle(ctx context.Context, in *ExpressCircleRequest, opts ...grpc.CallOption) (*ExpressCircleResponse, error) {
+	out := new(ExpressCircleResponse)
+	err := c.cc.Invoke(ctx, "/calc_api.CalcService/CalculateExCircle", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CalcServiceServer is the server API for CalcService service.
 // All implementations must embed UnimplementedCalcServiceServer
 // for forward compatibility
@@ -80,6 +100,8 @@ type CalcServiceServer interface {
 	CalculateCap(context.Context, *CapRequest) (*CapResponse, error)
 	CalculateFloat(context.Context, *FloatRequest) (*FloatResponse, error)
 	CalculateDevCooling(context.Context, *DevCoolingRequest) (*DevCoolingResponse, error)
+	CalculateGasCooling(context.Context, *GasCoolingRequest) (*GasCoolingResponse, error)
+	CalculateExCircle(context.Context, *ExpressCircleRequest) (*ExpressCircleResponse, error)
 	mustEmbedUnimplementedCalcServiceServer()
 }
 
@@ -98,6 +120,12 @@ func (UnimplementedCalcServiceServer) CalculateFloat(context.Context, *FloatRequ
 }
 func (UnimplementedCalcServiceServer) CalculateDevCooling(context.Context, *DevCoolingRequest) (*DevCoolingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CalculateDevCooling not implemented")
+}
+func (UnimplementedCalcServiceServer) CalculateGasCooling(context.Context, *GasCoolingRequest) (*GasCoolingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CalculateGasCooling not implemented")
+}
+func (UnimplementedCalcServiceServer) CalculateExCircle(context.Context, *ExpressCircleRequest) (*ExpressCircleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CalculateExCircle not implemented")
 }
 func (UnimplementedCalcServiceServer) mustEmbedUnimplementedCalcServiceServer() {}
 
@@ -184,6 +212,42 @@ func _CalcService_CalculateDevCooling_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CalcService_CalculateGasCooling_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GasCoolingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CalcServiceServer).CalculateGasCooling(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/calc_api.CalcService/CalculateGasCooling",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CalcServiceServer).CalculateGasCooling(ctx, req.(*GasCoolingRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CalcService_CalculateExCircle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ExpressCircleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CalcServiceServer).CalculateExCircle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/calc_api.CalcService/CalculateExCircle",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CalcServiceServer).CalculateExCircle(ctx, req.(*ExpressCircleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CalcService_ServiceDesc is the grpc.ServiceDesc for CalcService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -206,6 +270,14 @@ var CalcService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CalculateDevCooling",
 			Handler:    _CalcService_CalculateDevCooling_Handler,
+		},
+		{
+			MethodName: "CalculateGasCooling",
+			Handler:    _CalcService_CalculateGasCooling_Handler,
+		},
+		{
+			MethodName: "CalculateExCircle",
+			Handler:    _CalcService_CalculateExCircle_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
