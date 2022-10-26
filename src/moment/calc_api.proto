@@ -8,6 +8,7 @@ import "moment/calc_api/cap_model.proto";
 import "moment/calc_api/float_model.proto";
 import "moment/calc_api/dev_cooling_model.proto";
 import "moment/calc_api/express_circle_model.proto";
+import "moment/calc_api/express_rectangle_model.proto";
 
 message FlangeRequest {
     enum Flanges {
@@ -270,6 +271,39 @@ message ExpressCircleResponse {
     express_circle_model.Formulas formulas = 5;
 }
 
+message ExpressRectangleRequeast {
+    enum TypeBolt {
+        bolt = 0;
+        pin = 1;
+    }
+    enum Condition {
+        uncontrollable = 0;
+        controllable = 1;
+        controllablePin = 2;
+    }
+
+    // Расчетное давление 
+    double pressure = 1;
+    // Пробное давление
+    double testPressure = 2;
+    // Тип соединения
+    TypeBolt typeBolt = 3;
+    // Условие затяжки
+    Condition condition = 4;
+    express_rectangle_model.BoltData bolts = 5;
+    express_rectangle_model.GasketData gasket = 6;
+
+    bool isNeedFormulas = 7;
+}
+
+message ExpressRectangleResponse {
+    express_rectangle_model.DataResult data = 1;
+    express_rectangle_model.BoltResult bolts = 2;
+    express_rectangle_model.GasketResult gasket = 3;
+    express_rectangle_model.Calculated calc = 4;
+    express_rectangle_model.Formulas formulas = 5;
+}
+
 service CalcService {
     rpc CalculateFlange (FlangeRequest) returns (FlangeResponse);
     rpc CalculateCap (CapRequest) returns (CapResponse);
@@ -277,4 +311,5 @@ service CalcService {
     rpc CalculateDevCooling (DevCoolingRequest) returns (DevCoolingResponse);
     rpc CalculateGasCooling (GasCoolingRequest) returns (GasCoolingResponse);
     rpc CalculateExCircle (ExpressCircleRequest) returns (ExpressCircleResponse);
+    rpc CalculateExRectangle (ExpressRectangleRequeast) returns (ExpressRectangleResponse);
 }

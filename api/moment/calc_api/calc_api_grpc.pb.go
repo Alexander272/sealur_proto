@@ -28,6 +28,7 @@ type CalcServiceClient interface {
 	CalculateDevCooling(ctx context.Context, in *DevCoolingRequest, opts ...grpc.CallOption) (*DevCoolingResponse, error)
 	CalculateGasCooling(ctx context.Context, in *GasCoolingRequest, opts ...grpc.CallOption) (*GasCoolingResponse, error)
 	CalculateExCircle(ctx context.Context, in *ExpressCircleRequest, opts ...grpc.CallOption) (*ExpressCircleResponse, error)
+	CalculateExRectangle(ctx context.Context, in *ExpressRectangleRequeast, opts ...grpc.CallOption) (*ExpressRectangleResponse, error)
 }
 
 type calcServiceClient struct {
@@ -92,6 +93,15 @@ func (c *calcServiceClient) CalculateExCircle(ctx context.Context, in *ExpressCi
 	return out, nil
 }
 
+func (c *calcServiceClient) CalculateExRectangle(ctx context.Context, in *ExpressRectangleRequeast, opts ...grpc.CallOption) (*ExpressRectangleResponse, error) {
+	out := new(ExpressRectangleResponse)
+	err := c.cc.Invoke(ctx, "/calc_api.CalcService/CalculateExRectangle", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CalcServiceServer is the server API for CalcService service.
 // All implementations must embed UnimplementedCalcServiceServer
 // for forward compatibility
@@ -102,6 +112,7 @@ type CalcServiceServer interface {
 	CalculateDevCooling(context.Context, *DevCoolingRequest) (*DevCoolingResponse, error)
 	CalculateGasCooling(context.Context, *GasCoolingRequest) (*GasCoolingResponse, error)
 	CalculateExCircle(context.Context, *ExpressCircleRequest) (*ExpressCircleResponse, error)
+	CalculateExRectangle(context.Context, *ExpressRectangleRequeast) (*ExpressRectangleResponse, error)
 	mustEmbedUnimplementedCalcServiceServer()
 }
 
@@ -126,6 +137,9 @@ func (UnimplementedCalcServiceServer) CalculateGasCooling(context.Context, *GasC
 }
 func (UnimplementedCalcServiceServer) CalculateExCircle(context.Context, *ExpressCircleRequest) (*ExpressCircleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CalculateExCircle not implemented")
+}
+func (UnimplementedCalcServiceServer) CalculateExRectangle(context.Context, *ExpressRectangleRequeast) (*ExpressRectangleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CalculateExRectangle not implemented")
 }
 func (UnimplementedCalcServiceServer) mustEmbedUnimplementedCalcServiceServer() {}
 
@@ -248,6 +262,24 @@ func _CalcService_CalculateExCircle_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CalcService_CalculateExRectangle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ExpressRectangleRequeast)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CalcServiceServer).CalculateExRectangle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/calc_api.CalcService/CalculateExRectangle",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CalcServiceServer).CalculateExRectangle(ctx, req.(*ExpressRectangleRequeast))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CalcService_ServiceDesc is the grpc.ServiceDesc for CalcService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -278,6 +310,10 @@ var CalcService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CalculateExCircle",
 			Handler:    _CalcService_CalculateExCircle_Handler,
+		},
+		{
+			MethodName: "CalculateExRectangle",
+			Handler:    _CalcService_CalculateExRectangle_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
