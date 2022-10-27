@@ -173,7 +173,7 @@ message CalcMoment {
 
 message Formulas {
     AuxiliaryFormulas auxiliary = 1;
-    ForcesInBoltsFormulas forsesInBolts = 2;
+    ForcesInBoltsFormulas forcesInBolts = 2;
     BoltsFormulas bolt = 3;
     MomentFormulas moment = 4;
 }
