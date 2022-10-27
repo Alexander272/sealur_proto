@@ -271,7 +271,7 @@ message ExpressCircleResponse {
     express_circle_model.Formulas formulas = 5;
 }
 
-message ExpressRectangleRequeast {
+message ExpressRectangleRequest {
     enum TypeBolt {
         bolt = 0;
         pin = 1;
@@ -311,5 +311,5 @@ service CalcService {
     rpc CalculateDevCooling (DevCoolingRequest) returns (DevCoolingResponse);
     rpc CalculateGasCooling (GasCoolingRequest) returns (GasCoolingResponse);
     rpc CalculateExCircle (ExpressCircleRequest) returns (ExpressCircleResponse);
-    rpc CalculateExRectangle (ExpressRectangleRequeast) returns (ExpressRectangleResponse);
+    rpc CalculateExRectangle (ExpressRectangleRequest) returns (ExpressRectangleResponse);
 }

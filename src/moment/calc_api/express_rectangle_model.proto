@@ -97,7 +97,7 @@ message GasketResult {
     double thickness = 3;
     // bп Ширина прокладки
     double width = 4;
-     // L2 - Размер прокладки в продольном направлении
+    // L2 - Размер прокладки в продольном направлении
     double sizeLong = 5;
     // B2 - Размер прокладки в поперечном направление
     double sizeTrans = 6;

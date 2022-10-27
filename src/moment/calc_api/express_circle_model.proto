@@ -118,7 +118,7 @@ message Condition {
 
 message Calculated {  
     CalcDeformation deformation = 1;
-    CalcForcesInBolts forsesInBolts = 2;
+    CalcForcesInBolts forcesInBolts = 2;
     CalcBolts bolt = 3;
     CalcMoment moment = 4;
 }
@@ -179,7 +179,7 @@ message CalcMoment {
 
 message Formulas {
     DeformationFormulas deformation = 1;
-    ForcesInBoltsFormulas forsesInBolts = 2;
+    ForcesInBoltsFormulas forcesInBolts = 2;
     BoltsFormulas bolt = 3;
     MomentFormulas moment = 4;
 }
