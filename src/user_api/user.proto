@@ -24,12 +24,11 @@ message GetUserRequest {
 
 message GetAllUserRequest {
     enum SearchField {
-        all = 0;
-        organization = 1;
-        city = 2;
-        login = 3;
-        name = 4;
-        email = 5;
+        organization = 0;
+        city = 1;
+        login = 2;
+        name = 3;
+        email = 4;
     }
 
     message Search {
@@ -91,6 +90,7 @@ message UserResponse {
 }
 message UsersResponse {
     repeated User users = 1;
+    int32 count = 2;
 }
 
 // Role Service ----------------------------------------------------------------------
