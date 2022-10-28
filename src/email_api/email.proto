@@ -82,6 +82,12 @@ message JoinUserRequest {
     repeated string services = 5;
 }
 
+// Blocked ------------------------------------------------
+message BlockedUserRequest {
+    string ip = 1;
+    string login = 2;
+}
+
 // TEST ---------------------------------------------------
 message SendTestRequest {
     enum Type {
@@ -90,6 +96,7 @@ message SendTestRequest {
         interview = 2;
         order = 3;
         reject = 4;
+        blocked = 5;
     }
 
     Type type = 1;
@@ -113,6 +120,9 @@ service EmailService {
     
     // Join --------------------------------------------------
     rpc SendJoin (JoinUserRequest) returns (SuccessResponse);
+
+    // Blocked ------------------------------------------------
+    rpc SendBlocked (BlockedUserRequest) returns (SuccessResponse);
 
     // TEST ---------------------------------------------------
     rpc SendTest (SendTestRequest) returns (SuccessResponse);

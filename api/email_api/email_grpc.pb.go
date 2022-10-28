@@ -33,6 +33,8 @@ type EmailServiceClient interface {
 	SendReject(ctx context.Context, in *RejectUserRequest, opts ...grpc.CallOption) (*SuccessResponse, error)
 	// Join --------------------------------------------------
 	SendJoin(ctx context.Context, in *JoinUserRequest, opts ...grpc.CallOption) (*SuccessResponse, error)
+	// Blocked ------------------------------------------------
+	SendBlocked(ctx context.Context, in *BlockedUserRequest, opts ...grpc.CallOption) (*SuccessResponse, error)
 	// TEST ---------------------------------------------------
 	SendTest(ctx context.Context, in *SendTestRequest, opts ...grpc.CallOption) (*SuccessResponse, error)
 }
@@ -149,6 +151,15 @@ func (c *emailServiceClient) SendJoin(ctx context.Context, in *JoinUserRequest, 
 	return out, nil
 }
 
+func (c *emailServiceClient) SendBlocked(ctx context.Context, in *BlockedUserRequest, opts ...grpc.CallOption) (*SuccessResponse, error) {
+	out := new(SuccessResponse)
+	err := c.cc.Invoke(ctx, "/email_api.EmailService/SendBlocked", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *emailServiceClient) SendTest(ctx context.Context, in *SendTestRequest, opts ...grpc.CallOption) (*SuccessResponse, error) {
 	out := new(SuccessResponse)
 	err := c.cc.Invoke(ctx, "/email_api.EmailService/SendTest", in, out, opts...)
@@ -173,6 +184,8 @@ type EmailServiceServer interface {
 	SendReject(context.Context, *RejectUserRequest) (*SuccessResponse, error)
 	// Join --------------------------------------------------
 	SendJoin(context.Context, *JoinUserRequest) (*SuccessResponse, error)
+	// Blocked ------------------------------------------------
+	SendBlocked(context.Context, *BlockedUserRequest) (*SuccessResponse, error)
 	// TEST ---------------------------------------------------
 	SendTest(context.Context, *SendTestRequest) (*SuccessResponse, error)
 	mustEmbedUnimplementedEmailServiceServer()
@@ -199,6 +212,9 @@ func (UnimplementedEmailServiceServer) SendReject(context.Context, *RejectUserRe
 }
 func (UnimplementedEmailServiceServer) SendJoin(context.Context, *JoinUserRequest) (*SuccessResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendJoin not implemented")
+}
+func (UnimplementedEmailServiceServer) SendBlocked(context.Context, *BlockedUserRequest) (*SuccessResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendBlocked not implemented")
 }
 func (UnimplementedEmailServiceServer) SendTest(context.Context, *SendTestRequest) (*SuccessResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendTest not implemented")
@@ -340,6 +356,24 @@ func _EmailService_SendJoin_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _EmailService_SendBlocked_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BlockedUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EmailServiceServer).SendBlocked(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/email_api.EmailService/SendBlocked",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EmailServiceServer).SendBlocked(ctx, req.(*BlockedUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _EmailService_SendTest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SendTestRequest)
 	if err := dec(in); err != nil {
@@ -380,6 +414,10 @@ var EmailService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SendJoin",
 			Handler:    _EmailService_SendJoin_Handler,
+		},
+		{
+			MethodName: "SendBlocked",
+			Handler:    _EmailService_SendBlocked_Handler,
 		},
 		{
 			MethodName: "SendTest",

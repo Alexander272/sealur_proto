@@ -22,7 +22,25 @@ message GetUserRequest {
     string password = 3;
 }
 
-message GetAllUserRequest {}
+message GetAllUserRequest {
+    enum SearchField {
+        all = 0;
+        organization = 1;
+        city = 2;
+        login = 3;
+        name = 4;
+        email = 5;
+    }
+
+    message Search {
+        repeated SearchField field = 1;
+        string value = 2;
+    }
+
+    int32 limit = 1;
+    int32 offset = 2;
+    Search search = 3;
+}
 message GetNewUserRequest {}
 
 message CreateUserRequest {
