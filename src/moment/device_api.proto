@@ -1,0 +1,262 @@
+syntax = "proto3";
+
+package device_api;
+option go_package = "github.com/Alexander272/sealur_proto/api/moment/device_api";
+
+import "moment/models/device_model.proto";
+
+message IdResponse {
+    string id = 1;
+}
+message Response {}
+
+
+// Device --------------------------------------------------------------
+message GetDeviceRequest {}
+message CreateDeviceRequest {
+    string title = 1;
+}
+message CreateFewDeviceRequest {
+    repeated CreateDeviceRequest divices = 1;
+}
+message UpdateDeviceRequest {
+    string id = 1;
+    string title = 2;
+}
+message DeleteDeviceRequest {
+    string id = 1;
+}
+
+message DeviceResponse {
+    repeated device_model.Device devices = 1;
+}
+
+// Pressure -------------------------------------------------------------
+message GetPressureRequest {}
+message CreatePressureRequest {
+    double value = 1;
+}
+message CreateFewPressureRequest {
+    repeated CreatePressureRequest pressure = 1;
+}
+message UpdatePressureRequest {
+    string id = 1;
+    double value = 2; 
+}
+message DeletePressureRequest {
+    string id = 1;
+}
+
+message PressureResponse {
+    repeated device_model.Pressure pressures = 1;
+}
+
+// TubeCount -------------------------------------------------------------
+message GetTubeCountRequest {}
+message CreateTubeCountRequest {
+    int32 value = 1;
+}
+message CreateFewTubeCountRequest {
+    repeated CreateTubeCountRequest tubeCount = 1;
+}
+message UpdateTubeCountRequest {
+    string id = 1;
+    int32 value = 2;
+}
+message DeleteTubeCountRequest {
+    string id = 1;
+}
+
+message TubeCountResponse {
+    repeated device_model.TubeCount tubeCount = 1;
+}
+
+// FinningFactor -----------------------------------------------------------
+message GetFinningFactorRequest {
+    string devId = 1;   
+}
+message CreateFinningFactorRequest {
+    string devId = 1;
+    string value = 2;
+}
+message CreateFewFinningFactorRequest {
+    repeated CreateFinningFactorRequest finnigFactor = 1;
+}
+message UpdateFinningFactorRequest {
+    string id = 1;
+    string devId = 2;
+    string value = 3;
+}
+message DeleteFinningFactorRequest {
+    string id = 1;
+}
+
+message FinningFactorResponse {
+    repeated device_model.FinningFactor finning = 1;
+}
+
+// SectionExecution ---------------------------------------------------------
+message GetSectionExecutionRequest {
+    string devId = 1;
+}
+message CreateSectionExecutionRequest {
+    string devId = 1;
+    string value = 2;
+}
+message CreateFewSectionExecutionRequest {
+    repeated CreateSectionExecutionRequest section = 1;
+}
+message UpdateSectionExecutionRequest {
+    string id = 1;
+    string devId = 2;
+    string value = 3;
+}
+message DeleteSectionExecutionRequest {
+    string id = 1;
+}
+
+message SectionExecutionResponse {
+    repeated device_model.SectionExecution section = 1;
+}
+
+// TubeLenght ---------------------------------------------------------------
+message GetTubeLenghtRequest {
+    string devId = 1;
+}
+message CreateTubeLenghtRequest {
+    string devId = 1;
+    string value = 2;
+}
+message CreateFewTubeLenghtRequest {
+    repeated CreateTubeLenghtRequest tubeLenght = 1;
+}
+message UpdateTubeLenghtRequest {
+    string id = 1;
+    string devId = 2;
+    string value = 3;
+}
+message DeleteTubeLenghtRequest {
+    string id = 1;
+}
+
+message TubeLenghtResponse {
+    repeated device_model.TubeLenght tubeLenght = 1;
+}
+
+// NumberOfMoves ------------------------------------------------------------
+message GetNumberOfMovesRequest {
+    string devId = 1;
+}
+message CreateNumberOfMovesRequest {
+    string devId = 1;
+    string countId = 2;
+    string value = 3;
+}
+message CreateFewNumberOfMovesRequest {
+    repeated CreateNumberOfMovesRequest number = 1;
+}
+message UpdateNumberOfMovesRequest {
+    string id = 1;
+    string devId = 2;
+    string countId = 3;
+    string value = 4;
+}
+message DeleteNumberOfMovesRequest {
+    string id = 1;
+}
+
+message NumberOfMovesResponse {
+    repeated device_model.NumberOfMoves number = 1;
+}
+
+// NameGasket ---------------------------------------------------------------
+message GetNameGasketRequest {
+    string finId = 1;
+}
+message CreateNameGasketRequest {
+    string finId = 1;
+    string numId = 2;
+    string presId = 3;
+    string title = 4;
+    double sizeLong = 5;
+    double sizeTrans = 6;
+    double width = 7;
+    double thick1 = 8;
+    double thick2 = 9;
+    double thick3 = 10;
+    double thick4 = 11;
+}
+message CreateFewNameGasketRequest {
+    repeated CreateNameGasketRequest gasket = 1;
+}
+message UpdateNameGasketRequest {
+    string id = 1;
+    string finId = 2;
+    string numId = 3;
+    string presId = 4;
+    string title = 5;
+    double sizeLong = 6;
+    double sizeTrans = 7;
+    double width = 8;
+    double thick1 = 9;
+    double thick2 = 10;
+    double thick3 = 11;
+    double thick4 = 12;
+}
+message DeleteNameGasketRequest {
+    string id = 1;
+}
+
+message NameGasketResponse {
+    repeated device_model.NameGasket gasket = 1;
+}
+
+service DeviceService {
+    rpc GetDevice (GetDeviceRequest) returns (DeviceResponse);
+    rpc CreateDevice (CreateDeviceRequest) returns (IdResponse);
+    rpc CreateFewDevice (CreateFewDeviceRequest) returns (Response);
+    rpc UpdateDevice (UpdateDeviceRequest) returns (Response);
+    rpc DeleteDevice (DeleteDeviceRequest) returns (Response);
+
+    rpc GetPressure (GetPressureRequest) returns (PressureResponse);
+    rpc CreatePressure (CreatePressureRequest) returns (IdResponse);
+    rpc CreateFewPressure (CreateFewPressureRequest) returns (Response);
+    rpc UpdatePressure (UpdatePressureRequest) returns (Response);
+    rpc DeletePressure (DeletePressureRequest) returns (Response);
+
+    rpc GetTubeCount (GetTubeCountRequest) returns (TubeCountResponse);
+    rpc CreateTubeCount (CreateTubeCountRequest) returns (IdResponse);
+    rpc CreateFewTubeCount (CreateFewTubeCountRequest) returns (Response);
+    rpc UpdateTubeCount (UpdateTubeCountRequest) returns (Response);
+    rpc DeleteTubeCount (DeleteTubeCountRequest) returns (Response);
+
+    rpc GetFinningFactor (GetFinningFactorRequest) returns (FinningFactorResponse);
+    rpc CreateFinnigFactor (CreateFinningFactorRequest) returns (IdResponse);
+    rpc CreateFewFinningFactor (CreateFewFinningFactorRequest) returns (Response);
+    rpc UpdateFinnigFactor (UpdateFinningFactorRequest) returns (Response);
+    rpc DeleteFinnigFactor (DeleteFinningFactorRequest) returns (Response);
+
+    rpc GetSectionExecution (GetSectionExecutionRequest) returns (SectionExecutionResponse);
+    rpc CreateSectionExecution (CreateSectionExecutionRequest) returns (IdResponse);
+    rpc CreateFewSectionExecution (CreateFewSectionExecutionRequest) returns (Response);
+    rpc UpdateSectionExecution (UpdateSectionExecutionRequest) returns (Response);
+    rpc DeleteSectionExecution (DeleteSectionExecutionRequest) returns (Response);
+
+    rpc GetTubeLenght (GetTubeLenghtRequest) returns (TubeLenghtResponse);
+    rpc CreateTubeLenght (CreateTubeLenghtRequest) returns (IdResponse);
+    rpc CreateFewTubeLenght (CreateFewTubeLenghtRequest) returns (Response);
+    rpc UpdateTubeLenght (UpdateTubeLenghtRequest) returns (Response);
+    rpc DeleteTubeLenght (DeleteTubeLenghtRequest) returns (Response);
+
+    rpc GetNumberOfMoves (GetNumberOfMovesRequest) returns (NumberOfMovesResponse);
+    rpc CreateNumberOfMoves (CreateNumberOfMovesRequest) returns (IdResponse);
+    rpc CreateFewNumberOfMoves (CreateFewNumberOfMovesRequest) returns (Response);
+    rpc UpdateNumberOfMoves (UpdateNumberOfMovesRequest) returns (Response);
+    rpc DeleteNumberOfMoves (DeleteNumberOfMovesRequest) returns (Response);
+
+    rpc GetNameGasket (GetNameGasketRequest) returns (NameGasketResponse);
+    rpc CreateNameGasket (CreateNameGasketRequest) returns (IdResponse);
+    rpc CreateFewNameGasket (CreateFewNameGasketRequest) returns (Response);
+    rpc UpdateNameGasket (UpdateNameGasketRequest) returns (Response);
+    rpc DeleteNameGasket (DeleteNameGasketRequest) returns (Response);
+}
