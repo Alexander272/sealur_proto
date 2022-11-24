@@ -47,17 +47,19 @@ type DeviceServiceClient interface {
 	CreateFewSectionExecution(ctx context.Context, in *CreateFewSectionExecutionRequest, opts ...grpc.CallOption) (*Response, error)
 	UpdateSectionExecution(ctx context.Context, in *UpdateSectionExecutionRequest, opts ...grpc.CallOption) (*Response, error)
 	DeleteSectionExecution(ctx context.Context, in *DeleteSectionExecutionRequest, opts ...grpc.CallOption) (*Response, error)
-	GetTubeLenght(ctx context.Context, in *GetTubeLenghtRequest, opts ...grpc.CallOption) (*TubeLenghtResponse, error)
-	CreateTubeLenght(ctx context.Context, in *CreateTubeLenghtRequest, opts ...grpc.CallOption) (*IdResponse, error)
-	CreateFewTubeLenght(ctx context.Context, in *CreateFewTubeLenghtRequest, opts ...grpc.CallOption) (*Response, error)
-	UpdateTubeLenght(ctx context.Context, in *UpdateTubeLenghtRequest, opts ...grpc.CallOption) (*Response, error)
-	DeleteTubeLenght(ctx context.Context, in *DeleteTubeLenghtRequest, opts ...grpc.CallOption) (*Response, error)
+	GetTubeLength(ctx context.Context, in *GetTubeLengthRequest, opts ...grpc.CallOption) (*TubeLengthResponse, error)
+	CreateTubeLength(ctx context.Context, in *CreateTubeLengthRequest, opts ...grpc.CallOption) (*IdResponse, error)
+	CreateFewTubeLength(ctx context.Context, in *CreateFewTubeLengthRequest, opts ...grpc.CallOption) (*Response, error)
+	UpdateTubeLength(ctx context.Context, in *UpdateTubeLengthRequest, opts ...grpc.CallOption) (*Response, error)
+	DeleteTubeLength(ctx context.Context, in *DeleteTubeLengthRequest, opts ...grpc.CallOption) (*Response, error)
 	GetNumberOfMoves(ctx context.Context, in *GetNumberOfMovesRequest, opts ...grpc.CallOption) (*NumberOfMovesResponse, error)
 	CreateNumberOfMoves(ctx context.Context, in *CreateNumberOfMovesRequest, opts ...grpc.CallOption) (*IdResponse, error)
 	CreateFewNumberOfMoves(ctx context.Context, in *CreateFewNumberOfMovesRequest, opts ...grpc.CallOption) (*Response, error)
 	UpdateNumberOfMoves(ctx context.Context, in *UpdateNumberOfMovesRequest, opts ...grpc.CallOption) (*Response, error)
 	DeleteNumberOfMoves(ctx context.Context, in *DeleteNumberOfMovesRequest, opts ...grpc.CallOption) (*Response, error)
 	GetNameGasket(ctx context.Context, in *GetNameGasketRequest, opts ...grpc.CallOption) (*NameGasketResponse, error)
+	GetFullNameGasket(ctx context.Context, in *GetFullNameGasketRequest, opts ...grpc.CallOption) (*FullNameGasketResponse, error)
+	GetNameGasketSize(ctx context.Context, in *GetNameGasketSizeRequest, opts ...grpc.CallOption) (*NameGasketSizeResponse, error)
 	CreateNameGasket(ctx context.Context, in *CreateNameGasketRequest, opts ...grpc.CallOption) (*IdResponse, error)
 	CreateFewNameGasket(ctx context.Context, in *CreateFewNameGasketRequest, opts ...grpc.CallOption) (*Response, error)
 	UpdateNameGasket(ctx context.Context, in *UpdateNameGasketRequest, opts ...grpc.CallOption) (*Response, error)
@@ -297,45 +299,45 @@ func (c *deviceServiceClient) DeleteSectionExecution(ctx context.Context, in *De
 	return out, nil
 }
 
-func (c *deviceServiceClient) GetTubeLenght(ctx context.Context, in *GetTubeLenghtRequest, opts ...grpc.CallOption) (*TubeLenghtResponse, error) {
-	out := new(TubeLenghtResponse)
-	err := c.cc.Invoke(ctx, "/device_api.DeviceService/GetTubeLenght", in, out, opts...)
+func (c *deviceServiceClient) GetTubeLength(ctx context.Context, in *GetTubeLengthRequest, opts ...grpc.CallOption) (*TubeLengthResponse, error) {
+	out := new(TubeLengthResponse)
+	err := c.cc.Invoke(ctx, "/device_api.DeviceService/GetTubeLength", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *deviceServiceClient) CreateTubeLenght(ctx context.Context, in *CreateTubeLenghtRequest, opts ...grpc.CallOption) (*IdResponse, error) {
+func (c *deviceServiceClient) CreateTubeLength(ctx context.Context, in *CreateTubeLengthRequest, opts ...grpc.CallOption) (*IdResponse, error) {
 	out := new(IdResponse)
-	err := c.cc.Invoke(ctx, "/device_api.DeviceService/CreateTubeLenght", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/device_api.DeviceService/CreateTubeLength", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *deviceServiceClient) CreateFewTubeLenght(ctx context.Context, in *CreateFewTubeLenghtRequest, opts ...grpc.CallOption) (*Response, error) {
+func (c *deviceServiceClient) CreateFewTubeLength(ctx context.Context, in *CreateFewTubeLengthRequest, opts ...grpc.CallOption) (*Response, error) {
 	out := new(Response)
-	err := c.cc.Invoke(ctx, "/device_api.DeviceService/CreateFewTubeLenght", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/device_api.DeviceService/CreateFewTubeLength", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *deviceServiceClient) UpdateTubeLenght(ctx context.Context, in *UpdateTubeLenghtRequest, opts ...grpc.CallOption) (*Response, error) {
+func (c *deviceServiceClient) UpdateTubeLength(ctx context.Context, in *UpdateTubeLengthRequest, opts ...grpc.CallOption) (*Response, error) {
 	out := new(Response)
-	err := c.cc.Invoke(ctx, "/device_api.DeviceService/UpdateTubeLenght", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/device_api.DeviceService/UpdateTubeLength", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *deviceServiceClient) DeleteTubeLenght(ctx context.Context, in *DeleteTubeLenghtRequest, opts ...grpc.CallOption) (*Response, error) {
+func (c *deviceServiceClient) DeleteTubeLength(ctx context.Context, in *DeleteTubeLengthRequest, opts ...grpc.CallOption) (*Response, error) {
 	out := new(Response)
-	err := c.cc.Invoke(ctx, "/device_api.DeviceService/DeleteTubeLenght", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/device_api.DeviceService/DeleteTubeLength", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -390,6 +392,24 @@ func (c *deviceServiceClient) DeleteNumberOfMoves(ctx context.Context, in *Delet
 func (c *deviceServiceClient) GetNameGasket(ctx context.Context, in *GetNameGasketRequest, opts ...grpc.CallOption) (*NameGasketResponse, error) {
 	out := new(NameGasketResponse)
 	err := c.cc.Invoke(ctx, "/device_api.DeviceService/GetNameGasket", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *deviceServiceClient) GetFullNameGasket(ctx context.Context, in *GetFullNameGasketRequest, opts ...grpc.CallOption) (*FullNameGasketResponse, error) {
+	out := new(FullNameGasketResponse)
+	err := c.cc.Invoke(ctx, "/device_api.DeviceService/GetFullNameGasket", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *deviceServiceClient) GetNameGasketSize(ctx context.Context, in *GetNameGasketSizeRequest, opts ...grpc.CallOption) (*NameGasketSizeResponse, error) {
+	out := new(NameGasketSizeResponse)
+	err := c.cc.Invoke(ctx, "/device_api.DeviceService/getNameGasketSize", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -461,17 +481,19 @@ type DeviceServiceServer interface {
 	CreateFewSectionExecution(context.Context, *CreateFewSectionExecutionRequest) (*Response, error)
 	UpdateSectionExecution(context.Context, *UpdateSectionExecutionRequest) (*Response, error)
 	DeleteSectionExecution(context.Context, *DeleteSectionExecutionRequest) (*Response, error)
-	GetTubeLenght(context.Context, *GetTubeLenghtRequest) (*TubeLenghtResponse, error)
-	CreateTubeLenght(context.Context, *CreateTubeLenghtRequest) (*IdResponse, error)
-	CreateFewTubeLenght(context.Context, *CreateFewTubeLenghtRequest) (*Response, error)
-	UpdateTubeLenght(context.Context, *UpdateTubeLenghtRequest) (*Response, error)
-	DeleteTubeLenght(context.Context, *DeleteTubeLenghtRequest) (*Response, error)
+	GetTubeLength(context.Context, *GetTubeLengthRequest) (*TubeLengthResponse, error)
+	CreateTubeLength(context.Context, *CreateTubeLengthRequest) (*IdResponse, error)
+	CreateFewTubeLength(context.Context, *CreateFewTubeLengthRequest) (*Response, error)
+	UpdateTubeLength(context.Context, *UpdateTubeLengthRequest) (*Response, error)
+	DeleteTubeLength(context.Context, *DeleteTubeLengthRequest) (*Response, error)
 	GetNumberOfMoves(context.Context, *GetNumberOfMovesRequest) (*NumberOfMovesResponse, error)
 	CreateNumberOfMoves(context.Context, *CreateNumberOfMovesRequest) (*IdResponse, error)
 	CreateFewNumberOfMoves(context.Context, *CreateFewNumberOfMovesRequest) (*Response, error)
 	UpdateNumberOfMoves(context.Context, *UpdateNumberOfMovesRequest) (*Response, error)
 	DeleteNumberOfMoves(context.Context, *DeleteNumberOfMovesRequest) (*Response, error)
 	GetNameGasket(context.Context, *GetNameGasketRequest) (*NameGasketResponse, error)
+	GetFullNameGasket(context.Context, *GetFullNameGasketRequest) (*FullNameGasketResponse, error)
+	GetNameGasketSize(context.Context, *GetNameGasketSizeRequest) (*NameGasketSizeResponse, error)
 	CreateNameGasket(context.Context, *CreateNameGasketRequest) (*IdResponse, error)
 	CreateFewNameGasket(context.Context, *CreateFewNameGasketRequest) (*Response, error)
 	UpdateNameGasket(context.Context, *UpdateNameGasketRequest) (*Response, error)
@@ -558,20 +580,20 @@ func (UnimplementedDeviceServiceServer) UpdateSectionExecution(context.Context, 
 func (UnimplementedDeviceServiceServer) DeleteSectionExecution(context.Context, *DeleteSectionExecutionRequest) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteSectionExecution not implemented")
 }
-func (UnimplementedDeviceServiceServer) GetTubeLenght(context.Context, *GetTubeLenghtRequest) (*TubeLenghtResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetTubeLenght not implemented")
+func (UnimplementedDeviceServiceServer) GetTubeLength(context.Context, *GetTubeLengthRequest) (*TubeLengthResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTubeLength not implemented")
 }
-func (UnimplementedDeviceServiceServer) CreateTubeLenght(context.Context, *CreateTubeLenghtRequest) (*IdResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateTubeLenght not implemented")
+func (UnimplementedDeviceServiceServer) CreateTubeLength(context.Context, *CreateTubeLengthRequest) (*IdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateTubeLength not implemented")
 }
-func (UnimplementedDeviceServiceServer) CreateFewTubeLenght(context.Context, *CreateFewTubeLenghtRequest) (*Response, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateFewTubeLenght not implemented")
+func (UnimplementedDeviceServiceServer) CreateFewTubeLength(context.Context, *CreateFewTubeLengthRequest) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateFewTubeLength not implemented")
 }
-func (UnimplementedDeviceServiceServer) UpdateTubeLenght(context.Context, *UpdateTubeLenghtRequest) (*Response, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateTubeLenght not implemented")
+func (UnimplementedDeviceServiceServer) UpdateTubeLength(context.Context, *UpdateTubeLengthRequest) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateTubeLength not implemented")
 }
-func (UnimplementedDeviceServiceServer) DeleteTubeLenght(context.Context, *DeleteTubeLenghtRequest) (*Response, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteTubeLenght not implemented")
+func (UnimplementedDeviceServiceServer) DeleteTubeLength(context.Context, *DeleteTubeLengthRequest) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteTubeLength not implemented")
 }
 func (UnimplementedDeviceServiceServer) GetNumberOfMoves(context.Context, *GetNumberOfMovesRequest) (*NumberOfMovesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNumberOfMoves not implemented")
@@ -590,6 +612,12 @@ func (UnimplementedDeviceServiceServer) DeleteNumberOfMoves(context.Context, *De
 }
 func (UnimplementedDeviceServiceServer) GetNameGasket(context.Context, *GetNameGasketRequest) (*NameGasketResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNameGasket not implemented")
+}
+func (UnimplementedDeviceServiceServer) GetFullNameGasket(context.Context, *GetFullNameGasketRequest) (*FullNameGasketResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetFullNameGasket not implemented")
+}
+func (UnimplementedDeviceServiceServer) GetNameGasketSize(context.Context, *GetNameGasketSizeRequest) (*NameGasketSizeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetNameGasketSize not implemented")
 }
 func (UnimplementedDeviceServiceServer) CreateNameGasket(context.Context, *CreateNameGasketRequest) (*IdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateNameGasket not implemented")
@@ -1066,92 +1094,92 @@ func _DeviceService_DeleteSectionExecution_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DeviceService_GetTubeLenght_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetTubeLenghtRequest)
+func _DeviceService_GetTubeLength_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTubeLengthRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DeviceServiceServer).GetTubeLenght(ctx, in)
+		return srv.(DeviceServiceServer).GetTubeLength(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/device_api.DeviceService/GetTubeLenght",
+		FullMethod: "/device_api.DeviceService/GetTubeLength",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeviceServiceServer).GetTubeLenght(ctx, req.(*GetTubeLenghtRequest))
+		return srv.(DeviceServiceServer).GetTubeLength(ctx, req.(*GetTubeLengthRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DeviceService_CreateTubeLenght_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateTubeLenghtRequest)
+func _DeviceService_CreateTubeLength_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateTubeLengthRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DeviceServiceServer).CreateTubeLenght(ctx, in)
+		return srv.(DeviceServiceServer).CreateTubeLength(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/device_api.DeviceService/CreateTubeLenght",
+		FullMethod: "/device_api.DeviceService/CreateTubeLength",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeviceServiceServer).CreateTubeLenght(ctx, req.(*CreateTubeLenghtRequest))
+		return srv.(DeviceServiceServer).CreateTubeLength(ctx, req.(*CreateTubeLengthRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DeviceService_CreateFewTubeLenght_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateFewTubeLenghtRequest)
+func _DeviceService_CreateFewTubeLength_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateFewTubeLengthRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DeviceServiceServer).CreateFewTubeLenght(ctx, in)
+		return srv.(DeviceServiceServer).CreateFewTubeLength(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/device_api.DeviceService/CreateFewTubeLenght",
+		FullMethod: "/device_api.DeviceService/CreateFewTubeLength",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeviceServiceServer).CreateFewTubeLenght(ctx, req.(*CreateFewTubeLenghtRequest))
+		return srv.(DeviceServiceServer).CreateFewTubeLength(ctx, req.(*CreateFewTubeLengthRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DeviceService_UpdateTubeLenght_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateTubeLenghtRequest)
+func _DeviceService_UpdateTubeLength_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateTubeLengthRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DeviceServiceServer).UpdateTubeLenght(ctx, in)
+		return srv.(DeviceServiceServer).UpdateTubeLength(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/device_api.DeviceService/UpdateTubeLenght",
+		FullMethod: "/device_api.DeviceService/UpdateTubeLength",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeviceServiceServer).UpdateTubeLenght(ctx, req.(*UpdateTubeLenghtRequest))
+		return srv.(DeviceServiceServer).UpdateTubeLength(ctx, req.(*UpdateTubeLengthRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DeviceService_DeleteTubeLenght_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteTubeLenghtRequest)
+func _DeviceService_DeleteTubeLength_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteTubeLengthRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DeviceServiceServer).DeleteTubeLenght(ctx, in)
+		return srv.(DeviceServiceServer).DeleteTubeLength(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/device_api.DeviceService/DeleteTubeLenght",
+		FullMethod: "/device_api.DeviceService/DeleteTubeLength",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeviceServiceServer).DeleteTubeLenght(ctx, req.(*DeleteTubeLenghtRequest))
+		return srv.(DeviceServiceServer).DeleteTubeLength(ctx, req.(*DeleteTubeLengthRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1260,6 +1288,42 @@ func _DeviceService_GetNameGasket_Handler(srv interface{}, ctx context.Context, 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DeviceServiceServer).GetNameGasket(ctx, req.(*GetNameGasketRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DeviceService_GetFullNameGasket_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetFullNameGasketRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DeviceServiceServer).GetFullNameGasket(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/device_api.DeviceService/GetFullNameGasket",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DeviceServiceServer).GetFullNameGasket(ctx, req.(*GetFullNameGasketRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DeviceService_GetNameGasketSize_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetNameGasketSizeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DeviceServiceServer).GetNameGasketSize(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/device_api.DeviceService/getNameGasketSize",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DeviceServiceServer).GetNameGasketSize(ctx, req.(*GetNameGasketSizeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1444,24 +1508,24 @@ var DeviceService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DeviceService_DeleteSectionExecution_Handler,
 		},
 		{
-			MethodName: "GetTubeLenght",
-			Handler:    _DeviceService_GetTubeLenght_Handler,
+			MethodName: "GetTubeLength",
+			Handler:    _DeviceService_GetTubeLength_Handler,
 		},
 		{
-			MethodName: "CreateTubeLenght",
-			Handler:    _DeviceService_CreateTubeLenght_Handler,
+			MethodName: "CreateTubeLength",
+			Handler:    _DeviceService_CreateTubeLength_Handler,
 		},
 		{
-			MethodName: "CreateFewTubeLenght",
-			Handler:    _DeviceService_CreateFewTubeLenght_Handler,
+			MethodName: "CreateFewTubeLength",
+			Handler:    _DeviceService_CreateFewTubeLength_Handler,
 		},
 		{
-			MethodName: "UpdateTubeLenght",
-			Handler:    _DeviceService_UpdateTubeLenght_Handler,
+			MethodName: "UpdateTubeLength",
+			Handler:    _DeviceService_UpdateTubeLength_Handler,
 		},
 		{
-			MethodName: "DeleteTubeLenght",
-			Handler:    _DeviceService_DeleteTubeLenght_Handler,
+			MethodName: "DeleteTubeLength",
+			Handler:    _DeviceService_DeleteTubeLength_Handler,
 		},
 		{
 			MethodName: "GetNumberOfMoves",
@@ -1486,6 +1550,14 @@ var DeviceService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetNameGasket",
 			Handler:    _DeviceService_GetNameGasket_Handler,
+		},
+		{
+			MethodName: "GetFullNameGasket",
+			Handler:    _DeviceService_GetFullNameGasket_Handler,
+		},
+		{
+			MethodName: "getNameGasketSize",
+			Handler:    _DeviceService_GetNameGasketSize_Handler,
 		},
 		{
 			MethodName: "CreateNameGasket",

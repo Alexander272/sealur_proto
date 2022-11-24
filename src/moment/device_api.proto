@@ -119,28 +119,28 @@ message SectionExecutionResponse {
     repeated device_model.SectionExecution section = 1;
 }
 
-// TubeLenght ---------------------------------------------------------------
-message GetTubeLenghtRequest {
+// TubeLength ---------------------------------------------------------------
+message GetTubeLengthRequest {
     string devId = 1;
 }
-message CreateTubeLenghtRequest {
+message CreateTubeLengthRequest {
     string devId = 1;
     string value = 2;
 }
-message CreateFewTubeLenghtRequest {
-    repeated CreateTubeLenghtRequest tubeLenght = 1;
+message CreateFewTubeLengthRequest {
+    repeated CreateTubeLengthRequest tubeLength = 1;
 }
-message UpdateTubeLenghtRequest {
+message UpdateTubeLengthRequest {
     string id = 1;
     string devId = 2;
     string value = 3;
 }
-message DeleteTubeLenghtRequest {
+message DeleteTubeLengthRequest {
     string id = 1;
 }
 
-message TubeLenghtResponse {
-    repeated device_model.TubeLenght tubeLenght = 1;
+message TubeLengthResponse {
+    repeated device_model.TubeLength tubeLength = 1;
 }
 
 // NumberOfMoves ------------------------------------------------------------
@@ -172,6 +172,12 @@ message NumberOfMovesResponse {
 // NameGasket ---------------------------------------------------------------
 message GetNameGasketRequest {
     string finId = 1;
+}
+message GetFullNameGasketRequest {
+    string finId = 1;
+}
+message GetNameGasketSizeRequest {
+    string id = 1;
 }
 message CreateNameGasketRequest {
     string finId = 1;
@@ -210,6 +216,12 @@ message DeleteNameGasketRequest {
 message NameGasketResponse {
     repeated device_model.NameGasket gasket = 1;
 }
+message NameGasketSizeResponse {
+    repeated device_model.NameGasketSize gasket = 1;
+}
+message FullNameGasketResponse {
+    repeated device_model.FullNameGasket gasket = 1;
+}
 
 service DeviceService {
     rpc GetDevice (GetDeviceRequest) returns (DeviceResponse);
@@ -242,11 +254,11 @@ service DeviceService {
     rpc UpdateSectionExecution (UpdateSectionExecutionRequest) returns (Response);
     rpc DeleteSectionExecution (DeleteSectionExecutionRequest) returns (Response);
 
-    rpc GetTubeLenght (GetTubeLenghtRequest) returns (TubeLenghtResponse);
-    rpc CreateTubeLenght (CreateTubeLenghtRequest) returns (IdResponse);
-    rpc CreateFewTubeLenght (CreateFewTubeLenghtRequest) returns (Response);
-    rpc UpdateTubeLenght (UpdateTubeLenghtRequest) returns (Response);
-    rpc DeleteTubeLenght (DeleteTubeLenghtRequest) returns (Response);
+    rpc GetTubeLength (GetTubeLengthRequest) returns (TubeLengthResponse);
+    rpc CreateTubeLength (CreateTubeLengthRequest) returns (IdResponse);
+    rpc CreateFewTubeLength (CreateFewTubeLengthRequest) returns (Response);
+    rpc UpdateTubeLength (UpdateTubeLengthRequest) returns (Response);
+    rpc DeleteTubeLength (DeleteTubeLengthRequest) returns (Response);
 
     rpc GetNumberOfMoves (GetNumberOfMovesRequest) returns (NumberOfMovesResponse);
     rpc CreateNumberOfMoves (CreateNumberOfMovesRequest) returns (IdResponse);
@@ -255,6 +267,8 @@ service DeviceService {
     rpc DeleteNumberOfMoves (DeleteNumberOfMovesRequest) returns (Response);
 
     rpc GetNameGasket (GetNameGasketRequest) returns (NameGasketResponse);
+    rpc GetFullNameGasket (GetFullNameGasketRequest) returns (FullNameGasketResponse);
+    rpc getNameGasketSize (GetNameGasketSizeRequest) returns (NameGasketSizeResponse);
     rpc CreateNameGasket (CreateNameGasketRequest) returns (IdResponse);
     rpc CreateFewNameGasket (CreateFewNameGasketRequest) returns (Response);
     rpc UpdateNameGasket (UpdateNameGasketRequest) returns (Response);

@@ -30,7 +30,7 @@ message SectionExecution {
     string value = 3;
 }
 
-message TubeLenght {
+message TubeLength {
     string id = 1;
     string devId = 2;
     string value = 3;
@@ -44,6 +44,25 @@ message NumberOfMoves {
 }
 
 message NameGasket {
+    string id = 1;
+    string finId = 2;
+    string numId = 3;
+    string presId = 4;
+    string title = 5;
+}
+
+message NameGasketSize {
+    string id = 1;
+    double sizeLong = 2;
+    double sizeTrans = 3;
+    double width = 4;
+    double thick1 = 5;
+    double thick2 = 6;
+    double thick3 = 7;
+    double thick4 = 8;
+}
+
+message FullNameGasket {
     string id = 1;
     string finId = 2;
     string numId = 3;

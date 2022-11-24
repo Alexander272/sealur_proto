@@ -12,58 +12,114 @@ import "moment/calc_api/express_rectangle_model.proto";
 
 message FlangeRequest {
     enum Flanges {
+        // Изолированные фланцы
         isolated = 0;
+        // Неизолированные фланцы
         nonIsolated = 1;
+        // Задается вручную
         manually = 2;
     }
 
     enum Type {
+        // Болт
         bolt = 0;
+        // Шпилька
         pin = 1;
     }
 
     enum Condition {
+        // Неконтролируемая затяжка
         uncontrollable = 0;
+        // Контроль по крутящему моменту
         controllable = 1;
+        // Контроль по вытяжке шпилек
         controllablePin = 2;
     }
 
     enum Calcutation {
+        // Расчет основных величин
         basis = 0;
+        // Прочностной
         strength = 1;
     }
 
+    // Расчетное давление
     double pressure = 1;
+    // Внешняя осевая сила
     int32 axialForce = 2;
+    // Внешний изгибающий момент
     int32 bendingMoment = 3;
+    // Расчетная температура
     double temp = 4;
+    // Условия работы (true - рабочие, false - испытания)
     bool isWork = 5;
+    // Температура элементов фланцевого соединения
     Flanges flanges = 6;
+    // Одинаковые фланцы
     bool isSameFlange = 7;
+    // Закладная деталь
     bool isEmbedded = 8;
+    // Тип соединения
     Type type = 9;
+    // Условие затяжки
     Condition condition = 10;
+    // Расчет
     Calcutation calculation = 11;
 
+    // Исходные данные для первого фланца
     repeated flange_model.FlangeData flangesData = 12;
+    // Исходные данные для болт/шпилька
     flange_model.BoltData bolts = 13;
+    // Исходные данные прокладки
     flange_model.GasketData gasket = 14;
+    // Исходные данные для закладной детали
     flange_model.EmbedData embed = 15;
+    // Наличие шайб
     bool isUseWasher = 16;
+    // Исходные данные для шайб
     repeated flange_model.WasherData washer = 17; 
 
+    // Выводить ли формулы
     bool isNeedFormulas = 18;
 }
 
 message FlangeResponse {
-    bool isSameFlange = 1;
+    // Исходные данные для расчета
+    flange_model.DataResult data = 1;
+    // Исходные данные для фланцев
     repeated flange_model.FlangeResult flanges = 2;
+    // Исходные данные для болт/шпилька
     flange_model.BoltResult bolt = 3;
+    // Исходные данные прокладки
     flange_model.GasketResult gasket = 4;
+    // Исходные данные для закладной детали
     flange_model.EmbedResult embed = 5;
+    // Исходные данные для шайб
+    repeated flange_model.WasherResult washers = 6;
+    // Расчеты
+    flange_model.Calculated calc = 7;
+    // Формулы
+    flange_model.Formulas formulas = 8;
+}
+
+message FlangeResponseOld {
+    // Одинаковые фланцы
+    bool isSameFlange = 1;
+    // Исходные данные для фланцев
+    repeated flange_model.OldFlangeResult flanges = 2;
+    // Исходные данные для болт/шпилька
+    flange_model.BoltResult bolt = 3;
+    // Исходные данные прокладки
+    flange_model.GasketResult gasket = 4;
+    // Исходные данные для закладной детали
+    flange_model.EmbedResult embed = 5;
+    // Расчеты
     flange_model.CalculatedFlange calc = 6;
+    // Формулы
     flange_model.CalcFlangeFormulas formulas = 7;
+    // Исходные данные для расчета
     flange_model.DataResult data = 8;
+    // Исходные данные для шайб
     repeated flange_model.WasherResult washers = 9;
 }
 
@@ -306,6 +362,7 @@ message ExpressRectangleResponse {
 
 service CalcService {
     rpc CalculateFlange (FlangeRequest) returns (FlangeResponse);
+    rpc CalculateFlangeOld (FlangeRequest) returns (FlangeResponseOld);
     rpc CalculateCap (CapRequest) returns (CapResponse);
     rpc CalculateFloat (FloatRequest) returns (FloatResponse);
     rpc CalculateDevCooling (DevCoolingRequest) returns (DevCoolingResponse);

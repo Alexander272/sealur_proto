@@ -23,6 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CalcServiceClient interface {
 	CalculateFlange(ctx context.Context, in *FlangeRequest, opts ...grpc.CallOption) (*FlangeResponse, error)
+	CalculateFlangeOld(ctx context.Context, in *FlangeRequest, opts ...grpc.CallOption) (*FlangeResponseOld, error)
 	CalculateCap(ctx context.Context, in *CapRequest, opts ...grpc.CallOption) (*CapResponse, error)
 	CalculateFloat(ctx context.Context, in *FloatRequest, opts ...grpc.CallOption) (*FloatResponse, error)
 	CalculateDevCooling(ctx context.Context, in *DevCoolingRequest, opts ...grpc.CallOption) (*DevCoolingResponse, error)
@@ -42,6 +43,15 @@ func NewCalcServiceClient(cc grpc.ClientConnInterface) CalcServiceClient {
 func (c *calcServiceClient) CalculateFlange(ctx context.Context, in *FlangeRequest, opts ...grpc.CallOption) (*FlangeResponse, error) {
 	out := new(FlangeResponse)
 	err := c.cc.Invoke(ctx, "/calc_api.CalcService/CalculateFlange", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *calcServiceClient) CalculateFlangeOld(ctx context.Context, in *FlangeRequest, opts ...grpc.CallOption) (*FlangeResponseOld, error) {
+	out := new(FlangeResponseOld)
+	err := c.cc.Invoke(ctx, "/calc_api.CalcService/CalculateFlangeOld", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -107,6 +117,7 @@ func (c *calcServiceClient) CalculateExRectangle(ctx context.Context, in *Expres
 // for forward compatibility
 type CalcServiceServer interface {
 	CalculateFlange(context.Context, *FlangeRequest) (*FlangeResponse, error)
+	CalculateFlangeOld(context.Context, *FlangeRequest) (*FlangeResponseOld, error)
 	CalculateCap(context.Context, *CapRequest) (*CapResponse, error)
 	CalculateFloat(context.Context, *FloatRequest) (*FloatResponse, error)
 	CalculateDevCooling(context.Context, *DevCoolingRequest) (*DevCoolingResponse, error)
@@ -122,6 +133,9 @@ type UnimplementedCalcServiceServer struct {
 
 func (UnimplementedCalcServiceServer) CalculateFlange(context.Context, *FlangeRequest) (*FlangeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CalculateFlange not implemented")
+}
+func (UnimplementedCalcServiceServer) CalculateFlangeOld(context.Context, *FlangeRequest) (*FlangeResponseOld, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CalculateFlangeOld not implemented")
 }
 func (UnimplementedCalcServiceServer) CalculateCap(context.Context, *CapRequest) (*CapResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CalculateCap not implemented")
@@ -168,6 +182,24 @@ func _CalcService_CalculateFlange_Handler(srv interface{}, ctx context.Context, 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CalcServiceServer).CalculateFlange(ctx, req.(*FlangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CalcService_CalculateFlangeOld_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FlangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CalcServiceServer).CalculateFlangeOld(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/calc_api.CalcService/CalculateFlangeOld",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CalcServiceServer).CalculateFlangeOld(ctx, req.(*FlangeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -290,6 +322,10 @@ var CalcService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CalculateFlange",
 			Handler:    _CalcService_CalculateFlange_Handler,
+		},
+		{
+			MethodName: "CalculateFlangeOld",
+			Handler:    _CalcService_CalculateFlangeOld_Handler,
 		},
 		{
 			MethodName: "CalculateCap",
