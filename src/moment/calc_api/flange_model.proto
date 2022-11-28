@@ -719,13 +719,13 @@ message Formulas {
         TightnessFormulas tightness = 2;
         BoltStrengthFormulas boltStrength1 = 3;
         MomentFormulas moment1 = 4;
-        StaticResistanceFormulas staticResistance1 = 5;
-        ConditionsForStrengthFormulas conditionsForStrength1 = 6;
+        repeated StaticResistanceFormulas staticResistance1 = 5;
+        repeated ConditionsForStrengthFormulas conditionsForStrength1 = 6;
         TightnessLoadFormulas tightnessLoad = 7;
         BoltStrengthFormulas boltStrength2 = 8;
         MomentFormulas moment2 = 9;
-        StaticResistanceFormulas staticResistance2 = 10;
-        ConditionsForStrengthFormulas conditionsForStrength2 = 11;
+        repeated StaticResistanceFormulas staticResistance2 = 10;
+        repeated ConditionsForStrengthFormulas conditionsForStrength2 = 11;
         DeformationFormulas deformation = 12;
         ForcesInBoltsFormulas forcesInBolts = 13;
         MomentFormulas finalMoment = 14;
