@@ -440,13 +440,13 @@ message Calculated {
         CalcTightness tightness = 2;
         CalcBoltStrength boltStrength1 = 3;
         CalcMoment moment1 = 4;
-        CalcStaticResistance staticResistance1 = 5;
-        CalcConditionsForStrength conditionsForStrength1 = 6;
+        repeated CalcStaticResistance staticResistance1 = 5;
+        repeated CalcConditionsForStrength conditionsForStrength1 = 6;
         CalcTightnessLoad tightnessLoad = 7;
         CalcBoltStrength boltStrength2 = 8;
         CalcMoment moment2 = 9;
-        CalcStaticResistance staticResistance2 = 10;
-        CalcConditionsForStrength conditionsForStrength2 = 11;
+        repeated CalcStaticResistance staticResistance2 = 10;
+        repeated CalcConditionsForStrength conditionsForStrength2 = 11;
         CalcDeformation deformation = 12;
         CalcForcesInBolts forcesInBolts = 13;
         CalcMoment finalMoment = 14;
