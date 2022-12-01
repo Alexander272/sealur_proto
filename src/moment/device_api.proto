@@ -243,10 +243,10 @@ service DeviceService {
     rpc DeleteTubeCount (DeleteTubeCountRequest) returns (Response);
 
     rpc GetFinningFactor (GetFinningFactorRequest) returns (FinningFactorResponse);
-    rpc CreateFinnigFactor (CreateFinningFactorRequest) returns (IdResponse);
+    rpc CreateFinningFactor (CreateFinningFactorRequest) returns (IdResponse);
     rpc CreateFewFinningFactor (CreateFewFinningFactorRequest) returns (Response);
-    rpc UpdateFinnigFactor (UpdateFinningFactorRequest) returns (Response);
-    rpc DeleteFinnigFactor (DeleteFinningFactorRequest) returns (Response);
+    rpc UpdateFinningFactor (UpdateFinningFactorRequest) returns (Response);
+    rpc DeleteFinningFactor (DeleteFinningFactorRequest) returns (Response);
 
     rpc GetSectionExecution (GetSectionExecutionRequest) returns (SectionExecutionResponse);
     rpc CreateSectionExecution (CreateSectionExecutionRequest) returns (IdResponse);

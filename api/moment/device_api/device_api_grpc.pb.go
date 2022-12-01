@@ -38,10 +38,10 @@ type DeviceServiceClient interface {
 	UpdateTubeCount(ctx context.Context, in *UpdateTubeCountRequest, opts ...grpc.CallOption) (*Response, error)
 	DeleteTubeCount(ctx context.Context, in *DeleteTubeCountRequest, opts ...grpc.CallOption) (*Response, error)
 	GetFinningFactor(ctx context.Context, in *GetFinningFactorRequest, opts ...grpc.CallOption) (*FinningFactorResponse, error)
-	CreateFinnigFactor(ctx context.Context, in *CreateFinningFactorRequest, opts ...grpc.CallOption) (*IdResponse, error)
+	CreateFinningFactor(ctx context.Context, in *CreateFinningFactorRequest, opts ...grpc.CallOption) (*IdResponse, error)
 	CreateFewFinningFactor(ctx context.Context, in *CreateFewFinningFactorRequest, opts ...grpc.CallOption) (*Response, error)
-	UpdateFinnigFactor(ctx context.Context, in *UpdateFinningFactorRequest, opts ...grpc.CallOption) (*Response, error)
-	DeleteFinnigFactor(ctx context.Context, in *DeleteFinningFactorRequest, opts ...grpc.CallOption) (*Response, error)
+	UpdateFinningFactor(ctx context.Context, in *UpdateFinningFactorRequest, opts ...grpc.CallOption) (*Response, error)
+	DeleteFinningFactor(ctx context.Context, in *DeleteFinningFactorRequest, opts ...grpc.CallOption) (*Response, error)
 	GetSectionExecution(ctx context.Context, in *GetSectionExecutionRequest, opts ...grpc.CallOption) (*SectionExecutionResponse, error)
 	CreateSectionExecution(ctx context.Context, in *CreateSectionExecutionRequest, opts ...grpc.CallOption) (*IdResponse, error)
 	CreateFewSectionExecution(ctx context.Context, in *CreateFewSectionExecutionRequest, opts ...grpc.CallOption) (*Response, error)
@@ -218,9 +218,9 @@ func (c *deviceServiceClient) GetFinningFactor(ctx context.Context, in *GetFinni
 	return out, nil
 }
 
-func (c *deviceServiceClient) CreateFinnigFactor(ctx context.Context, in *CreateFinningFactorRequest, opts ...grpc.CallOption) (*IdResponse, error) {
+func (c *deviceServiceClient) CreateFinningFactor(ctx context.Context, in *CreateFinningFactorRequest, opts ...grpc.CallOption) (*IdResponse, error) {
 	out := new(IdResponse)
-	err := c.cc.Invoke(ctx, "/device_api.DeviceService/CreateFinnigFactor", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/device_api.DeviceService/CreateFinningFactor", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -236,18 +236,18 @@ func (c *deviceServiceClient) CreateFewFinningFactor(ctx context.Context, in *Cr
 	return out, nil
 }
 
-func (c *deviceServiceClient) UpdateFinnigFactor(ctx context.Context, in *UpdateFinningFactorRequest, opts ...grpc.CallOption) (*Response, error) {
+func (c *deviceServiceClient) UpdateFinningFactor(ctx context.Context, in *UpdateFinningFactorRequest, opts ...grpc.CallOption) (*Response, error) {
 	out := new(Response)
-	err := c.cc.Invoke(ctx, "/device_api.DeviceService/UpdateFinnigFactor", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/device_api.DeviceService/UpdateFinningFactor", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *deviceServiceClient) DeleteFinnigFactor(ctx context.Context, in *DeleteFinningFactorRequest, opts ...grpc.CallOption) (*Response, error) {
+func (c *deviceServiceClient) DeleteFinningFactor(ctx context.Context, in *DeleteFinningFactorRequest, opts ...grpc.CallOption) (*Response, error) {
 	out := new(Response)
-	err := c.cc.Invoke(ctx, "/device_api.DeviceService/DeleteFinnigFactor", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/device_api.DeviceService/DeleteFinningFactor", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -472,10 +472,10 @@ type DeviceServiceServer interface {
 	UpdateTubeCount(context.Context, *UpdateTubeCountRequest) (*Response, error)
 	DeleteTubeCount(context.Context, *DeleteTubeCountRequest) (*Response, error)
 	GetFinningFactor(context.Context, *GetFinningFactorRequest) (*FinningFactorResponse, error)
-	CreateFinnigFactor(context.Context, *CreateFinningFactorRequest) (*IdResponse, error)
+	CreateFinningFactor(context.Context, *CreateFinningFactorRequest) (*IdResponse, error)
 	CreateFewFinningFactor(context.Context, *CreateFewFinningFactorRequest) (*Response, error)
-	UpdateFinnigFactor(context.Context, *UpdateFinningFactorRequest) (*Response, error)
-	DeleteFinnigFactor(context.Context, *DeleteFinningFactorRequest) (*Response, error)
+	UpdateFinningFactor(context.Context, *UpdateFinningFactorRequest) (*Response, error)
+	DeleteFinningFactor(context.Context, *DeleteFinningFactorRequest) (*Response, error)
 	GetSectionExecution(context.Context, *GetSectionExecutionRequest) (*SectionExecutionResponse, error)
 	CreateSectionExecution(context.Context, *CreateSectionExecutionRequest) (*IdResponse, error)
 	CreateFewSectionExecution(context.Context, *CreateFewSectionExecutionRequest) (*Response, error)
@@ -553,17 +553,17 @@ func (UnimplementedDeviceServiceServer) DeleteTubeCount(context.Context, *Delete
 func (UnimplementedDeviceServiceServer) GetFinningFactor(context.Context, *GetFinningFactorRequest) (*FinningFactorResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFinningFactor not implemented")
 }
-func (UnimplementedDeviceServiceServer) CreateFinnigFactor(context.Context, *CreateFinningFactorRequest) (*IdResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateFinnigFactor not implemented")
+func (UnimplementedDeviceServiceServer) CreateFinningFactor(context.Context, *CreateFinningFactorRequest) (*IdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateFinningFactor not implemented")
 }
 func (UnimplementedDeviceServiceServer) CreateFewFinningFactor(context.Context, *CreateFewFinningFactorRequest) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateFewFinningFactor not implemented")
 }
-func (UnimplementedDeviceServiceServer) UpdateFinnigFactor(context.Context, *UpdateFinningFactorRequest) (*Response, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateFinnigFactor not implemented")
+func (UnimplementedDeviceServiceServer) UpdateFinningFactor(context.Context, *UpdateFinningFactorRequest) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateFinningFactor not implemented")
 }
-func (UnimplementedDeviceServiceServer) DeleteFinnigFactor(context.Context, *DeleteFinningFactorRequest) (*Response, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteFinnigFactor not implemented")
+func (UnimplementedDeviceServiceServer) DeleteFinningFactor(context.Context, *DeleteFinningFactorRequest) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteFinningFactor not implemented")
 }
 func (UnimplementedDeviceServiceServer) GetSectionExecution(context.Context, *GetSectionExecutionRequest) (*SectionExecutionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSectionExecution not implemented")
@@ -932,20 +932,20 @@ func _DeviceService_GetFinningFactor_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DeviceService_CreateFinnigFactor_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DeviceService_CreateFinningFactor_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateFinningFactorRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DeviceServiceServer).CreateFinnigFactor(ctx, in)
+		return srv.(DeviceServiceServer).CreateFinningFactor(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/device_api.DeviceService/CreateFinnigFactor",
+		FullMethod: "/device_api.DeviceService/CreateFinningFactor",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeviceServiceServer).CreateFinnigFactor(ctx, req.(*CreateFinningFactorRequest))
+		return srv.(DeviceServiceServer).CreateFinningFactor(ctx, req.(*CreateFinningFactorRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -968,38 +968,38 @@ func _DeviceService_CreateFewFinningFactor_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DeviceService_UpdateFinnigFactor_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DeviceService_UpdateFinningFactor_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateFinningFactorRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DeviceServiceServer).UpdateFinnigFactor(ctx, in)
+		return srv.(DeviceServiceServer).UpdateFinningFactor(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/device_api.DeviceService/UpdateFinnigFactor",
+		FullMethod: "/device_api.DeviceService/UpdateFinningFactor",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeviceServiceServer).UpdateFinnigFactor(ctx, req.(*UpdateFinningFactorRequest))
+		return srv.(DeviceServiceServer).UpdateFinningFactor(ctx, req.(*UpdateFinningFactorRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DeviceService_DeleteFinnigFactor_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DeviceService_DeleteFinningFactor_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteFinningFactorRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DeviceServiceServer).DeleteFinnigFactor(ctx, in)
+		return srv.(DeviceServiceServer).DeleteFinningFactor(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/device_api.DeviceService/DeleteFinnigFactor",
+		FullMethod: "/device_api.DeviceService/DeleteFinningFactor",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeviceServiceServer).DeleteFinnigFactor(ctx, req.(*DeleteFinningFactorRequest))
+		return srv.(DeviceServiceServer).DeleteFinningFactor(ctx, req.(*DeleteFinningFactorRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1472,20 +1472,20 @@ var DeviceService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DeviceService_GetFinningFactor_Handler,
 		},
 		{
-			MethodName: "CreateFinnigFactor",
-			Handler:    _DeviceService_CreateFinnigFactor_Handler,
+			MethodName: "CreateFinningFactor",
+			Handler:    _DeviceService_CreateFinningFactor_Handler,
 		},
 		{
 			MethodName: "CreateFewFinningFactor",
 			Handler:    _DeviceService_CreateFewFinningFactor_Handler,
 		},
 		{
-			MethodName: "UpdateFinnigFactor",
-			Handler:    _DeviceService_UpdateFinnigFactor_Handler,
+			MethodName: "UpdateFinningFactor",
+			Handler:    _DeviceService_UpdateFinningFactor_Handler,
 		},
 		{
-			MethodName: "DeleteFinnigFactor",
-			Handler:    _DeviceService_DeleteFinnigFactor_Handler,
+			MethodName: "DeleteFinningFactor",
+			Handler:    _DeviceService_DeleteFinningFactor_Handler,
 		},
 		{
 			MethodName: "GetSectionExecution",
