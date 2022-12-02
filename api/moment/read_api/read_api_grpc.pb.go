@@ -25,6 +25,7 @@ type ReadServiceClient interface {
 	GetFlange(ctx context.Context, in *GetFlangeRequest, opts ...grpc.CallOption) (*GetFlangeResponse, error)
 	GetFloat(ctx context.Context, in *GetFloatRequest, opts ...grpc.CallOption) (*GetFloatResponse, error)
 	GetDevCooling(ctx context.Context, in *GetDevCoolingtRequest, opts ...grpc.CallOption) (*GetDevCoolingResponse, error)
+	GetAVO(ctx context.Context, in *GetAVORequest, opts ...grpc.CallOption) (*GetAVOResponse, error)
 }
 
 type readServiceClient struct {
@@ -62,6 +63,15 @@ func (c *readServiceClient) GetDevCooling(ctx context.Context, in *GetDevCooling
 	return out, nil
 }
 
+func (c *readServiceClient) GetAVO(ctx context.Context, in *GetAVORequest, opts ...grpc.CallOption) (*GetAVOResponse, error) {
+	out := new(GetAVOResponse)
+	err := c.cc.Invoke(ctx, "/read_api.ReadService/GetAVO", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ReadServiceServer is the server API for ReadService service.
 // All implementations must embed UnimplementedReadServiceServer
 // for forward compatibility
@@ -69,6 +79,7 @@ type ReadServiceServer interface {
 	GetFlange(context.Context, *GetFlangeRequest) (*GetFlangeResponse, error)
 	GetFloat(context.Context, *GetFloatRequest) (*GetFloatResponse, error)
 	GetDevCooling(context.Context, *GetDevCoolingtRequest) (*GetDevCoolingResponse, error)
+	GetAVO(context.Context, *GetAVORequest) (*GetAVOResponse, error)
 	mustEmbedUnimplementedReadServiceServer()
 }
 
@@ -84,6 +95,9 @@ func (UnimplementedReadServiceServer) GetFloat(context.Context, *GetFloatRequest
 }
 func (UnimplementedReadServiceServer) GetDevCooling(context.Context, *GetDevCoolingtRequest) (*GetDevCoolingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDevCooling not implemented")
+}
+func (UnimplementedReadServiceServer) GetAVO(context.Context, *GetAVORequest) (*GetAVOResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAVO not implemented")
 }
 func (UnimplementedReadServiceServer) mustEmbedUnimplementedReadServiceServer() {}
 
@@ -152,6 +166,24 @@ func _ReadService_GetDevCooling_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ReadService_GetAVO_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAVORequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ReadServiceServer).GetAVO(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/read_api.ReadService/GetAVO",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ReadServiceServer).GetAVO(ctx, req.(*GetAVORequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ReadService_ServiceDesc is the grpc.ServiceDesc for ReadService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -170,6 +202,10 @@ var ReadService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetDevCooling",
 			Handler:    _ReadService_GetDevCooling_Handler,
+		},
+		{
+			MethodName: "GetAVO",
+			Handler:    _ReadService_GetAVO_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
