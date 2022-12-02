@@ -80,7 +80,7 @@ message CreateFinningFactorRequest {
     string value = 2;
 }
 message CreateFewFinningFactorRequest {
-    repeated CreateFinningFactorRequest finnigFactor = 1;
+    repeated CreateFinningFactorRequest finningFactor = 1;
 }
 message UpdateFinningFactorRequest {
     string id = 1;
@@ -146,6 +146,7 @@ message TubeLengthResponse {
 // NumberOfMoves ------------------------------------------------------------
 message GetNumberOfMovesRequest {
     string devId = 1;
+    string countId = 2;
 }
 message CreateNumberOfMovesRequest {
     string devId = 1;
@@ -172,9 +173,13 @@ message NumberOfMovesResponse {
 // NameGasket ---------------------------------------------------------------
 message GetNameGasketRequest {
     string finId = 1;
+    string presId = 2;
+    string numId = 3;
 }
 message GetFullNameGasketRequest {
     string finId = 1;
+    string presId = 2;
+    string numId = 3;
 }
 message GetNameGasketSizeRequest {
     string id = 1;
