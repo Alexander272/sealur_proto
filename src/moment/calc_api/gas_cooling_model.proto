@@ -1,0 +1,256 @@
+syntax = "proto3";
+
+package gas_cooling_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/moment/calc_api/gas_cooling_model";
+
+import "moment/models/device_model.proto";
+
+message MaterialData {
+    string title = 1;
+    double epsilonAt20 = 2;
+    double sigmaAt20 = 3;
+}
+
+message MainData {
+    enum TypeBolt {
+        bolt = 0;
+        pin = 1;
+    }
+    enum Condition {
+        uncontrollable = 0;
+        controllable = 1;
+        controllablePin = 2;
+    }
+    
+    // Модификация аппарата
+    device_model.Device device = 1;
+    // Коэффициент оребрения
+    device_model.FinningFactor factor = 2;
+    // Условное давление
+    device_model.Pressure pressure = 3;
+    // Материальное исполнение секции
+    device_model.SectionExecution section = 4;
+    // Число рядов труб в секции
+    device_model.TubeCount tubeCount = 5;
+    // Число ходов по трубному пространству
+    device_model.NumberOfMoves numberOfMoves = 6;
+    // Длина оребренных труб в секции
+    device_model.TubeLength tubeLength = 7;
+    // Пробное давление
+    double testPressure = 8;
+    // Тип соединения
+    TypeBolt typeBolt = 9;
+    // Условие затяжки
+    Condition condition = 10;
+}
+
+message BoltData {
+    // n - Количество болтов/шпилек
+    int32 count = 1;
+    // Id болта
+    string boltId = 2;
+    // Id Материала болтов
+    string markId = 3;
+    MaterialData material = 4;
+    // d - Наружный диаметр болта/шпильки
+    double diameter = 5;
+    // fб - Площадь болта/шпильки
+    double area = 6;
+}
+
+message GasketData {
+    enum Type {
+        Soft = 0;
+        Oval = 1;
+        Metal = 2;
+    }
+
+    // Id прокладки
+    string gasketId = 1;
+    // Id среды
+    string envId = 2;
+    // Толщина прокладки
+    double thickness = 3;
+    // Тип прокладки (id и Название)
+    device_model.NameGasket nameGasket = 4;
+}
+
+message DataResult {
+    // Модификация аппарата
+    string device = 1;
+    // Коэффициент оребрения
+    string factor = 2;
+    // Условное давление
+    string pressure = 3;
+    // Материальное исполнение секции
+    string section = 4;
+    // Число рядов труб в секции
+    string tubeCount = 5;
+    // Число ходов по трубному пространству
+    string numberOfMoves = 6;
+    // Длина оребренных труб в секции
+    string tubeLength = 7;
+    // Пробное давлени1е
+    double testPressure = 8;
+    // Тип соединения
+    string type = 9;
+    // Условие затяжки
+    string condition = 10;
+}
+
+message BoltResult {
+    // n - Количество болтов/шпилек
+    int32 count = 1;
+    // Материал болта/шпильки
+    string material = 2;
+    // d - Наружный диаметр болта/шпильки
+    double diameter = 3;
+    // fб - Площадь болта/шпильки
+    double area = 4;
+    // Модуль продольной упругости материала болта (шпильки) при температуре 20 C
+    double epsilonAt20 = 5;
+    // Допускаемое напряжение для болтов (шпилек) при затяжке
+    double sigmaAt20 = 6;
+}
+
+message GasketResult {
+    // название прокладки
+    string gasket = 1;
+    // название среды
+    string env = 2;
+    // Толщина прокладки
+    double thickness = 3;
+    // bп Ширина прокладки
+    double width = 4;
+    // L2 - Размер прокладки в продольном направлении
+    double sizeLong = 5;
+    // B2 - Размер прокладки в поперечном направление
+    double sizeTrans = 6;
+    // h1
+    double thick1 = 7;
+    // h2
+    double thick2 = 8;
+    // h3
+    double thick3 = 9;
+    // h4
+    double thick4 = 10;
+    // m - Прокладочный коэффициент
+    double m = 11;
+    // qобж - Удельное давление обжатия прокладки
+    double pres = 12;
+    // Kобж - Коэффициент обжатия
+    double compression = 13;
+    // Ep - Условный модуль сжатия прокладки
+    double epsilon = 14;
+    // [q] - Допускаемое удельное давление
+    double permissiblePres = 15;
+    // тип прокладки
+    string type = 16;
+    // Тип прокладки (name_gasket)
+    string name = 17;
+}
+
+message Calculated {
+    CalcAuxiliary auxiliary = 1;
+    CalcForcesInBolts forcesInBolts = 2;
+    CalcBolts bolt = 3;
+    CalcMoment moment = 4;
+}
+
+message Condition {
+    double x = 1;
+    double y = 2;
+}
+
+message CalcAuxiliary {
+    // b pR - Расчетная ширина плоской прокладки
+    double estimatedGasketWidth = 1;
+    // Lp - Расчетный размер решетки в продольном направлении
+    double sizeLong = 2;
+    // Bp - Расчетный размер решетки в поперечном направлении
+    double sizeTrans = 3;
+}
+
+message CalcForcesInBolts {
+    // Ab - Суммарная площадь сечения болтов/шпилек
+    double area = 1;
+    // Fв - Расчетное усилие в болтах (шпильках) в условиях эксплуатации
+    double workEffort = 2;
+    // F0 - Расчетное усилие в болтах (шпильках) в условиях испытаний или монтажа
+    double effort = 3;
+}
+
+message CalcBolts {
+    // sigmaB1 - Расчетное напряжение в болтах/шпильках - при затяжке
+    double ratedStress = 1;
+    // [sigma]бм - Допускаемое напряжение для болтов шпилек - при затяжке
+    double allowableVoltage = 2;
+    // Условия прочности болтов шпилек - при затяжке
+    Condition strengthBolt = 3;
+    // Условие прочности прокладки
+    Condition strengthGasket = 4;
+}
+
+message CalcMoment {
+    // Крутящий момент при затяжке болтов/шпилек
+    double Mkp = 1;
+    // Крутящий момент при затяжке болтов/шпилек со смазкой снижается на 25%
+	double Mkp1 = 2;
+    // Напряжение на прокладке
+	double Qrek = 3;
+    // Момент затяжки при применении уплотнения на старых (изношенных) фланцах, имеющих перекосы
+	double Mrek = 4;
+    // Максимальный крутящий момент при затяжке болтов/шпилек
+    double Mmax = 5;
+    // Максимальное напряжение на прокладке
+    double Qmax = 6;
+}
+
+message Formulas {
+    AuxiliaryFormulas auxiliary = 1;
+    ForcesInBoltsFormulas forcesInBolts = 2;
+    BoltsFormulas bolt = 3;
+    MomentFormulas moment = 4;
+}
+
+message AuxiliaryFormulas {
+    // b pR - Расчетная ширина плоской прокладки
+    string estimatedGasketWidth = 1;
+    // Lp - Расчетный размер решетки в продольном направлении
+    string sizeLong = 2;
+    // Bp - Расчетный размер решетки в поперечном направлении
+    string sizeTrans = 3;
+}
+
+message ForcesInBoltsFormulas {
+    // Ab - Суммарная площадь сечения болтов/шпилек
+    string area = 1;
+    // Fв - Расчетное усилие в болтах (шпильках) в условиях эксплуатации
+    string workEffort = 2;
+    // F0 - Расчетное усилие в болтах (шпильках) в условиях испытаний или монтажа
+    string effort = 3;
+}
+
+message BoltsFormulas {
+    // sigmaB1 - Расчетное напряжение в болтах/шпильках - при затяжке
+    string ratedStress = 1;
+    // [sigma]бм - Допускаемое напряжение для болтов шпилек - при затяжке
+    string allowableVoltage = 2;
+    // Условие прочности прокладки
+    string strengthGasket = 3;
+}
+
+message MomentFormulas {
+    // Крутящий момент при затяжке болтов/шпилек
+    string Mkp = 1;
+    // Крутящий момент при затяжке болтов/шпилек со смазкой снижается на 25%
+	string Mkp1 = 2;
+    // Напряжение на прокладке
+	string Qrek = 3;
+    // Момент затяжки при применении уплотнения на старых (изношенных) фланцах, имеющих перекосы
+	string Mrek = 4;
+    // Максимальный крутящий момент при затяжке болтов/шпилек
+    string Mmax = 5;
+    // Максимальное напряжение на прокладке
+    string Qmax = 6;
+}

@@ -9,6 +9,7 @@ import "moment/calc_api/float_model.proto";
 import "moment/calc_api/dev_cooling_model.proto";
 import "moment/calc_api/express_circle_model.proto";
 import "moment/calc_api/express_rectangle_model.proto";
+import "moment/calc_api/gas_cooling_model.proto";
 
 message FlangeRequest {
     enum Flanges {
@@ -289,11 +290,17 @@ message DevCoolingResponse {
 }
 
 message GasCoolingRequest {
-    
+    gas_cooling_model.MainData data = 1;
+    gas_cooling_model.BoltData bolts = 2;
+    gas_cooling_model.GasketData gasket = 3;
 }
 
 message GasCoolingResponse {
-    
+    gas_cooling_model.DataResult data = 1;
+    gas_cooling_model.BoltResult bolts = 2;
+    gas_cooling_model.GasketResult gasket = 3;
+    gas_cooling_model.Calculated calc = 4;
+    gas_cooling_model.Formulas formulas = 5;
 }
 
 message ExpressCircleRequest {
