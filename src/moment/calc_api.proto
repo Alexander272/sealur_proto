@@ -293,6 +293,7 @@ message GasCoolingRequest {
     gas_cooling_model.MainData data = 1;
     gas_cooling_model.BoltData bolts = 2;
     gas_cooling_model.GasketData gasket = 3;
+    bool isNeedFormulas = 4;
 }
 
 message GasCoolingResponse {
