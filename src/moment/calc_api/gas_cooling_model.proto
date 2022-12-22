@@ -81,7 +81,7 @@ message DataResult {
     // Коэффициент оребрения
     string factor = 2;
     // Условное давление
-    string pressure = 3;
+    double pressure = 3;
     // Материальное исполнение секции
     string section = 4;
     // Число рядов труб в секции

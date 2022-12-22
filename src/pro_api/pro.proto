@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package pro_api;
-option go_package = "/pro_api";
+option go_package = "github.com/Alexander272/sealur_proto/api/pro_api";
 
 // Flange Service ----------------------------------------------------------------
 message GetAllFlangeRequest {}

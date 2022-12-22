@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package email_api;
-option go_package = "/email_api";
+option go_package = "github.com/Alexander272/sealur_proto/api/email_api";
 
 message IdResponse {
     string id = 1;

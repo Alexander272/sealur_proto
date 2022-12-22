@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package user_api;
-option go_package = "/user_api";
+option go_package = "github.com/Alexander272/sealur_proto/api/user_api";
 
 message IdResponse {
     string id = 1;
