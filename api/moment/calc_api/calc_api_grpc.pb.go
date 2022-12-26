@@ -23,8 +23,8 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CalcServiceClient interface {
 	CalculateFlange(ctx context.Context, in *FlangeRequest, opts ...grpc.CallOption) (*FlangeResponse, error)
-	CalculateFlangeOld(ctx context.Context, in *FlangeRequest, opts ...grpc.CallOption) (*FlangeResponseOld, error)
 	CalculateCap(ctx context.Context, in *CapRequest, opts ...grpc.CallOption) (*CapResponse, error)
+	CalculateCapOld(ctx context.Context, in *CapRequestOld, opts ...grpc.CallOption) (*CapResponseOld, error)
 	CalculateFloat(ctx context.Context, in *FloatRequest, opts ...grpc.CallOption) (*FloatResponse, error)
 	CalculateDevCooling(ctx context.Context, in *DevCoolingRequest, opts ...grpc.CallOption) (*DevCoolingResponse, error)
 	CalculateGasCooling(ctx context.Context, in *GasCoolingRequest, opts ...grpc.CallOption) (*GasCoolingResponse, error)
@@ -49,18 +49,18 @@ func (c *calcServiceClient) CalculateFlange(ctx context.Context, in *FlangeReque
 	return out, nil
 }
 
-func (c *calcServiceClient) CalculateFlangeOld(ctx context.Context, in *FlangeRequest, opts ...grpc.CallOption) (*FlangeResponseOld, error) {
-	out := new(FlangeResponseOld)
-	err := c.cc.Invoke(ctx, "/calc_api.CalcService/CalculateFlangeOld", in, out, opts...)
+func (c *calcServiceClient) CalculateCap(ctx context.Context, in *CapRequest, opts ...grpc.CallOption) (*CapResponse, error) {
+	out := new(CapResponse)
+	err := c.cc.Invoke(ctx, "/calc_api.CalcService/CalculateCap", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *calcServiceClient) CalculateCap(ctx context.Context, in *CapRequest, opts ...grpc.CallOption) (*CapResponse, error) {
-	out := new(CapResponse)
-	err := c.cc.Invoke(ctx, "/calc_api.CalcService/CalculateCap", in, out, opts...)
+func (c *calcServiceClient) CalculateCapOld(ctx context.Context, in *CapRequestOld, opts ...grpc.CallOption) (*CapResponseOld, error) {
+	out := new(CapResponseOld)
+	err := c.cc.Invoke(ctx, "/calc_api.CalcService/CalculateCapOld", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -117,8 +117,8 @@ func (c *calcServiceClient) CalculateExRectangle(ctx context.Context, in *Expres
 // for forward compatibility
 type CalcServiceServer interface {
 	CalculateFlange(context.Context, *FlangeRequest) (*FlangeResponse, error)
-	CalculateFlangeOld(context.Context, *FlangeRequest) (*FlangeResponseOld, error)
 	CalculateCap(context.Context, *CapRequest) (*CapResponse, error)
+	CalculateCapOld(context.Context, *CapRequestOld) (*CapResponseOld, error)
 	CalculateFloat(context.Context, *FloatRequest) (*FloatResponse, error)
 	CalculateDevCooling(context.Context, *DevCoolingRequest) (*DevCoolingResponse, error)
 	CalculateGasCooling(context.Context, *GasCoolingRequest) (*GasCoolingResponse, error)
@@ -134,11 +134,11 @@ type UnimplementedCalcServiceServer struct {
 func (UnimplementedCalcServiceServer) CalculateFlange(context.Context, *FlangeRequest) (*FlangeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CalculateFlange not implemented")
 }
-func (UnimplementedCalcServiceServer) CalculateFlangeOld(context.Context, *FlangeRequest) (*FlangeResponseOld, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CalculateFlangeOld not implemented")
-}
 func (UnimplementedCalcServiceServer) CalculateCap(context.Context, *CapRequest) (*CapResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CalculateCap not implemented")
+}
+func (UnimplementedCalcServiceServer) CalculateCapOld(context.Context, *CapRequestOld) (*CapResponseOld, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CalculateCapOld not implemented")
 }
 func (UnimplementedCalcServiceServer) CalculateFloat(context.Context, *FloatRequest) (*FloatResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CalculateFloat not implemented")
@@ -186,24 +186,6 @@ func _CalcService_CalculateFlange_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _CalcService_CalculateFlangeOld_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(FlangeRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CalcServiceServer).CalculateFlangeOld(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/calc_api.CalcService/CalculateFlangeOld",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CalcServiceServer).CalculateFlangeOld(ctx, req.(*FlangeRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _CalcService_CalculateCap_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CapRequest)
 	if err := dec(in); err != nil {
@@ -218,6 +200,24 @@ func _CalcService_CalculateCap_Handler(srv interface{}, ctx context.Context, dec
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CalcServiceServer).CalculateCap(ctx, req.(*CapRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CalcService_CalculateCapOld_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CapRequestOld)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CalcServiceServer).CalculateCapOld(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/calc_api.CalcService/CalculateCapOld",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CalcServiceServer).CalculateCapOld(ctx, req.(*CapRequestOld))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -324,12 +324,12 @@ var CalcService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _CalcService_CalculateFlange_Handler,
 		},
 		{
-			MethodName: "CalculateFlangeOld",
-			Handler:    _CalcService_CalculateFlangeOld_Handler,
-		},
-		{
 			MethodName: "CalculateCap",
 			Handler:    _CalcService_CalculateCap_Handler,
+		},
+		{
+			MethodName: "CalculateCapOld",
+			Handler:    _CalcService_CalculateCapOld_Handler,
 		},
 		{
 			MethodName: "CalculateFloat",

@@ -103,28 +103,7 @@ message FlangeResponse {
     flange_model.Formulas formulas = 8;
 }
 
-message FlangeResponseOld {
-    // Одинаковые фланцы
-    bool isSameFlange = 1;
-    // Исходные данные для фланцев
-    repeated flange_model.OldFlangeResult flanges = 2;
-    // Исходные данные для болт/шпилька
-    flange_model.BoltResult bolt = 3;
-    // Исходные данные прокладки
-    flange_model.GasketResult gasket = 4;
-    // Исходные данные для закладной детали
-    flange_model.EmbedResult embed = 5;
-    // Расчеты
-    flange_model.CalculatedFlange calc = 6;
-    // Формулы
-    flange_model.CalcFlangeFormulas formulas = 7;
-    // Исходные данные для расчета
-    flange_model.DataResult data = 8;
-    // Исходные данные для шайб
-    repeated flange_model.WasherResult washers = 9;
-}
-
-message CapRequest {
+message CapRequestOld {
     enum Flanges {
         isolated = 0;
         nonIsolated = 1;
@@ -168,9 +147,9 @@ message CapRequest {
     bool isNeedFormulas = 17;
 }
 
-message CapResponse {
-    cap_model.FlangeResult flange = 1;
-    cap_model.CapResult cap = 2;
+message CapResponseOld {
+    cap_model.FlangeResultOld flange = 1;
+    cap_model.CapResultOld cap = 2;
     cap_model.BoltResult bolt = 3;
     cap_model.GasketResult gasket = 4;
     cap_model.EmbedResult embed = 5;
@@ -178,6 +157,40 @@ message CapResponse {
     cap_model.CalcCapFormulas formulas = 7;
     cap_model.DataResult data = 8;
     repeated cap_model.WasherResult washers = 9;
+}
+
+message CapRequest {
+    cap_model.MainData data = 1;
+    cap_model.FlangeData flangeData = 2;
+    cap_model.CapData capData = 3;
+    cap_model.BoltData bolts = 4;
+    cap_model.GasketData gasket = 5;
+    cap_model.EmbedData embed = 6;
+    bool isUseWasher = 7;
+    repeated cap_model.WasherData washer = 8; 
+
+    bool isNeedFormulas = 9;
+}
+
+message CapResponse {
+    // Исходные данные для расчета
+    cap_model.DataResult data = 1;
+    // Исходные данные для фланцев
+    cap_model.FlangeResult flange = 2;
+    //  Исходные данные для крышки
+    cap_model.CapResult cap = 3;
+    // Исходные данные для болт/шпилька
+    cap_model.BoltResult bolt = 4;
+    // Исходные данные прокладки
+    cap_model.GasketResult gasket = 5;
+    // Исходные данные для закладной детали
+    cap_model.EmbedResult embed = 6;
+    // Исходные данные для шайб
+    repeated cap_model.WasherResult washers = 7;
+    // Расчеты
+    cap_model.Calculated calc = 8;
+    // Формулы
+    cap_model.Formulas formulas = 9;
 }
 
 message FloatRequest {
@@ -370,8 +383,8 @@ message ExpressRectangleResponse {
 
 service CalcService {
     rpc CalculateFlange (FlangeRequest) returns (FlangeResponse);
-    rpc CalculateFlangeOld (FlangeRequest) returns (FlangeResponseOld);
     rpc CalculateCap (CapRequest) returns (CapResponse);
+    rpc CalculateCapOld (CapRequestOld) returns (CapResponseOld);
     rpc CalculateFloat (FloatRequest) returns (FloatResponse);
     rpc CalculateDevCooling (DevCoolingRequest) returns (DevCoolingResponse);
     rpc CalculateGasCooling (GasCoolingRequest) returns (GasCoolingResponse);
