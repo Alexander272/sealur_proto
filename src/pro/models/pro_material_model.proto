@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package material_model;
+package pro_material_model;
 option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/material_model";
 
 message Material {

@@ -4,7 +4,7 @@ package material_api;
 option go_package = "api/pro/material_api";
 
 import "pro/models/response_model.proto";
-import "pro/models/material_model.proto";
+import "pro/models/pro_material_model.proto";
 
 message GetAllMaterials {}
 
@@ -32,7 +32,7 @@ message DeleteMaterial {
 }
 
 message Materials {
-    repeated material_model.Material materials = 1;
+    repeated pro_material_model.Material materials = 1;
 }
 
 service MaterialService {
