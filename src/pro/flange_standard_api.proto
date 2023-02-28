@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package flange_standard_api;
+option go_package = "api/pro/flange_standard_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/flange_standard_model.proto";
+
+message GetAllFlangeStandards {}
+
+message CreateFlangeStandard {
+    string title = 1;
+    string code = 2;
+}
+
+message CreateSeveralFlangeStandard {
+    repeated CreateFlangeStandard flangeStandards = 1;
+}
+
+message UpdateFlangeStandard {
+    string id = 1;
+    string title = 2;
+    string code = 3;
+}
+
+message DeleteFlangeStandard {
+    string id = 1;
+}
+
+message FlangeStandards {
+    repeated flange_standard_model.FlangeStandard flangeStandards = 1;
+}
+
+service FlangeStandardService {
+    rpc GetAll (GetAllFlangeStandards) returns (FlangeStandards);
+    rpc Create (CreateFlangeStandard) returns (response_model.Response);
+    rpc CreateSeveral (CreateSeveralFlangeStandard) returns (response_model.Response);
+    rpc Update (UpdateFlangeStandard) returns (response_model.Response);
+    rpc Delete (DeleteFlangeStandard) returns (response_model.Response);
+}

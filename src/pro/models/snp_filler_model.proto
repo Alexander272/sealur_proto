@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package snp_filler_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/snp_filler_model";
+
+message SnpFiller {
+    string id = 1;
+    string title = 2;
+    string anotherTitle = 3;
+    string code = 4;
+    string description = 5;
+    string designation = 6;
+    string temperature = 7;
+}

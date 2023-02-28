@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package snp_material_api;
+option go_package = "api/pro/snp_material_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/snp_material_model.proto";
+
+message GetSnpMaterial {
+    string standardId = 1;
+}
+
+message CreateSnpMaterial {
+    repeated string materialId = 1;
+    string default = 2;
+    string type = 3;
+    string standardId = 4;
+}
+
+message UpdateSnpMaterial {
+    string id = 1;
+    repeated string materialId = 2;
+    string default = 3;
+    string type = 4;
+    string standardId = 5;
+}
+
+message DeleteSnpMaterial {
+    string id = 1;
+}
+
+message SnpMaterials {
+    repeated snp_material_model.SnpMaterial materials = 1;
+}
+
+service SnpMaterialService {
+    rpc Get (GetSnpMaterial) returns (SnpMaterials);
+    rpc Create (CreateSnpMaterial) returns (response_model.Response);
+    rpc Update (UpdateSnpMaterial) returns (response_model.Response);
+    rpc Delete (DeleteSnpMaterial) returns (response_model.Response);
+}

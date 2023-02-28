@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package snp_standard_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/snp_standard_model";
+
+import "pro/models/flange_standard_model.proto";
+import "pro/models/standard_model.proto";
+
+message SnpStandard {
+    string id = 1;
+    string dnTitle = 2;
+    string pnTitle = 3;
+    standard_model.Standard standard = 4;
+    flange_standard_model.FlangeStandard flangeStandard = 5;
+}

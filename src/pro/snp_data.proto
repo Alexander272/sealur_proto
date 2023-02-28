@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package snp_data_api;
+option go_package = "api/pro/snp_data_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/snp_data_model.proto";
+
+message GetSnpData {
+    string standardId = 1;
+}
+
+message CreateSnpData {
+    string typeId = 1;
+    string standardId = 2;
+    bool hasInnerRing = 3;
+    bool hasFrame = 4;
+    bool hasOuterRing = 5;
+    bool hasHole = 6;
+    bool hasJumper = 7;
+    bool hasMounting = 8;
+}
+
+message UpdateSnpData {
+    string id = 1;
+    string typeId = 2;
+    string standardId = 3;
+    bool hasInnerRing = 4;
+    bool hasFrame = 5;
+    bool hasOuterRing = 6;
+    bool hasHole = 7;
+    bool hasJumper = 8;
+    bool hasMounting = 9;
+}
+
+message DeleteSnpData {
+    string id = 1;
+}
+
+message SnpData {
+    repeated snp_data_model.SnpData snp = 1;
+}
+
+service SnpDataService {
+    rpc Get (GetSnpData) returns (SnpData);
+    rpc Create (CreateSnpData) returns (response_model.Response);
+    rpc Update (UpdateSnpData) returns (response_model.Response);
+    rpc Delete (DeleteSnpData) returns (response_model.Response);
+}

@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package mounting_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/mounting_model";
+
+message Mounting {
+    string id = 1;
+    string title = 2;
+}

@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package temperature_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/temperature_model";
+
+message Temperature {
+    string id = 1;
+    string title = 2;
+}

@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package flange_type_snp_api;
+option go_package = "api/pro/flange_type_snp_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/flange_type_snp_model.proto";
+
+message GetFlangeTypeSnp {
+    string standardId = 1;
+}
+
+message CreateFlangeTypeSnp {
+    string title = 1;
+    string code = 2;
+    string standardId = 3;
+}
+
+message CreateSeveralFlangeTypeSnp {
+    repeated CreateFlangeTypeSnp flangeTypeSnp = 1;
+}
+
+message UpdateFlangeTypeSnp {
+    string id = 1;
+    string title = 2;
+    string code = 3;
+    string standardId = 4;
+}
+
+message DeleteFlangeTypeSnp {
+    string id = 1;
+}
+
+message FlangeType {
+    repeated flange_type_snp_model.FlangeTypeSnp flangeTypeSnp = 1;
+}
+
+service FlangeTypeSnpService {
+    rpc Get (GetFlangeTypeSnp) returns (FlangeType);
+    rpc Create (CreateFlangeTypeSnp) returns (response_model.Response);
+    rpc CreateSeveral (CreateSeveralFlangeTypeSnp) returns (response_model.Response);
+    rpc Update (UpdateFlangeTypeSnp) returns (response_model.Response);
+    rpc Delete (DeleteFlangeTypeSnp) returns (response_model.Response);
+}

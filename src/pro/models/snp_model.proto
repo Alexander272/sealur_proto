@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package snp_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/snp_model";
+
+import "pro/models/snp_type_model.proto";
+import "pro/models/snp_material_model.proto";
+import "pro/models/mounting_model.proto";
+import "pro/models/snp_filler_model.proto";
+
+
+
+message FlangeType {
+    string id = 1;
+    string title = 2;
+    string code = 3;
+    repeated snp_type_model.SnpType types = 4;
+}
+
+message SnpData {
+    repeated FlangeType flangeTypes = 1;
+    repeated snp_material_model.SnpMaterial materials = 2;
+    repeated mounting_model.Mounting mounting = 3;
+    repeated snp_filler_model.SnpFiller fillers = 4;
+}

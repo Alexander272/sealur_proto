@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package snp_data_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/snp_data_model";
+
+message SnpData {
+    string id = 1;
+    string typeId = 2;
+    bool hasInnerRing = 3;
+    bool hasFrame = 4;
+    bool hasOuterRing = 5;
+    bool hasHole = 6;
+    bool hasJumper = 7;
+    bool hasMounting = 8;
+}

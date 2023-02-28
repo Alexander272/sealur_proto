@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package standard_api;
+option go_package = "api/pro/standard_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/standard_model.proto";
+
+message GetAllStandards {}
+
+message CreateStandard {
+    string title = 1;
+    repeated string format = 2;
+}
+
+message CreateSeveralStandard {
+    repeated CreateStandard standards = 1;
+}
+
+message UpdateStandard {
+    string id = 1;
+    string title = 2;
+    repeated string format = 3;
+}
+
+message DeleteStandard {
+    string id = 1;
+}
+
+message Standards {
+    repeated standard_model.Standard standards = 1;
+}
+
+service StandardService {
+    rpc GetAll (GetAllStandards) returns (Standards);
+    rpc Create (CreateStandard) returns (response_model.Response);
+    rpc CreateSeveral (CreateSeveralStandard) returns (response_model.Response);
+    rpc Update (UpdateStandard) returns (response_model.Response);
+    rpc Delete (DeleteStandard) returns (response_model.Response);
+}

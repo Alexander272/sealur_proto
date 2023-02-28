@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package snp_material_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/snp_material_model";
+
+import "pro/models/material_model.proto";
+
+message SnpMaterial {
+    string id = 1;
+    repeated material_model.Material materials = 2;
+    material_model.Material default = 3;
+    string type = 4;
+}

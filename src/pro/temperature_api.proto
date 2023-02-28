@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package temperature_api;
+option go_package = "api/pro/temperature_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/temperature_model.proto";
+
+message GetAllTemperatures {
+    
+}
+
+message CreateTemperature {
+    string title = 1;
+}
+
+message CreateSeveralTemperature {
+    repeated CreateTemperature temperatures = 1;
+}
+
+message UpdateTemperature {
+    string id = 1;
+    string title = 2;
+}
+
+message DeleteTemperature {
+    string id = 1;
+}
+
+message Temperatures {
+    repeated temperature_model.Temperature temperatures = 1;
+}
+
+service TemperatureService {
+    rpc GetAll (GetAllTemperatures) returns (Temperatures);
+    rpc Create (CreateTemperature) returns (response_model.Response);
+    rpc CreateSeveral (CreateSeveralTemperature) returns (response_model.Response);
+    rpc Update (UpdateTemperature) returns (response_model.Response);
+    rpc Delete (DeleteTemperature) returns (response_model.Response);
+}

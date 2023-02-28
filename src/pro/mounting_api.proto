@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package mounting_api;
+option go_package = "api/pro/mounting_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/mounting_model.proto";
+
+message GetAllMountings {}
+
+message CreateMounting {
+    string title = 1;
+}
+
+message CreateSeveralMounting {
+    repeated CreateMounting mounting = 1;
+}
+
+message UpdateMounting {
+    string id = 1;
+    string title = 2;
+}
+
+message DeleteMounting {
+    string id = 1;
+}
+
+message Mountings {
+    repeated mounting_model.Mounting mounting = 1;
+}
+
+service MountingService {
+    rpc GetAll (GetAllMountings) returns (Mountings);
+    rpc Create (CreateMounting) returns (response_model.Response);
+    rpc CreateSeveral (CreateSeveralMounting) returns (response_model.Response);
+    rpc Update (UpdateMounting) returns (response_model.Response);
+    rpc Delete (DeleteMounting) returns (response_model.Response);
+}

@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package standard_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/standard_model";
+
+message Standard {
+    string id = 1;
+    string title = 2;
+    repeated string format = 3;
+}

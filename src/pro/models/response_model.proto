@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package response_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/response_model";
+
+
+message IdResponse {
+    string id = 1;
+}
+message Response {}

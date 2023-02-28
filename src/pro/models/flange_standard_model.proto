@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package flange_standard_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/flange_standard_model";
+
+message FlangeStandard {
+    string id = 1;
+    string title = 2;
+    string code = 3;
+}

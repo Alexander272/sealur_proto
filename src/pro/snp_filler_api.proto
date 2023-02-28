@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package snp_filler_api;
+option go_package = "api/pro/snp_filler_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/snp_filler_model.proto";
+
+message GetSnpFillers {
+    //string temperatureId = 1;
+}
+
+message CreateSnpFiller {
+    string title = 1;
+    string code = 2;
+    string description = 3;
+}
+
+message CreateSeveralSnpFiller {
+    repeated CreateSnpFiller snpFillers = 1;
+}
+
+message UpdateSnpFiller {
+    string id = 1;
+    string title = 2;
+    string code = 3;
+    string description = 4;
+}
+
+message DeleteSnpFiller {
+    string id = 1;
+}
+
+message SnpFillers {
+    repeated snp_filler_model.SnpFiller snpFillers = 1;
+}
+
+service SnpFillerService {
+    rpc Get (GetSnpFillers) returns (SnpFillers);
+    rpc Create (CreateSnpFiller) returns (response_model.Response);
+    rpc CreateSeveral (CreateSeveralSnpFiller) returns (response_model.Response);
+    rpc Update (UpdateSnpFiller) returns (response_model.Response);
+    rpc Delete (DeleteSnpFiller) returns (response_model.Response);
+}

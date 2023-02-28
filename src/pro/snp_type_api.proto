@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package snp_type_api;
+option go_package = "api/pro/snp_type_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/snp_type_model.proto";
+
+message GetSnpTypes {
+    string standardId = 1;
+}
+
+message CreateSnpType {
+    string title = 1;
+    string flangeTypeId = 2;
+    string code = 3;
+    string standardId = 4;
+}
+
+message CreateSeveralSnpType {
+    repeated CreateSnpType snpTypes = 1;
+}
+
+message UpdateSnpType {
+    string id = 1;
+    string title = 2;
+    string flangeTypeId = 3;
+    string code = 4;
+    string standardId = 5;
+}
+
+message DeleteSnpType {
+    string id = 1;
+}
+
+message SnpTypes {
+    repeated snp_type_model.SnpType snpTypes = 1;
+}
+
+service SnpTypeService {
+    rpc Get (GetSnpTypes) returns (SnpTypes);
+    rpc Create (CreateSnpType) returns (response_model.Response);
+    rpc CreateSeveral (CreateSeveralSnpType) returns (response_model.Response);
+    rpc Update (UpdateSnpType) returns (response_model.Response);
+    rpc Delete (DeleteSnpType) returns (response_model.Response);
+}

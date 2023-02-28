@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package snp_api;
+option go_package = "api/pro/snp_api";
+
+import "pro/models/snp_data_model.proto";
+import "pro/models/snp_model.proto";
+
+message GetSnp {
+    string snpTypeId = 1;
+    string snpStandardId = 2;
+    string standardId = 3;
+    string flangeStandardId = 4;
+}
+
+message GetSnpData {
+    string standardId = 1;
+}
+
+message Snp {
+    // snp_data
+    snp_data_model.SnpData snp = 1;
+    // size
+}
+
+message SnpData {
+    // flange_type & snp_type
+    // snp_material
+    //* если стандарт не определен, то еще
+    // snp_filler
+    // mounting
+    snp_model.SnpData snpData = 1;
+}
+
+service SnpDataService {
+    rpc Get (GetSnp) returns (Snp);
+    rpc GetData (GetSnpData) returns (SnpData);
+}

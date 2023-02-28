@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package flange_type_snp_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/flange_type_snp_model";
+
+message FlangeTypeSnp {
+    string id = 1;
+    string title = 2;
+    string code = 3;
+}

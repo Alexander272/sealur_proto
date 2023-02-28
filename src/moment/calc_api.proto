@@ -160,22 +160,30 @@ message CapResponseOld {
 }
 
 message CapRequest {
+    // Исходные данные для расчета
     cap_model.MainData data = 1;
+    // Исходные данные для фланца
     cap_model.FlangeData flangeData = 2;
+    //  Исходные данные для крышки
     cap_model.CapData capData = 3;
+    // Исходные данные для болт/шпилька
     cap_model.BoltData bolts = 4;
+    // Исходные данные прокладки
     cap_model.GasketData gasket = 5;
+    // Исходные данные для закладной детали
     cap_model.EmbedData embed = 6;
+    // Наличие шайб
     bool isUseWasher = 7;
+    // Исходные данные для шайб
     repeated cap_model.WasherData washer = 8; 
-
+    // Наличие формул
     bool isNeedFormulas = 9;
 }
 
 message CapResponse {
     // Исходные данные для расчета
     cap_model.DataResult data = 1;
-    // Исходные данные для фланцев
+    // Исходные данные для фланца
     cap_model.FlangeResult flange = 2;
     //  Исходные данные для крышки
     cap_model.CapResult cap = 3;
