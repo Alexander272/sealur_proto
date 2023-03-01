@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package snp_size_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/snp_size_model";
+
+message SnpSize {
+    string id = 1;
+    string dn = 2;
+    string d2 = 3;
+    repeated Size sizes = 4;
+}
+
+message Size {
+    repeated Pn pn = 1;
+    string d4 = 2;
+    string d3 = 3;
+    string d2 = 4;
+    string d1 = 5;
+    repeated string h = 6;
+    repeated string s2 = 7;
+    repeated string s3 = 8;
+}
+
+message Pn {
+    string mpa = 1;
+    string kg = 2;
+}

@@ -8,6 +8,7 @@ import "pro/models/snp_data_model.proto";
 
 message GetSnpData {
     string standardId = 1;
+    string typeId = 2;
 }
 
 message CreateSnpData {

@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package snp_size_api;
+option go_package = "api/pro/snp_size_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/snp_size_model.proto";
+
+message GetSnpSize {
+    string standardId = 1;
+    string flangeId = 2;
+    string typeId = 3;
+    bool hasD2 = 4;
+}
+
+message CreateSnpSize {
+    string standardId = 1;
+    string flangeId = 2;
+    string typeId = 3;
+    int64 count = 4;
+    repeated snp_size_model.Pn pn = 5;
+    string d4 = 6;
+    string d3 = 7;
+    string d2 = 8;
+    string d1 = 9;
+    repeated string h = 10;
+    repeated string s2 = 11;
+    repeated string s3 = 12;
+}
+
+message UpdateSnpSize {
+    string id = 1;
+    string standardId = 2;
+    string flangeId = 3;
+    string typeId = 4;
+    int64 count = 5;
+    repeated snp_size_model.Pn pn = 6;
+    string d4 = 7;
+    string d3 = 8;
+    string d2 = 9;
+    string d1 = 10;
+    repeated string h = 11;
+    repeated string s2 = 12;
+    repeated string s3 = 13;
+}
+
+message DeleteSnpSize {
+    string id = 1;
+}
+
+message SnpSize {
+    repeated snp_size_model.SnpSize sizes = 1;
+}
+
+service SnpSizeService {
+    rpc Get (GetSnpSize) returns (SnpSize);
+    rpc Create (CreateSnpSize) returns (response_model.Response);
+    rpc Update (UpdateSnpSize) returns (response_model.Response);
+    rpc Delete (DeleteSnpSize) returns (response_model.Response);
+}

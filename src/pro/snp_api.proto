@@ -11,10 +11,12 @@ message GetSnp {
     string snpStandardId = 2;
     string standardId = 3;
     string flangeStandardId = 4;
+    bool hasD2 = 5;
 }
 
 message GetSnpData {
     string standardId = 1;
+    string snpStandardId = 2;
 }
 
 message Snp {

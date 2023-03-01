@@ -5,7 +5,7 @@ option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/snp_dat
 
 message SnpData {
     string id = 1;
-    string typeId = 2;
+    // string typeId = 2;
     bool hasInnerRing = 3;
     bool hasFrame = 4;
     bool hasOuterRing = 5;
