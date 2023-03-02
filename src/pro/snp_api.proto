@@ -4,14 +4,12 @@ package snp_api;
 option go_package = "api/pro/snp_api";
 
 import "pro/models/snp_data_model.proto";
+import "pro/models/snp_size_model.proto";
 import "pro/models/snp_model.proto";
 
 message GetSnp {
     string snpTypeId = 1;
-    string snpStandardId = 2;
-    string standardId = 3;
-    string flangeStandardId = 4;
-    bool hasD2 = 5;
+    bool hasD2 = 2;
 }
 
 message GetSnpData {
@@ -23,6 +21,7 @@ message Snp {
     // snp_data
     snp_data_model.SnpData snp = 1;
     // size
+    snp_size_model.SnpSize sizes = 2;
 }
 
 message SnpData {
