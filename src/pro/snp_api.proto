@@ -20,8 +20,8 @@ message GetSnpData {
 message Snp {
     // snp_data
     snp_data_model.SnpData snp = 1;
-    // size
-    snp_size_model.SnpSize sizes = 2;
+    // sizes
+    repeated snp_size_model.SnpSize sizes = 2;
 }
 
 message SnpData {

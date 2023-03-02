@@ -7,10 +7,10 @@ import "pro/models/response_model.proto";
 import "pro/models/snp_size_model.proto";
 
 message GetSnpSize {
-    string standardId = 1;
-    string flangeId = 2;
-    string typeId = 3;
-    bool hasD2 = 4;
+    // string standardId = 1;
+    // string flangeId = 2;
+    string typeId = 1;
+    bool hasD2 = 2;
 }
 
 message CreateSnpSize {

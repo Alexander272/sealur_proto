@@ -7,8 +7,8 @@ import "pro/models/response_model.proto";
 import "pro/models/snp_data_model.proto";
 
 message GetSnpData {
-    string standardId = 1;
-    string typeId = 2;
+    // string standardId = 1;
+    string typeId = 1;
 }
 
 message CreateSnpData {
