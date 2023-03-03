@@ -14,6 +14,7 @@ message CreateSnpStandard {
     string flangeStandardId = 2;
     string dnTitle = 3;
     string pnTitle = 4;
+    bool hasD2 = 5;
 }
 
 message CreateSeveralSnpStandard {
@@ -26,6 +27,7 @@ message UpdateSnpStandard {
     string flangeStandardId = 3;
     string dnTitle = 4;
     string pnTitle = 5;
+    bool hasD2 = 6;
 }
 
 message DeleteSnpStandard {

@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             (unknown)
-// source: pro/snp_data.proto
+// source: pro/snp_data_api.proto
 
 package snp_data_api
 
@@ -210,5 +210,5 @@ var SnpDataService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "pro/snp_data.proto",
+	Metadata: "pro/snp_data_api.proto",
 }

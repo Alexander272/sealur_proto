@@ -10,6 +10,7 @@ message SnpStandard {
     string id = 1;
     string dnTitle = 2;
     string pnTitle = 3;
-    standard_model.Standard standard = 4;
-    flange_standard_model.FlangeStandard flangeStandard = 5;
+    bool hasD2 = 4;
+    standard_model.Standard standard = 5;
+    flange_standard_model.FlangeStandard flangeStandard = 6;
 }
