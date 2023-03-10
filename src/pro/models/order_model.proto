@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package order_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/order_model";
+
+import "pro/models/position_model.proto";
+
+message Order {
+    string id = 1;
+    string date = 2;
+    int64 countPosition = 3; 
+    int64 number = 4;
+    repeated position_model.Position positions = 5;
+}
+
+message FullOrder {
+    string id = 1;
+    string date = 2;
+    int64 countPosition = 3; 
+    int64 number = 4;
+    repeated position_model.FullPosition positions = 5;
+}

@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package order_api;
+option go_package = "api/pro/order_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/order_model.proto";
+import "pro/models/position_model.proto";
+
+message GetOrder {
+    string id = 1;
+}
+
+message GetAllOrders {
+    string userId = 1;
+}
+
+message CreateOrder {
+    string id = 1;
+    string userId = 2;
+    string count = 3;
+    repeated position_model.FullPosition positions = 4;
+}
+
+message DeleteOrder {
+    string id = 1;
+}
+
+message Orders {
+    repeated order_model.Order orders = 1;
+}
+
+message Positions {
+    repeated position_model.FullPosition positions = 1;
+}
+
+message OrderNumber {
+    int64 number = 1;
+}
+
+service OrderService {
+    rpc Get (GetOrder) returns (order_model.FullOrder);
+    rpc GetAll (GetAllOrders) returns (Orders);
+    rpc Save (CreateOrder) returns (OrderNumber);
+    rpc Create (CreateOrder) returns (response_model.Response);
+    rpc Delete (DeleteOrder) returns (response_model.Response);
+}

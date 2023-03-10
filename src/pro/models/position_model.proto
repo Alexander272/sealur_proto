@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package position_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/position_model";
+
+import "pro/models/snp_size_model.proto";
+
+enum PositionType {
+    snp = 0;
+    putg = 1;
+    putgm = 2;
+}
+
+message Position {
+    string id = 1;
+    string orderId = 2;
+    int64 count = 3;
+    string title = 4;
+    string amount = 5;
+}
+
+message FullPosition {
+    string id = 1;
+    string orderId = 2;
+    int64 count = 3;
+    string title = 4;
+    string amount = 5;
+    PositionType type = 6;
+    PositionSnp snpData = 7;
+}
+
+message PositionSnp {
+    message Main {
+        string snpStandardId = 1;
+        string snpTypeId = 2;
+        string flangeTypeCode = 3;
+        string flangeTypeTitle = 4;
+    }
+
+    message Size {
+        string dn = 1;
+        snp_size_model.Pn pn = 2;
+        string d4 = 3;
+        string d3 = 4;
+        string d2 = 5;
+        string d1 = 6;
+        string h = 7;
+        string s2 = 8;
+        string s3 = 9;
+        string another = 10;
+    }
+
+    message Material {
+        string fillerId = 1;
+        string innerRingId = 2;
+        string outerRingId = 3;
+        string frameId = 4;
+    }
+
+    message Design {
+        bool hasJumper = 1;
+        string jumperCode = 2;
+        string jumperWidth = 3;
+        bool hasHole = 4;
+        bool hasMounting = 5;
+        string mountingCode = 6;
+        string drawing = 7;
+    }
+
+    Main main = 1;
+    Size size = 2;
+    Material material = 3;
+    Design design = 4;
+}
