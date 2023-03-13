@@ -41,6 +41,7 @@ message OrderNumber {
 service OrderService {
     rpc Get (GetOrder) returns (order_model.FullOrder);
     rpc GetAll (GetAllOrders) returns (Orders);
+    rpc GetFile (GetOrder) returns (response_model.FileResponse);
     rpc Save (CreateOrder) returns (OrderNumber);
     rpc Create (CreateOrder) returns (response_model.Response);
     rpc Delete (DeleteOrder) returns (response_model.Response);

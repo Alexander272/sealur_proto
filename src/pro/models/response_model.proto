@@ -8,3 +8,20 @@ message IdResponse {
     string id = 1;
 }
 message Response {}
+
+message MetaData {
+    string name = 1;
+    string type = 2;
+    int64 size = 3;
+}
+
+message File {
+    bytes content = 1;
+}
+
+message FileResponse {
+    oneof response {
+        MetaData metadata = 1;
+        File file = 2;
+    }
+}

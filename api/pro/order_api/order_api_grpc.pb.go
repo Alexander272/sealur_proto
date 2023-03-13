@@ -26,6 +26,7 @@ const _ = grpc.SupportPackageIsVersion7
 type OrderServiceClient interface {
 	Get(ctx context.Context, in *GetOrder, opts ...grpc.CallOption) (*order_model.FullOrder, error)
 	GetAll(ctx context.Context, in *GetAllOrders, opts ...grpc.CallOption) (*Orders, error)
+	GetFile(ctx context.Context, in *GetOrder, opts ...grpc.CallOption) (*response_model.FileResponse, error)
 	Save(ctx context.Context, in *CreateOrder, opts ...grpc.CallOption) (*OrderNumber, error)
 	Create(ctx context.Context, in *CreateOrder, opts ...grpc.CallOption) (*response_model.Response, error)
 	Delete(ctx context.Context, in *DeleteOrder, opts ...grpc.CallOption) (*response_model.Response, error)
@@ -51,6 +52,15 @@ func (c *orderServiceClient) Get(ctx context.Context, in *GetOrder, opts ...grpc
 func (c *orderServiceClient) GetAll(ctx context.Context, in *GetAllOrders, opts ...grpc.CallOption) (*Orders, error) {
 	out := new(Orders)
 	err := c.cc.Invoke(ctx, "/order_api.OrderService/GetAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *orderServiceClient) GetFile(ctx context.Context, in *GetOrder, opts ...grpc.CallOption) (*response_model.FileResponse, error) {
+	out := new(response_model.FileResponse)
+	err := c.cc.Invoke(ctx, "/order_api.OrderService/GetFile", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -90,6 +100,7 @@ func (c *orderServiceClient) Delete(ctx context.Context, in *DeleteOrder, opts .
 type OrderServiceServer interface {
 	Get(context.Context, *GetOrder) (*order_model.FullOrder, error)
 	GetAll(context.Context, *GetAllOrders) (*Orders, error)
+	GetFile(context.Context, *GetOrder) (*response_model.FileResponse, error)
 	Save(context.Context, *CreateOrder) (*OrderNumber, error)
 	Create(context.Context, *CreateOrder) (*response_model.Response, error)
 	Delete(context.Context, *DeleteOrder) (*response_model.Response, error)
@@ -105,6 +116,9 @@ func (UnimplementedOrderServiceServer) Get(context.Context, *GetOrder) (*order_m
 }
 func (UnimplementedOrderServiceServer) GetAll(context.Context, *GetAllOrders) (*Orders, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAll not implemented")
+}
+func (UnimplementedOrderServiceServer) GetFile(context.Context, *GetOrder) (*response_model.FileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetFile not implemented")
 }
 func (UnimplementedOrderServiceServer) Save(context.Context, *CreateOrder) (*OrderNumber, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Save not implemented")
@@ -160,6 +174,24 @@ func _OrderService_GetAll_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrderServiceServer).GetAll(ctx, req.(*GetAllOrders))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrderService_GetFile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOrder)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrderServiceServer).GetFile(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/order_api.OrderService/GetFile",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrderServiceServer).GetFile(ctx, req.(*GetOrder))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -232,6 +264,10 @@ var OrderService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAll",
 			Handler:    _OrderService_GetAll_Handler,
+		},
+		{
+			MethodName: "GetFile",
+			Handler:    _OrderService_GetFile_Handler,
 		},
 		{
 			MethodName: "Save",
