@@ -6,9 +6,9 @@ option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/positio
 import "pro/models/snp_size_model.proto";
 
 enum PositionType {
-    snp = 0;
-    putg = 1;
-    putgm = 2;
+    Snp = 0;
+    Putg = 1;
+    Putgm = 2;
 }
 
 message Position {
@@ -55,6 +55,10 @@ message PositionSnp {
         string innerRingId = 2;
         string outerRingId = 3;
         string frameId = 4;
+        string fillerCode = 5;
+        string innerRingCode = 6;
+        string outerRingCode = 7;
+        string frameCode = 8;
     }
 
     message Design {

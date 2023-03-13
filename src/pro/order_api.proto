@@ -18,7 +18,7 @@ message GetAllOrders {
 message CreateOrder {
     string id = 1;
     string userId = 2;
-    string count = 3;
+    int64 count = 3;
     repeated position_model.FullPosition positions = 4;
 }
 
