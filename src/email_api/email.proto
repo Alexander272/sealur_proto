@@ -61,10 +61,15 @@ message SendOrderRequest {
 }
 
 // Confirm --------------------------------------------------
-message ConfirmUserRequest {
+message ConfirmUserRequestOld {
     string organization = 1;
 	string name = 2;
     string position = 3;
+}
+
+message ConfirmUserRequest {
+    string email = 1;
+    string link = 2;
 }
 
 // Reject --------------------------------------------------
@@ -113,7 +118,8 @@ service EmailService {
     rpc SendOrder (stream SendOrderRequest) returns (SuccessResponse);
     
     // Confirm --------------------------------------------------
-    rpc SendConfirm (ConfirmUserRequest) returns (SuccessResponse);
+    rpc SendConfirm (ConfirmUserRequestOld) returns (SuccessResponse);
+    rpc ConfirmUser (ConfirmUserRequest) returns (SuccessResponse);
     
     // Reject --------------------------------------------------
     rpc SendReject (RejectUserRequest) returns (SuccessResponse);

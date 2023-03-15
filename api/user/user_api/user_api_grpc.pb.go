@@ -9,6 +9,7 @@ package user_api
 import (
 	context "context"
 	response_model "github.com/Alexander272/sealur_proto/api/pro/models/response_model"
+	user_model "github.com/Alexander272/sealur_proto/api/user/models/user_model"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -23,11 +24,12 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserServiceClient interface {
-	Get(ctx context.Context, in *GetUser, opts ...grpc.CallOption) (*User, error)
+	Get(ctx context.Context, in *GetUser, opts ...grpc.CallOption) (*user_model.User, error)
+	GetByEmail(ctx context.Context, in *GetUserByEmail, opts ...grpc.CallOption) (*user_model.User, error)
 	GetAll(ctx context.Context, in *GetAllUser, opts ...grpc.CallOption) (*Users, error)
 	GetNew(ctx context.Context, in *GetNewUser, opts ...grpc.CallOption) (*Users, error)
-	Create(ctx context.Context, in *CreateUser, opts ...grpc.CallOption) (*response_model.Response, error)
-	Confirm(ctx context.Context, in *ConfirmUser, opts ...grpc.CallOption) (*response_model.Response, error)
+	Create(ctx context.Context, in *CreateUser, opts ...grpc.CallOption) (*response_model.IdResponse, error)
+	Confirm(ctx context.Context, in *ConfirmUser, opts ...grpc.CallOption) (*user_model.User, error)
 	Update(ctx context.Context, in *UpdateUser, opts ...grpc.CallOption) (*response_model.Response, error)
 	Delete(ctx context.Context, in *DeleteUser, opts ...grpc.CallOption) (*response_model.Response, error)
 }
@@ -40,9 +42,18 @@ func NewUserServiceClient(cc grpc.ClientConnInterface) UserServiceClient {
 	return &userServiceClient{cc}
 }
 
-func (c *userServiceClient) Get(ctx context.Context, in *GetUser, opts ...grpc.CallOption) (*User, error) {
-	out := new(User)
+func (c *userServiceClient) Get(ctx context.Context, in *GetUser, opts ...grpc.CallOption) (*user_model.User, error) {
+	out := new(user_model.User)
 	err := c.cc.Invoke(ctx, "/user_api.UserService/Get", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) GetByEmail(ctx context.Context, in *GetUserByEmail, opts ...grpc.CallOption) (*user_model.User, error) {
+	out := new(user_model.User)
+	err := c.cc.Invoke(ctx, "/user_api.UserService/GetByEmail", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -67,8 +78,8 @@ func (c *userServiceClient) GetNew(ctx context.Context, in *GetNewUser, opts ...
 	return out, nil
 }
 
-func (c *userServiceClient) Create(ctx context.Context, in *CreateUser, opts ...grpc.CallOption) (*response_model.Response, error) {
-	out := new(response_model.Response)
+func (c *userServiceClient) Create(ctx context.Context, in *CreateUser, opts ...grpc.CallOption) (*response_model.IdResponse, error) {
+	out := new(response_model.IdResponse)
 	err := c.cc.Invoke(ctx, "/user_api.UserService/Create", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -76,8 +87,8 @@ func (c *userServiceClient) Create(ctx context.Context, in *CreateUser, opts ...
 	return out, nil
 }
 
-func (c *userServiceClient) Confirm(ctx context.Context, in *ConfirmUser, opts ...grpc.CallOption) (*response_model.Response, error) {
-	out := new(response_model.Response)
+func (c *userServiceClient) Confirm(ctx context.Context, in *ConfirmUser, opts ...grpc.CallOption) (*user_model.User, error) {
+	out := new(user_model.User)
 	err := c.cc.Invoke(ctx, "/user_api.UserService/Confirm", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -107,11 +118,12 @@ func (c *userServiceClient) Delete(ctx context.Context, in *DeleteUser, opts ...
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility
 type UserServiceServer interface {
-	Get(context.Context, *GetUser) (*User, error)
+	Get(context.Context, *GetUser) (*user_model.User, error)
+	GetByEmail(context.Context, *GetUserByEmail) (*user_model.User, error)
 	GetAll(context.Context, *GetAllUser) (*Users, error)
 	GetNew(context.Context, *GetNewUser) (*Users, error)
-	Create(context.Context, *CreateUser) (*response_model.Response, error)
-	Confirm(context.Context, *ConfirmUser) (*response_model.Response, error)
+	Create(context.Context, *CreateUser) (*response_model.IdResponse, error)
+	Confirm(context.Context, *ConfirmUser) (*user_model.User, error)
 	Update(context.Context, *UpdateUser) (*response_model.Response, error)
 	Delete(context.Context, *DeleteUser) (*response_model.Response, error)
 	mustEmbedUnimplementedUserServiceServer()
@@ -121,8 +133,11 @@ type UserServiceServer interface {
 type UnimplementedUserServiceServer struct {
 }
 
-func (UnimplementedUserServiceServer) Get(context.Context, *GetUser) (*User, error) {
+func (UnimplementedUserServiceServer) Get(context.Context, *GetUser) (*user_model.User, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
+}
+func (UnimplementedUserServiceServer) GetByEmail(context.Context, *GetUserByEmail) (*user_model.User, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetByEmail not implemented")
 }
 func (UnimplementedUserServiceServer) GetAll(context.Context, *GetAllUser) (*Users, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAll not implemented")
@@ -130,10 +145,10 @@ func (UnimplementedUserServiceServer) GetAll(context.Context, *GetAllUser) (*Use
 func (UnimplementedUserServiceServer) GetNew(context.Context, *GetNewUser) (*Users, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNew not implemented")
 }
-func (UnimplementedUserServiceServer) Create(context.Context, *CreateUser) (*response_model.Response, error) {
+func (UnimplementedUserServiceServer) Create(context.Context, *CreateUser) (*response_model.IdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
-func (UnimplementedUserServiceServer) Confirm(context.Context, *ConfirmUser) (*response_model.Response, error) {
+func (UnimplementedUserServiceServer) Confirm(context.Context, *ConfirmUser) (*user_model.User, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Confirm not implemented")
 }
 func (UnimplementedUserServiceServer) Update(context.Context, *UpdateUser) (*response_model.Response, error) {
@@ -169,6 +184,24 @@ func _UserService_Get_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServiceServer).Get(ctx, req.(*GetUser))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_GetByEmail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserByEmail)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetByEmail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/user_api.UserService/GetByEmail",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetByEmail(ctx, req.(*GetUserByEmail))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -291,6 +324,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Get",
 			Handler:    _UserService_Get_Handler,
+		},
+		{
+			MethodName: "GetByEmail",
+			Handler:    _UserService_GetByEmail_Handler,
 		},
 		{
 			MethodName: "GetAll",

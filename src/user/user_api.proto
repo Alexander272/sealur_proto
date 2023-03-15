@@ -7,9 +7,12 @@ import "pro/models/response_model.proto";
 import "user/models/user_model.proto";
 
 message GetUser {
-    string login = 1;
-    string id = 2;
-    string password = 3;
+    string id = 1;
+}
+
+message GetUserByEmail {
+    string email = 1;
+    string password = 2;
 }
 
 message GetAllUser {
@@ -70,9 +73,6 @@ message ConfirmUser {
 }
 
 
-message User {
-    user_model.User user = 1;
-}
 message Users {
     repeated user_model.User users = 1;
     int32 count = 2;
@@ -80,11 +80,12 @@ message Users {
 
 
 service UserService {
-    rpc Get (GetUser) returns (User);
+    rpc Get (GetUser) returns (user_model.User);
+    rpc GetByEmail (GetUserByEmail) returns (user_model.User);
     rpc GetAll (GetAllUser) returns (Users);
     rpc GetNew (GetNewUser) returns (Users);
-    rpc Create (CreateUser) returns (response_model.Response);
-    rpc Confirm (ConfirmUser) returns (response_model.Response);
+    rpc Create (CreateUser) returns (response_model.IdResponse);
+    rpc Confirm (ConfirmUser) returns (user_model.User);
     rpc Update (UpdateUser) returns (response_model.Response);
     rpc Delete (DeleteUser) returns (response_model.Response);
 }
