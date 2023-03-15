@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package role_api;
+option go_package = "github.com/Alexander272/sealur_proto/api/user/role_api";
+
+import "pro/models/response_model.proto";
+import "user/models/role_model.proto";
+
+service RoleService {}

@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+package user_api;
+option go_package = "github.com/Alexander272/sealur_proto/api/user/user_api";
+
+import "pro/models/response_model.proto";
+import "user/models/user_model.proto";
+
+message GetUser {
+    string login = 1;
+    string id = 2;
+    string password = 3;
+}
+
+message GetAllUser {
+    enum SearchField {
+        organization = 0;
+        city = 1;
+        login = 2;
+        name = 3;
+        email = 4;
+    }
+
+    message Search {
+        repeated SearchField field = 1;
+        string value = 2;
+    }
+
+    int32 limit = 1;
+    int32 offset = 2;
+    Search search = 3;
+}
+message GetNewUser {}
+
+message CreateUser {
+    string company = 1;
+    string address = 2;
+    string inn = 3;
+    string kpp = 4;
+    string region = 5;
+    string city = 6;
+    string name = 7;
+    string position = 8;
+    string email = 9;
+    string phone = 10;
+    string password = 11;
+}
+
+message UpdateUser {
+    string id = 1;
+    string company = 2;
+    string address = 3;
+    string inn = 4;
+    string kpp = 5;
+    string region = 6;
+    string city = 7;
+    string name = 8;
+    string position = 9;
+    string email = 10;
+    string phone = 11;
+    string password = 12;
+}
+
+message DeleteUser {
+    string id = 1;
+}
+
+message ConfirmUser {
+    string id = 1;
+}
+
+
+message User {
+    user_model.User user = 1;
+}
+message Users {
+    repeated user_model.User users = 1;
+    int32 count = 2;
+}
+
+
+service UserService {
+    rpc Get (GetUser) returns (User);
+    rpc GetAll (GetAllUser) returns (Users);
+    rpc GetNew (GetNewUser) returns (Users);
+    rpc Create (CreateUser) returns (response_model.Response);
+    rpc Confirm (ConfirmUser) returns (response_model.Response);
+    rpc Update (UpdateUser) returns (response_model.Response);
+    rpc Delete (DeleteUser) returns (response_model.Response);
+}

@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package user_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/user/models/user_model";
+
+message User {
+    string id = 1;
+    string company = 2;
+    string address = 3;
+    string inn = 4;
+    string kpp = 5;
+    string region = 6;
+    string city = 7;
+    string name = 8;
+    string position = 9;
+    string email = 10;
+    string phone = 11;
+    string roleCode = 12;
+
+    // string organization = 2;
+    // string name = 3;
+    // string email = 4;
+    // string city = 5;
+    // string position = 6;
+    // string phone = 7;
+    // string login = 8;
+    // repeated Role roles = 9;
+    // repeated Ip ip = 10;
+}

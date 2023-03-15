@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package role_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/user/models/role_model";
+
+message Role {
+    string id = 1;
+    string title = 2;
+    string code = 3;
+}
