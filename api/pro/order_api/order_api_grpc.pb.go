@@ -24,11 +24,12 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type OrderServiceClient interface {
-	Get(ctx context.Context, in *GetOrder, opts ...grpc.CallOption) (*order_model.FullOrder, error)
+	Get(ctx context.Context, in *GetOrder, opts ...grpc.CallOption) (*order_model.Order, error)
+	GetFull(ctx context.Context, in *GetOrder, opts ...grpc.CallOption) (*order_model.FullOrder, error)
 	GetAll(ctx context.Context, in *GetAllOrders, opts ...grpc.CallOption) (*Orders, error)
 	GetFile(ctx context.Context, in *GetOrder, opts ...grpc.CallOption) (OrderService_GetFileClient, error)
 	Save(ctx context.Context, in *CreateOrder, opts ...grpc.CallOption) (*OrderNumber, error)
-	Create(ctx context.Context, in *CreateOrder, opts ...grpc.CallOption) (*response_model.Response, error)
+	Create(ctx context.Context, in *CreateOrder, opts ...grpc.CallOption) (*response_model.IdResponse, error)
 	Delete(ctx context.Context, in *DeleteOrder, opts ...grpc.CallOption) (*response_model.Response, error)
 }
 
@@ -40,9 +41,18 @@ func NewOrderServiceClient(cc grpc.ClientConnInterface) OrderServiceClient {
 	return &orderServiceClient{cc}
 }
 
-func (c *orderServiceClient) Get(ctx context.Context, in *GetOrder, opts ...grpc.CallOption) (*order_model.FullOrder, error) {
-	out := new(order_model.FullOrder)
+func (c *orderServiceClient) Get(ctx context.Context, in *GetOrder, opts ...grpc.CallOption) (*order_model.Order, error) {
+	out := new(order_model.Order)
 	err := c.cc.Invoke(ctx, "/order_api.OrderService/Get", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *orderServiceClient) GetFull(ctx context.Context, in *GetOrder, opts ...grpc.CallOption) (*order_model.FullOrder, error) {
+	out := new(order_model.FullOrder)
+	err := c.cc.Invoke(ctx, "/order_api.OrderService/GetFull", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -99,8 +109,8 @@ func (c *orderServiceClient) Save(ctx context.Context, in *CreateOrder, opts ...
 	return out, nil
 }
 
-func (c *orderServiceClient) Create(ctx context.Context, in *CreateOrder, opts ...grpc.CallOption) (*response_model.Response, error) {
-	out := new(response_model.Response)
+func (c *orderServiceClient) Create(ctx context.Context, in *CreateOrder, opts ...grpc.CallOption) (*response_model.IdResponse, error) {
+	out := new(response_model.IdResponse)
 	err := c.cc.Invoke(ctx, "/order_api.OrderService/Create", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -121,11 +131,12 @@ func (c *orderServiceClient) Delete(ctx context.Context, in *DeleteOrder, opts .
 // All implementations must embed UnimplementedOrderServiceServer
 // for forward compatibility
 type OrderServiceServer interface {
-	Get(context.Context, *GetOrder) (*order_model.FullOrder, error)
+	Get(context.Context, *GetOrder) (*order_model.Order, error)
+	GetFull(context.Context, *GetOrder) (*order_model.FullOrder, error)
 	GetAll(context.Context, *GetAllOrders) (*Orders, error)
 	GetFile(*GetOrder, OrderService_GetFileServer) error
 	Save(context.Context, *CreateOrder) (*OrderNumber, error)
-	Create(context.Context, *CreateOrder) (*response_model.Response, error)
+	Create(context.Context, *CreateOrder) (*response_model.IdResponse, error)
 	Delete(context.Context, *DeleteOrder) (*response_model.Response, error)
 	mustEmbedUnimplementedOrderServiceServer()
 }
@@ -134,8 +145,11 @@ type OrderServiceServer interface {
 type UnimplementedOrderServiceServer struct {
 }
 
-func (UnimplementedOrderServiceServer) Get(context.Context, *GetOrder) (*order_model.FullOrder, error) {
+func (UnimplementedOrderServiceServer) Get(context.Context, *GetOrder) (*order_model.Order, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
+}
+func (UnimplementedOrderServiceServer) GetFull(context.Context, *GetOrder) (*order_model.FullOrder, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetFull not implemented")
 }
 func (UnimplementedOrderServiceServer) GetAll(context.Context, *GetAllOrders) (*Orders, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAll not implemented")
@@ -146,7 +160,7 @@ func (UnimplementedOrderServiceServer) GetFile(*GetOrder, OrderService_GetFileSe
 func (UnimplementedOrderServiceServer) Save(context.Context, *CreateOrder) (*OrderNumber, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Save not implemented")
 }
-func (UnimplementedOrderServiceServer) Create(context.Context, *CreateOrder) (*response_model.Response, error) {
+func (UnimplementedOrderServiceServer) Create(context.Context, *CreateOrder) (*response_model.IdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
 func (UnimplementedOrderServiceServer) Delete(context.Context, *DeleteOrder) (*response_model.Response, error) {
@@ -179,6 +193,24 @@ func _OrderService_Get_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrderServiceServer).Get(ctx, req.(*GetOrder))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrderService_GetFull_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOrder)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrderServiceServer).GetFull(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/order_api.OrderService/GetFull",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrderServiceServer).GetFull(ctx, req.(*GetOrder))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -286,6 +318,10 @@ var OrderService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Get",
 			Handler:    _OrderService_Get_Handler,
+		},
+		{
+			MethodName: "GetFull",
+			Handler:    _OrderService_GetFull_Handler,
 		},
 		{
 			MethodName: "GetAll",

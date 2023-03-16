@@ -27,11 +27,11 @@ message DeleteOrder {
 }
 
 message Orders {
-    repeated order_model.Order orders = 1;
+    repeated order_model.PartOrder orders = 1;
 }
 
 message Positions {
-    repeated position_model.FullPosition positions = 1;
+    repeated position_model.Position positions = 1;
 }
 
 message OrderNumber {
@@ -39,10 +39,11 @@ message OrderNumber {
 }
 
 service OrderService {
-    rpc Get (GetOrder) returns (order_model.FullOrder);
+    rpc Get (GetOrder) returns (order_model.Order);
+    rpc GetFull (GetOrder) returns (order_model.FullOrder);
     rpc GetAll (GetAllOrders) returns (Orders);
     rpc GetFile (GetOrder) returns (stream response_model.FileResponse);
     rpc Save (CreateOrder) returns (OrderNumber);
-    rpc Create (CreateOrder) returns (response_model.Response);
+    rpc Create (CreateOrder) returns (response_model.IdResponse);
     rpc Delete (DeleteOrder) returns (response_model.Response);
 }
