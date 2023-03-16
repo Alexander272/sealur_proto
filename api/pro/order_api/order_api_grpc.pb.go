@@ -24,8 +24,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type OrderServiceClient interface {
-	Get(ctx context.Context, in *GetOrder, opts ...grpc.CallOption) (*order_model.Order, error)
-	GetFull(ctx context.Context, in *GetOrder, opts ...grpc.CallOption) (*order_model.FullOrder, error)
+	Get(ctx context.Context, in *GetOrder, opts ...grpc.CallOption) (*order_model.FullOrder, error)
+	GetCurrent(ctx context.Context, in *GetCurrentOrder, opts ...grpc.CallOption) (*order_model.CurrentOrder, error)
 	GetAll(ctx context.Context, in *GetAllOrders, opts ...grpc.CallOption) (*Orders, error)
 	GetFile(ctx context.Context, in *GetOrder, opts ...grpc.CallOption) (OrderService_GetFileClient, error)
 	Save(ctx context.Context, in *CreateOrder, opts ...grpc.CallOption) (*OrderNumber, error)
@@ -41,8 +41,8 @@ func NewOrderServiceClient(cc grpc.ClientConnInterface) OrderServiceClient {
 	return &orderServiceClient{cc}
 }
 
-func (c *orderServiceClient) Get(ctx context.Context, in *GetOrder, opts ...grpc.CallOption) (*order_model.Order, error) {
-	out := new(order_model.Order)
+func (c *orderServiceClient) Get(ctx context.Context, in *GetOrder, opts ...grpc.CallOption) (*order_model.FullOrder, error) {
+	out := new(order_model.FullOrder)
 	err := c.cc.Invoke(ctx, "/order_api.OrderService/Get", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -50,9 +50,9 @@ func (c *orderServiceClient) Get(ctx context.Context, in *GetOrder, opts ...grpc
 	return out, nil
 }
 
-func (c *orderServiceClient) GetFull(ctx context.Context, in *GetOrder, opts ...grpc.CallOption) (*order_model.FullOrder, error) {
-	out := new(order_model.FullOrder)
-	err := c.cc.Invoke(ctx, "/order_api.OrderService/GetFull", in, out, opts...)
+func (c *orderServiceClient) GetCurrent(ctx context.Context, in *GetCurrentOrder, opts ...grpc.CallOption) (*order_model.CurrentOrder, error) {
+	out := new(order_model.CurrentOrder)
+	err := c.cc.Invoke(ctx, "/order_api.OrderService/GetCurrent", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -131,8 +131,8 @@ func (c *orderServiceClient) Delete(ctx context.Context, in *DeleteOrder, opts .
 // All implementations must embed UnimplementedOrderServiceServer
 // for forward compatibility
 type OrderServiceServer interface {
-	Get(context.Context, *GetOrder) (*order_model.Order, error)
-	GetFull(context.Context, *GetOrder) (*order_model.FullOrder, error)
+	Get(context.Context, *GetOrder) (*order_model.FullOrder, error)
+	GetCurrent(context.Context, *GetCurrentOrder) (*order_model.CurrentOrder, error)
 	GetAll(context.Context, *GetAllOrders) (*Orders, error)
 	GetFile(*GetOrder, OrderService_GetFileServer) error
 	Save(context.Context, *CreateOrder) (*OrderNumber, error)
@@ -145,11 +145,11 @@ type OrderServiceServer interface {
 type UnimplementedOrderServiceServer struct {
 }
 
-func (UnimplementedOrderServiceServer) Get(context.Context, *GetOrder) (*order_model.Order, error) {
+func (UnimplementedOrderServiceServer) Get(context.Context, *GetOrder) (*order_model.FullOrder, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
 }
-func (UnimplementedOrderServiceServer) GetFull(context.Context, *GetOrder) (*order_model.FullOrder, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetFull not implemented")
+func (UnimplementedOrderServiceServer) GetCurrent(context.Context, *GetCurrentOrder) (*order_model.CurrentOrder, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCurrent not implemented")
 }
 func (UnimplementedOrderServiceServer) GetAll(context.Context, *GetAllOrders) (*Orders, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAll not implemented")
@@ -197,20 +197,20 @@ func _OrderService_Get_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrderService_GetFull_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetOrder)
+func _OrderService_GetCurrent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCurrentOrder)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OrderServiceServer).GetFull(ctx, in)
+		return srv.(OrderServiceServer).GetCurrent(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/order_api.OrderService/GetFull",
+		FullMethod: "/order_api.OrderService/GetCurrent",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrderServiceServer).GetFull(ctx, req.(*GetOrder))
+		return srv.(OrderServiceServer).GetCurrent(ctx, req.(*GetCurrentOrder))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -320,8 +320,8 @@ var OrderService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _OrderService_Get_Handler,
 		},
 		{
-			MethodName: "GetFull",
-			Handler:    _OrderService_GetFull_Handler,
+			MethodName: "GetCurrent",
+			Handler:    _OrderService_GetCurrent_Handler,
 		},
 		{
 			MethodName: "GetAll",

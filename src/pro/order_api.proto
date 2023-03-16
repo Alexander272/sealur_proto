@@ -11,6 +11,10 @@ message GetOrder {
     string id = 1;
 }
 
+message GetCurrentOrder {
+    string userId = 1;
+}
+
 message GetAllOrders {
     string userId = 1;
 }
@@ -27,7 +31,7 @@ message DeleteOrder {
 }
 
 message Orders {
-    repeated order_model.PartOrder orders = 1;
+    repeated order_model.Order orders = 1;
 }
 
 message Positions {
@@ -39,8 +43,8 @@ message OrderNumber {
 }
 
 service OrderService {
-    rpc Get (GetOrder) returns (order_model.Order);
-    rpc GetFull (GetOrder) returns (order_model.FullOrder);
+    rpc Get (GetOrder) returns (order_model.FullOrder);
+    rpc GetCurrent (GetCurrentOrder) returns (order_model.CurrentOrder);
     rpc GetAll (GetAllOrders) returns (Orders);
     rpc GetFile (GetOrder) returns (stream response_model.FileResponse);
     rpc Save (CreateOrder) returns (OrderNumber);
