@@ -121,9 +121,9 @@ message OrderPositionSnp {
         string id = 1;
         string positionId = 2;
         snp_filler_model.SnpFiller filler = 3;
-        pro_material_model.Material innerRing = 5;
-        pro_material_model.Material outerRing = 6;
-        pro_material_model.Material frame = 7;
+        pro_material_model.Material ir = 5;
+        pro_material_model.Material or = 6;
+        pro_material_model.Material fr = 7;
     }
     message Design {
         message Jumper {
