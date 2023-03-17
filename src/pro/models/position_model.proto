@@ -5,7 +5,6 @@ option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/positio
 
 import "pro/models/snp_size_model.proto";
 import "pro/models/snp_standard_model.proto";
-import "pro/models/snp_type_model.proto";
 import "pro/models/pro_material_model.proto";
 import "pro/models/snp_filler_model.proto";
 
@@ -94,37 +93,55 @@ message PositionSnp {
 
 message OrderPositionSnp {
     message Main {
-        snp_standard_model.SnpStandard snpStandard = 1;
-        snp_type_model.SnpType snpType = 2;
-        string flangeTypeCode = 3;
-        string flangeTypeTitle = 4;
+        string id = 1;
+        string positionId = 2;
+        string snpStandardId = 3;
+        string snpTypeId = 4;
+        string snpTypeCode = 5;
+        string snpTypeTitle = 6;
+        string flangeTypeCode = 7;
+        string flangeTypeTitle = 8;
+        snp_standard_model.SnpStandard snpStandard = 9;
     }
     message Size {
-        string dn = 1;
-        snp_size_model.Pn pn = 2;
-        string d4 = 3;
-        string d3 = 4;
-        string d2 = 5;
-        string d1 = 6;
-        string h = 7;
-        string s2 = 8;
-        string s3 = 9;
-        string another = 10;
+        string id = 1;
+        string positionId = 2;
+        string dn = 3;
+        snp_size_model.Pn pn = 4;
+        string d4 = 5;
+        string d3 = 6;
+        string d2 = 7;
+        string d1 = 8;
+        string h = 9;
+        string s2 = 10;
+        string s3 = 11;
+        string another = 12;
     }
     message Material {
-        snp_filler_model.SnpFiller filler = 1;
-        pro_material_model.Material innerRingId = 2;
-        pro_material_model.Material outerRingId = 3;
-        pro_material_model.Material frameId = 4;
+        string id = 1;
+        string positionId = 2;
+        snp_filler_model.SnpFiller filler = 3;
+        pro_material_model.Material innerRing = 5;
+        pro_material_model.Material outerRing = 6;
+        pro_material_model.Material frame = 7;
     }
     message Design {
-        bool hasJumper = 1;
-        string jumperCode = 2;
-        string jumperWidth = 3;
+        message Jumper {
+            bool hasJumper = 1;
+            string code = 2;
+            string width = 3;
+        }
+        message Mounting {
+            bool hasMounting = 1;
+            string code = 2;
+        }
+
+        string id = 1;
+        string positionId = 2;
+        Jumper jumper = 3;
         bool hasHole = 4;
-        bool hasMounting = 5;
-        string mountingCode = 6;
-        string drawing = 7;
+        Mounting mounting = 5;
+        string drawing = 6;
     }
 
     Main main = 1;
