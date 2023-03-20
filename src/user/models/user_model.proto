@@ -16,6 +16,7 @@ message User {
     string email = 10;
     string phone = 11;
     string roleCode = 12;
+    string managerId = 13;
 
     // string organization = 2;
     // string name = 3;

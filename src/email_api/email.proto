@@ -3,6 +3,8 @@ syntax = "proto3";
 package email_api;
 option go_package = "github.com/Alexander272/sealur_proto/api/email_api";
 
+import "user/models/user_model.proto";
+
 message IdResponse {
     string id = 1;
 }
@@ -48,6 +50,11 @@ message SendInterviewRequest {
 }
 
 // Order --------------------------------------------------
+message NotificationData {
+    string email = 1;
+    user_model.User user = 2;
+}
+
 message OrderData {
     User user = 1;
     FileData file = 2;
@@ -117,6 +124,7 @@ service EmailService {
 
     // Order --------------------------------------------------
     rpc SendOrder (stream SendOrderRequest) returns (SuccessResponse);
+    rpc SendNotification (NotificationData) returns (SuccessResponse);
     
     // Confirm --------------------------------------------------
     rpc SendConfirm (ConfirmUserRequestOld) returns (SuccessResponse);
