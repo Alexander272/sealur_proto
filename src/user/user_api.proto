@@ -82,13 +82,17 @@ message Users {
     int32 count = 2;
 }
 
+message Manager {
+    string email = 1;
+    user_model.User user = 2;
+}
 
 service UserService {
     rpc Get (GetUser) returns (user_model.User);
     rpc GetByEmail (GetUserByEmail) returns (user_model.User);
     rpc GetAll (GetAllUser) returns (Users);
     rpc GetNew (GetNewUser) returns (Users);
-    rpc GetManager (GetUser) returns (user_model.User);
+    rpc GetManagerEmail (GetUser) returns (Manager);
     rpc Create (CreateUser) returns (response_model.IdResponse);
     rpc Confirm (ConfirmUser) returns (user_model.User);
     rpc Update (UpdateUser) returns (response_model.Response);

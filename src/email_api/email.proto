@@ -52,7 +52,8 @@ message SendInterviewRequest {
 // Order --------------------------------------------------
 message NotificationData {
     string email = 1;
-    user_model.User user = 2;
+    string orderId = 2;
+    user_model.User user = 3;
 }
 
 message OrderData {

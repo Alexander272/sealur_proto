@@ -6,6 +6,7 @@ option go_package = "api/pro/order_api";
 import "pro/models/response_model.proto";
 import "pro/models/order_model.proto";
 import "pro/models/position_model.proto";
+import "user/models/user_model.proto";
 
 message GetOrder {
     string id = 1;
@@ -19,6 +20,13 @@ message GetAllOrders {
     string userId = 1;
 }
 
+message GetManagerOrders {
+    string managerId = 1;
+}
+message GetAllManagerOrders {
+    
+}
+
 message CreateOrder {
     string id = 1;
     string userId = 2;
@@ -28,6 +36,11 @@ message CreateOrder {
 
 message DeleteOrder {
     string id = 1;
+}
+
+message Order {
+    user_model.User user = 1;
+    order_model.CurrentOrder order = 2;
 }
 
 message Orders {
@@ -42,11 +55,17 @@ message OrderNumber {
     int64 number = 1;
 }
 
+message ManagerOrders {
+    repeated order_model.ManagerOrder orders = 1;
+}
+
 service OrderService {
-    rpc Get (GetOrder) returns (order_model.FullOrder);
+    rpc Get (GetOrder) returns (Order);
     rpc GetCurrent (GetCurrentOrder) returns (order_model.CurrentOrder);
     rpc GetAll (GetAllOrders) returns (Orders);
     rpc GetFile (GetOrder) returns (stream response_model.FileResponse);
+    rpc GetOpen (GetManagerOrders) returns (ManagerOrders);
+    rpc GetAllOpen (GetAllManagerOrders) returns (ManagerOrders);
     rpc Save (CreateOrder) returns (OrderNumber);
     rpc Create (CreateOrder) returns (response_model.IdResponse);
     rpc Delete (DeleteOrder) returns (response_model.Response);

@@ -26,3 +26,20 @@ message CurrentOrder {
     int64 number = 2;
     repeated position_model.OrderPosition positions = 3;
 }
+
+enum OrderStatus {
+    new = 0;
+    work = 1;
+    finish = 2;
+}
+
+message ManagerOrder {
+    string id = 1;
+    string date = 2;
+    int64 countPosition = 3; 
+    int64 number = 4;
+    OrderStatus status = 5;
+    string userId = 6;
+    string company = 7;
+    string managerId = 8;
+}
