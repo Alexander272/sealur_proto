@@ -19,12 +19,14 @@ message FullOrder {
     int64 countPosition = 3; 
     int64 number = 4;
     repeated position_model.FullPosition positions = 5;
+    string userId = 6;
 }
 
 message CurrentOrder {
     string id = 1;
     int64 number = 2;
     repeated position_model.OrderPosition positions = 3;
+    string userId = 4;
 }
 
 enum OrderStatus {
