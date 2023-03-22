@@ -14,6 +14,7 @@ message CopyPosition {
     string id = 1;
     string amount = 2;
     string orderId = 3;
+    string fromOrderId = 4;
 }
 
 message UpdatePosition {
@@ -24,11 +25,13 @@ message DeletePosition {
     string id = 1;
 }
 
-
+message CopyDrawing {
+    string drawing = 1;
+}
 
 service PositionService {
     rpc Create (CreatePosition) returns (response_model.IdResponse);
     rpc Update (UpdatePosition) returns (response_model.Response);
-    rpc Copy (CopyPosition) returns (response_model.Response);
+    rpc Copy (CopyPosition) returns (CopyDrawing);
     rpc Delete (DeletePosition) returns (response_model.Response);
 }
