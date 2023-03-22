@@ -25,6 +25,7 @@ const _ = grpc.SupportPackageIsVersion7
 type PositionServiceClient interface {
 	Create(ctx context.Context, in *CreatePosition, opts ...grpc.CallOption) (*response_model.IdResponse, error)
 	Update(ctx context.Context, in *UpdatePosition, opts ...grpc.CallOption) (*response_model.Response, error)
+	Copy(ctx context.Context, in *CopyPosition, opts ...grpc.CallOption) (*response_model.Response, error)
 	Delete(ctx context.Context, in *DeletePosition, opts ...grpc.CallOption) (*response_model.Response, error)
 }
 
@@ -54,6 +55,15 @@ func (c *positionServiceClient) Update(ctx context.Context, in *UpdatePosition, 
 	return out, nil
 }
 
+func (c *positionServiceClient) Copy(ctx context.Context, in *CopyPosition, opts ...grpc.CallOption) (*response_model.Response, error) {
+	out := new(response_model.Response)
+	err := c.cc.Invoke(ctx, "/position_api.PositionService/Copy", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *positionServiceClient) Delete(ctx context.Context, in *DeletePosition, opts ...grpc.CallOption) (*response_model.Response, error) {
 	out := new(response_model.Response)
 	err := c.cc.Invoke(ctx, "/position_api.PositionService/Delete", in, out, opts...)
@@ -69,6 +79,7 @@ func (c *positionServiceClient) Delete(ctx context.Context, in *DeletePosition, 
 type PositionServiceServer interface {
 	Create(context.Context, *CreatePosition) (*response_model.IdResponse, error)
 	Update(context.Context, *UpdatePosition) (*response_model.Response, error)
+	Copy(context.Context, *CopyPosition) (*response_model.Response, error)
 	Delete(context.Context, *DeletePosition) (*response_model.Response, error)
 	mustEmbedUnimplementedPositionServiceServer()
 }
@@ -82,6 +93,9 @@ func (UnimplementedPositionServiceServer) Create(context.Context, *CreatePositio
 }
 func (UnimplementedPositionServiceServer) Update(context.Context, *UpdatePosition) (*response_model.Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
+}
+func (UnimplementedPositionServiceServer) Copy(context.Context, *CopyPosition) (*response_model.Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Copy not implemented")
 }
 func (UnimplementedPositionServiceServer) Delete(context.Context, *DeletePosition) (*response_model.Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
@@ -135,6 +149,24 @@ func _PositionService_Update_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PositionService_Copy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CopyPosition)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PositionServiceServer).Copy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/position_api.PositionService/Copy",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PositionServiceServer).Copy(ctx, req.(*CopyPosition))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _PositionService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeletePosition)
 	if err := dec(in); err != nil {
@@ -167,6 +199,10 @@ var PositionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Update",
 			Handler:    _PositionService_Update_Handler,
+		},
+		{
+			MethodName: "Copy",
+			Handler:    _PositionService_Copy_Handler,
 		},
 		{
 			MethodName: "Delete",

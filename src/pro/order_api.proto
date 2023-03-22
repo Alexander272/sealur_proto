@@ -38,6 +38,11 @@ message DeleteOrder {
     string id = 1;
 }
 
+message CopyOrder {
+    string targetId = 1;
+    string fromId = 2;
+}
+
 message Order {
     user_model.User user = 1;
     order_model.CurrentOrder order = 2;
@@ -68,5 +73,6 @@ service OrderService {
     rpc GetAllOpen (GetAllManagerOrders) returns (ManagerOrders);
     rpc Save (CreateOrder) returns (OrderNumber);
     rpc Create (CreateOrder) returns (response_model.IdResponse);
+    rpc Copy (CopyOrder) returns (response_model.Response);
     rpc Delete (DeleteOrder) returns (response_model.Response);
 }

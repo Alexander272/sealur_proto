@@ -6,10 +6,14 @@ option go_package = "api/pro/position_api";
 import "pro/models/response_model.proto";
 import "pro/models/position_model.proto";
 
-
-
 message CreatePosition {
     position_model.FullPosition position = 1;
+}
+
+message CopyPosition {
+    string id = 1;
+    string amount = 2;
+    string orderId = 3;
 }
 
 message UpdatePosition {
@@ -25,5 +29,6 @@ message DeletePosition {
 service PositionService {
     rpc Create (CreatePosition) returns (response_model.IdResponse);
     rpc Update (UpdatePosition) returns (response_model.Response);
+    rpc Copy (CopyPosition) returns (response_model.Response);
     rpc Delete (DeletePosition) returns (response_model.Response);
 }

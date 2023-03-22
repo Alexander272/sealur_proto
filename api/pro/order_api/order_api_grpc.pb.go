@@ -32,6 +32,7 @@ type OrderServiceClient interface {
 	GetAllOpen(ctx context.Context, in *GetAllManagerOrders, opts ...grpc.CallOption) (*ManagerOrders, error)
 	Save(ctx context.Context, in *CreateOrder, opts ...grpc.CallOption) (*OrderNumber, error)
 	Create(ctx context.Context, in *CreateOrder, opts ...grpc.CallOption) (*response_model.IdResponse, error)
+	Copy(ctx context.Context, in *CopyOrder, opts ...grpc.CallOption) (*response_model.Response, error)
 	Delete(ctx context.Context, in *DeleteOrder, opts ...grpc.CallOption) (*response_model.Response, error)
 }
 
@@ -138,6 +139,15 @@ func (c *orderServiceClient) Create(ctx context.Context, in *CreateOrder, opts .
 	return out, nil
 }
 
+func (c *orderServiceClient) Copy(ctx context.Context, in *CopyOrder, opts ...grpc.CallOption) (*response_model.Response, error) {
+	out := new(response_model.Response)
+	err := c.cc.Invoke(ctx, "/order_api.OrderService/Copy", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *orderServiceClient) Delete(ctx context.Context, in *DeleteOrder, opts ...grpc.CallOption) (*response_model.Response, error) {
 	out := new(response_model.Response)
 	err := c.cc.Invoke(ctx, "/order_api.OrderService/Delete", in, out, opts...)
@@ -159,6 +169,7 @@ type OrderServiceServer interface {
 	GetAllOpen(context.Context, *GetAllManagerOrders) (*ManagerOrders, error)
 	Save(context.Context, *CreateOrder) (*OrderNumber, error)
 	Create(context.Context, *CreateOrder) (*response_model.IdResponse, error)
+	Copy(context.Context, *CopyOrder) (*response_model.Response, error)
 	Delete(context.Context, *DeleteOrder) (*response_model.Response, error)
 	mustEmbedUnimplementedOrderServiceServer()
 }
@@ -190,6 +201,9 @@ func (UnimplementedOrderServiceServer) Save(context.Context, *CreateOrder) (*Ord
 }
 func (UnimplementedOrderServiceServer) Create(context.Context, *CreateOrder) (*response_model.IdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
+}
+func (UnimplementedOrderServiceServer) Copy(context.Context, *CopyOrder) (*response_model.Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Copy not implemented")
 }
 func (UnimplementedOrderServiceServer) Delete(context.Context, *DeleteOrder) (*response_model.Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
@@ -354,6 +368,24 @@ func _OrderService_Create_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrderService_Copy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CopyOrder)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrderServiceServer).Copy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/order_api.OrderService/Copy",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrderServiceServer).Copy(ctx, req.(*CopyOrder))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _OrderService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteOrder)
 	if err := dec(in); err != nil {
@@ -406,6 +438,10 @@ var OrderService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Create",
 			Handler:    _OrderService_Create_Handler,
+		},
+		{
+			MethodName: "Copy",
+			Handler:    _OrderService_Copy_Handler,
 		},
 		{
 			MethodName: "Delete",
