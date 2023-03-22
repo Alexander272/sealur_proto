@@ -41,6 +41,7 @@ message DeleteOrder {
 message CopyOrder {
     string targetId = 1;
     string fromId = 2;
+    string count = 3;
 }
 
 message Order {
