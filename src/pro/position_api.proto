@@ -15,6 +15,7 @@ message CopyPosition {
     string amount = 2;
     string orderId = 3;
     string fromOrderId = 4;
+    int64 count = 5;
 }
 
 message UpdatePosition {
