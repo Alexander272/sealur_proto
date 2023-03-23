@@ -44,6 +44,12 @@ message CopyOrder {
     int64 count = 3;
 }
 
+message Status {
+    order_model.OrderStatus status = 1;
+    string orderId = 2;
+    string date = 3;
+}
+
 message Order {
     user_model.User user = 1;
     order_model.CurrentOrder order = 2;
@@ -75,5 +81,6 @@ service OrderService {
     rpc Save (CreateOrder) returns (OrderNumber);
     rpc Create (CreateOrder) returns (response_model.IdResponse);
     rpc Copy (CopyOrder) returns (response_model.Response);
+    rpc SetStatus (Status) returns (response_model.Response);
     rpc Delete (DeleteOrder) returns (response_model.Response);
 }
