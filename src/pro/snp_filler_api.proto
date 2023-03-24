@@ -8,6 +8,7 @@ import "pro/models/snp_filler_model.proto";
 
 message GetSnpFillers {
     //string temperatureId = 1;
+    string standardId = 1;
 }
 
 message CreateSnpFiller {

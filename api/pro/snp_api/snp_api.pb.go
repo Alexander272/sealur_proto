@@ -242,6 +242,58 @@ func (x *SnpData) GetSnpData() *snp_model.SnpData {
 	return nil
 }
 
+type SnpDataNew struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// flange_type & snp_type
+	// snp_material
+	// snp_filler
+	// * если стандарт не определен, то еще
+	// mounting
+	SnpData *snp_model.SnpDataNew `protobuf:"bytes,1,opt,name=snpData,proto3" json:"snpData,omitempty"`
+}
+
+func (x *SnpDataNew) Reset() {
+	*x = SnpDataNew{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pro_snp_api_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SnpDataNew) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SnpDataNew) ProtoMessage() {}
+
+func (x *SnpDataNew) ProtoReflect() protoreflect.Message {
+	mi := &file_pro_snp_api_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SnpDataNew.ProtoReflect.Descriptor instead.
+func (*SnpDataNew) Descriptor() ([]byte, []int) {
+	return file_pro_snp_api_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *SnpDataNew) GetSnpData() *snp_model.SnpDataNew {
+	if x != nil {
+		return x.SnpData
+	}
+	return nil
+}
+
 var File_pro_snp_api_proto protoreflect.FileDescriptor
 
 var file_pro_snp_api_proto_rawDesc = []byte{
@@ -271,15 +323,23 @@ var file_pro_snp_api_proto_rawDesc = []byte{
 	0x07, 0x53, 0x6e, 0x70, 0x44, 0x61, 0x74, 0x61, 0x12, 0x2c, 0x0a, 0x07, 0x73, 0x6e, 0x70, 0x44,
 	0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x73, 0x6e, 0x70, 0x5f,
 	0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x2e, 0x53, 0x6e, 0x70, 0x44, 0x61, 0x74, 0x61, 0x52, 0x07, 0x73,
-	0x6e, 0x70, 0x44, 0x61, 0x74, 0x61, 0x32, 0x68, 0x0a, 0x0e, 0x53, 0x6e, 0x70, 0x44, 0x61, 0x74,
+	0x6e, 0x70, 0x44, 0x61, 0x74, 0x61, 0x22, 0x3d, 0x0a, 0x0a, 0x53, 0x6e, 0x70, 0x44, 0x61, 0x74,
+	0x61, 0x4e, 0x65, 0x77, 0x12, 0x2f, 0x0a, 0x07, 0x73, 0x6e, 0x70, 0x44, 0x61, 0x74, 0x61, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x15, 0x2e, 0x73, 0x6e, 0x70, 0x5f, 0x6d, 0x6f, 0x64, 0x65,
+	0x6c, 0x2e, 0x53, 0x6e, 0x70, 0x44, 0x61, 0x74, 0x61, 0x4e, 0x65, 0x77, 0x52, 0x07, 0x73, 0x6e,
+	0x70, 0x44, 0x61, 0x74, 0x61, 0x32, 0xa0, 0x01, 0x0a, 0x0e, 0x53, 0x6e, 0x70, 0x44, 0x61, 0x74,
 	0x61, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x24, 0x0a, 0x03, 0x47, 0x65, 0x74, 0x12,
 	0x0f, 0x2e, 0x73, 0x6e, 0x70, 0x5f, 0x61, 0x70, 0x69, 0x2e, 0x47, 0x65, 0x74, 0x53, 0x6e, 0x70,
 	0x1a, 0x0c, 0x2e, 0x73, 0x6e, 0x70, 0x5f, 0x61, 0x70, 0x69, 0x2e, 0x53, 0x6e, 0x70, 0x12, 0x30,
 	0x0a, 0x07, 0x47, 0x65, 0x74, 0x44, 0x61, 0x74, 0x61, 0x12, 0x13, 0x2e, 0x73, 0x6e, 0x70, 0x5f,
 	0x61, 0x70, 0x69, 0x2e, 0x47, 0x65, 0x74, 0x53, 0x6e, 0x70, 0x44, 0x61, 0x74, 0x61, 0x1a, 0x10,
 	0x2e, 0x73, 0x6e, 0x70, 0x5f, 0x61, 0x70, 0x69, 0x2e, 0x53, 0x6e, 0x70, 0x44, 0x61, 0x74, 0x61,
-	0x42, 0x11, 0x5a, 0x0f, 0x61, 0x70, 0x69, 0x2f, 0x70, 0x72, 0x6f, 0x2f, 0x73, 0x6e, 0x70, 0x5f,
-	0x61, 0x70, 0x69, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x12, 0x36, 0x0a, 0x0a, 0x47, 0x65, 0x74, 0x44, 0x61, 0x74, 0x61, 0x4e, 0x65, 0x77, 0x12, 0x13,
+	0x2e, 0x73, 0x6e, 0x70, 0x5f, 0x61, 0x70, 0x69, 0x2e, 0x47, 0x65, 0x74, 0x53, 0x6e, 0x70, 0x44,
+	0x61, 0x74, 0x61, 0x1a, 0x13, 0x2e, 0x73, 0x6e, 0x70, 0x5f, 0x61, 0x70, 0x69, 0x2e, 0x53, 0x6e,
+	0x70, 0x44, 0x61, 0x74, 0x61, 0x4e, 0x65, 0x77, 0x42, 0x11, 0x5a, 0x0f, 0x61, 0x70, 0x69, 0x2f,
+	0x70, 0x72, 0x6f, 0x2f, 0x73, 0x6e, 0x70, 0x5f, 0x61, 0x70, 0x69, 0x62, 0x06, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x33,
 }
 
 var (
@@ -294,29 +354,34 @@ func file_pro_snp_api_proto_rawDescGZIP() []byte {
 	return file_pro_snp_api_proto_rawDescData
 }
 
-var file_pro_snp_api_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_pro_snp_api_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_pro_snp_api_proto_goTypes = []interface{}{
 	(*GetSnp)(nil),                 // 0: snp_api.GetSnp
 	(*GetSnpData)(nil),             // 1: snp_api.GetSnpData
 	(*Snp)(nil),                    // 2: snp_api.Snp
 	(*SnpData)(nil),                // 3: snp_api.SnpData
-	(*snp_data_model.SnpData)(nil), // 4: snp_data_model.SnpData
-	(*snp_size_model.SnpSize)(nil), // 5: snp_size_model.SnpSize
-	(*snp_model.SnpData)(nil),      // 6: snp_model.SnpData
+	(*SnpDataNew)(nil),             // 4: snp_api.SnpDataNew
+	(*snp_data_model.SnpData)(nil), // 5: snp_data_model.SnpData
+	(*snp_size_model.SnpSize)(nil), // 6: snp_size_model.SnpSize
+	(*snp_model.SnpData)(nil),      // 7: snp_model.SnpData
+	(*snp_model.SnpDataNew)(nil),   // 8: snp_model.SnpDataNew
 }
 var file_pro_snp_api_proto_depIdxs = []int32{
-	4, // 0: snp_api.Snp.snp:type_name -> snp_data_model.SnpData
-	5, // 1: snp_api.Snp.sizes:type_name -> snp_size_model.SnpSize
-	6, // 2: snp_api.SnpData.snpData:type_name -> snp_model.SnpData
-	0, // 3: snp_api.SnpDataService.Get:input_type -> snp_api.GetSnp
-	1, // 4: snp_api.SnpDataService.GetData:input_type -> snp_api.GetSnpData
-	2, // 5: snp_api.SnpDataService.Get:output_type -> snp_api.Snp
-	3, // 6: snp_api.SnpDataService.GetData:output_type -> snp_api.SnpData
-	5, // [5:7] is the sub-list for method output_type
-	3, // [3:5] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	5, // 0: snp_api.Snp.snp:type_name -> snp_data_model.SnpData
+	6, // 1: snp_api.Snp.sizes:type_name -> snp_size_model.SnpSize
+	7, // 2: snp_api.SnpData.snpData:type_name -> snp_model.SnpData
+	8, // 3: snp_api.SnpDataNew.snpData:type_name -> snp_model.SnpDataNew
+	0, // 4: snp_api.SnpDataService.Get:input_type -> snp_api.GetSnp
+	1, // 5: snp_api.SnpDataService.GetData:input_type -> snp_api.GetSnpData
+	1, // 6: snp_api.SnpDataService.GetDataNew:input_type -> snp_api.GetSnpData
+	2, // 7: snp_api.SnpDataService.Get:output_type -> snp_api.Snp
+	3, // 8: snp_api.SnpDataService.GetData:output_type -> snp_api.SnpData
+	4, // 9: snp_api.SnpDataService.GetDataNew:output_type -> snp_api.SnpDataNew
+	7, // [7:10] is the sub-list for method output_type
+	4, // [4:7] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_pro_snp_api_proto_init() }
@@ -373,6 +438,18 @@ func file_pro_snp_api_proto_init() {
 				return nil
 			}
 		}
+		file_pro_snp_api_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SnpDataNew); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -380,7 +457,7 @@ func file_pro_snp_api_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_pro_snp_api_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

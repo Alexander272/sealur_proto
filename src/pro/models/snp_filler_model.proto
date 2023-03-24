@@ -12,3 +12,13 @@ message SnpFiller {
     string designation = 6;
     string temperature = 7;
 }
+
+message SnpFillerNew {
+    string id = 1;
+    string temperature = 2;
+    string baseCode = 3;
+    string code = 4;
+    string title = 5;
+    string description = 6;
+    string designation = 7;
+}

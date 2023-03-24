@@ -24,6 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 type SnpDataServiceClient interface {
 	Get(ctx context.Context, in *GetSnp, opts ...grpc.CallOption) (*Snp, error)
 	GetData(ctx context.Context, in *GetSnpData, opts ...grpc.CallOption) (*SnpData, error)
+	GetDataNew(ctx context.Context, in *GetSnpData, opts ...grpc.CallOption) (*SnpDataNew, error)
 }
 
 type snpDataServiceClient struct {
@@ -52,12 +53,22 @@ func (c *snpDataServiceClient) GetData(ctx context.Context, in *GetSnpData, opts
 	return out, nil
 }
 
+func (c *snpDataServiceClient) GetDataNew(ctx context.Context, in *GetSnpData, opts ...grpc.CallOption) (*SnpDataNew, error) {
+	out := new(SnpDataNew)
+	err := c.cc.Invoke(ctx, "/snp_api.SnpDataService/GetDataNew", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SnpDataServiceServer is the server API for SnpDataService service.
 // All implementations must embed UnimplementedSnpDataServiceServer
 // for forward compatibility
 type SnpDataServiceServer interface {
 	Get(context.Context, *GetSnp) (*Snp, error)
 	GetData(context.Context, *GetSnpData) (*SnpData, error)
+	GetDataNew(context.Context, *GetSnpData) (*SnpDataNew, error)
 	mustEmbedUnimplementedSnpDataServiceServer()
 }
 
@@ -70,6 +81,9 @@ func (UnimplementedSnpDataServiceServer) Get(context.Context, *GetSnp) (*Snp, er
 }
 func (UnimplementedSnpDataServiceServer) GetData(context.Context, *GetSnpData) (*SnpData, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetData not implemented")
+}
+func (UnimplementedSnpDataServiceServer) GetDataNew(context.Context, *GetSnpData) (*SnpDataNew, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDataNew not implemented")
 }
 func (UnimplementedSnpDataServiceServer) mustEmbedUnimplementedSnpDataServiceServer() {}
 
@@ -120,6 +134,24 @@ func _SnpDataService_GetData_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SnpDataService_GetDataNew_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSnpData)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SnpDataServiceServer).GetDataNew(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/snp_api.SnpDataService/GetDataNew",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SnpDataServiceServer).GetDataNew(ctx, req.(*GetSnpData))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // SnpDataService_ServiceDesc is the grpc.ServiceDesc for SnpDataService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -134,6 +166,10 @@ var SnpDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetData",
 			Handler:    _SnpDataService_GetData_Handler,
+		},
+		{
+			MethodName: "GetDataNew",
+			Handler:    _SnpDataService_GetDataNew_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
