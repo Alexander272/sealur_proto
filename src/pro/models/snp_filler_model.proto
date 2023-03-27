@@ -21,4 +21,5 @@ message SnpFillerNew {
     string title = 5;
     string description = 6;
     string designation = 7;
+    repeated string disabledTypes = 8;
 }

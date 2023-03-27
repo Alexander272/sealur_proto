@@ -495,7 +495,7 @@ type CapData struct {
 	Type CapData_Type `protobuf:"varint,1,opt,name=type,proto3,enum=cap_model.CapData_Type" json:"type,omitempty"`
 	// Толщина крышки
 	H float64 `protobuf:"fixed64,2,opt,name=h,proto3" json:"h,omitempty"`
-	// Радиус кривизны днища сферической неотбортованной крышки
+	// Радиус кривизны днища сферической не отбортованной крышки
 	Radius float64 `protobuf:"fixed64,3,opt,name=radius,proto3" json:"radius,omitempty"`
 	// Толщина фланцевой части крышки
 	Delta    float64       `protobuf:"fixed64,4,opt,name=delta,proto3" json:"delta,omitempty"`
@@ -1959,7 +1959,7 @@ type CapResult struct {
 
 	// Толщина крышки
 	H float64 `protobuf:"fixed64,1,opt,name=h,proto3" json:"h,omitempty"`
-	// Радиус кривизны днища сферической неотбортованной крышки
+	// Радиус кривизны днища сферической не отбортованной крышки
 	Radius float64 `protobuf:"fixed64,2,opt,name=radius,proto3" json:"radius,omitempty"`
 	// Толщина фланцевой части крышки
 	Delta float64 `protobuf:"fixed64,3,opt,name=delta,proto3" json:"delta,omitempty"`

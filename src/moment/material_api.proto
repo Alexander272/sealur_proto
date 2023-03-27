@@ -10,9 +10,12 @@ message IdResponse {
 }
 message Response {}
 
-message GetMaterialsRequest {}
+message GetMaterialsRequest {
+    material_model.MaterialType type = 1;
+}
 message CreateMaterialRequest {
     string title = 1;
+    material_model.MaterialType type = 2;
 }
 message UpdateMaterialRequest {
     string id = 1;

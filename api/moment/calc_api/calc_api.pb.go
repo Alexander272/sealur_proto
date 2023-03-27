@@ -1599,15 +1599,24 @@ type CapRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Data           *cap_model.MainData     `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
-	FlangeData     *cap_model.FlangeData   `protobuf:"bytes,2,opt,name=flangeData,proto3" json:"flangeData,omitempty"`
-	CapData        *cap_model.CapData      `protobuf:"bytes,3,opt,name=capData,proto3" json:"capData,omitempty"`
-	Bolts          *cap_model.BoltData     `protobuf:"bytes,4,opt,name=bolts,proto3" json:"bolts,omitempty"`
-	Gasket         *cap_model.GasketData   `protobuf:"bytes,5,opt,name=gasket,proto3" json:"gasket,omitempty"`
-	Embed          *cap_model.EmbedData    `protobuf:"bytes,6,opt,name=embed,proto3" json:"embed,omitempty"`
-	IsUseWasher    bool                    `protobuf:"varint,7,opt,name=isUseWasher,proto3" json:"isUseWasher,omitempty"`
-	Washer         []*cap_model.WasherData `protobuf:"bytes,8,rep,name=washer,proto3" json:"washer,omitempty"`
-	IsNeedFormulas bool                    `protobuf:"varint,9,opt,name=isNeedFormulas,proto3" json:"isNeedFormulas,omitempty"`
+	// Исходные данные для расчета
+	Data *cap_model.MainData `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
+	// Исходные данные для фланца
+	FlangeData *cap_model.FlangeData `protobuf:"bytes,2,opt,name=flangeData,proto3" json:"flangeData,omitempty"`
+	// Исходные данные для крышки
+	CapData *cap_model.CapData `protobuf:"bytes,3,opt,name=capData,proto3" json:"capData,omitempty"`
+	// Исходные данные для болт/шпилька
+	Bolts *cap_model.BoltData `protobuf:"bytes,4,opt,name=bolts,proto3" json:"bolts,omitempty"`
+	// Исходные данные прокладки
+	Gasket *cap_model.GasketData `protobuf:"bytes,5,opt,name=gasket,proto3" json:"gasket,omitempty"`
+	// Исходные данные для закладной детали
+	Embed *cap_model.EmbedData `protobuf:"bytes,6,opt,name=embed,proto3" json:"embed,omitempty"`
+	// Наличие шайб
+	IsUseWasher bool `protobuf:"varint,7,opt,name=isUseWasher,proto3" json:"isUseWasher,omitempty"`
+	// Исходные данные для шайб
+	Washer []*cap_model.WasherData `protobuf:"bytes,8,rep,name=washer,proto3" json:"washer,omitempty"`
+	// Наличие формул
+	IsNeedFormulas bool `protobuf:"varint,9,opt,name=isNeedFormulas,proto3" json:"isNeedFormulas,omitempty"`
 }
 
 func (x *CapRequest) Reset() {
@@ -1712,7 +1721,7 @@ type CapResponse struct {
 
 	// Исходные данные для расчета
 	Data *cap_model.DataResult `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
-	// Исходные данные для фланцев
+	// Исходные данные для фланца
 	Flange *cap_model.FlangeResult `protobuf:"bytes,2,opt,name=flange,proto3" json:"flange,omitempty"`
 	// Исходные данные для крышки
 	Cap *cap_model.CapResult `protobuf:"bytes,3,opt,name=cap,proto3" json:"cap,omitempty"`

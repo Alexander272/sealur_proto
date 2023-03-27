@@ -27,3 +27,8 @@ message Alpha {
     double temperature = 1;
     double alpha = 2;
 }
+
+enum MaterialType {
+    bolt = 0;
+    flange = 1;
+}
