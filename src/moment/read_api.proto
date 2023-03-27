@@ -14,34 +14,38 @@ message GetFlangeResponse {
     repeated flange_model.StandartWithSize standarts = 2;
     repeated gasket_model.GasketWithThick gaskets = 3;
     repeated gasket_model.Env env = 4;
-    repeated material_model.Material materials = 5;
+    repeated material_model.Material boltMaterials = 5;
+    repeated material_model.Material flangeMaterials = 6;
 }
 
 message GetFloatRequest {}
 message GetFloatResponse {
     repeated gasket_model.GasketWithThick gaskets = 1;
-    repeated material_model.Material materials = 2;
-    repeated gasket_model.Env env = 3;
+    repeated material_model.Material boltMaterials = 2;
+    repeated material_model.Material flangeMaterials = 3;
+    repeated gasket_model.Env env = 4;
 }
 
 message GetDevCoolingtRequest {}
 message GetDevCoolingResponse {
     repeated gasket_model.GasketWithThick gaskets = 1;
-    repeated material_model.Material materials = 2;
-    repeated gasket_model.Env env = 3;
+    repeated material_model.Material boltMaterials = 2;
+    repeated material_model.Material flangeMaterials = 3;
+    repeated gasket_model.Env env = 4;
 }
 message GetAVORequest {}
 message GetAVOResponse {
     repeated gasket_model.GasketWithThick gaskets = 1;
-    repeated material_model.Material materials = 2;
-    repeated gasket_model.Env env = 3;
-    repeated device_model.Device devices = 4;
-    repeated device_model.Pressure pressure = 5;
-    repeated device_model.TubeCount tubeCount = 6;
-    repeated device_model.FinningFactor finningFactor = 7;
-    repeated device_model.SectionExecution sectionExecution = 8;
-    repeated device_model.TubeLength tubeLength = 9;
-    repeated device_model.NumberOfMoves numberOfMoves = 10;
+    repeated material_model.Material boltMaterials = 2;
+    repeated material_model.Material flangeMaterials = 3;
+    repeated gasket_model.Env env = 4;
+    repeated device_model.Device devices = 5;
+    repeated device_model.Pressure pressure = 6;
+    repeated device_model.TubeCount tubeCount = 7;
+    repeated device_model.FinningFactor finningFactor = 8;
+    repeated device_model.SectionExecution sectionExecution = 9;
+    repeated device_model.TubeLength tubeLength = 10;
+    repeated device_model.NumberOfMoves numberOfMoves = 11;
 }
 
 service ReadService {
