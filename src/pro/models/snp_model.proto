@@ -14,7 +14,8 @@ message FlangeType {
     string id = 1;
     string title = 2;
     string code = 3;
-    repeated snp_type_model.SnpType types = 4;
+    string description = 4;
+    repeated snp_type_model.SnpType types = 5;
 }
 
 message SnpData {

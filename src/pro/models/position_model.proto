@@ -7,6 +7,7 @@ import "pro/models/snp_size_model.proto";
 import "pro/models/snp_standard_model.proto";
 import "pro/models/pro_material_model.proto";
 import "pro/models/snp_filler_model.proto";
+import "pro/models/snp_type_model.proto";
 
 
 enum PositionType {
@@ -97,11 +98,12 @@ message OrderPositionSnp {
         string positionId = 2;
         string snpStandardId = 3;
         string snpTypeId = 4;
-        string snpTypeCode = 5;
-        string snpTypeTitle = 6;
+        // string snpTypeCode = 5;
+        // string snpTypeTitle = 6;
         string flangeTypeCode = 7;
         string flangeTypeTitle = 8;
         snp_standard_model.SnpStandard snpStandard = 9;
+        snp_type_model.SnpType snpType = 10;
     }
     message Size {
         string id = 1;
