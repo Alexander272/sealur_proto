@@ -7,4 +7,9 @@ message SnpType {
     string id = 1;
     string title = 2;
     string code = 3;
+    string description = 4;
+    bool hasD4 = 5;
+    bool hasD3 = 6;
+    bool hasD2 = 7;
+    bool hasD1 = 8;
 }
