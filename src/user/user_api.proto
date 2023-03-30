@@ -97,6 +97,7 @@ service UserService {
     rpc GetByEmail (GetUserByEmail) returns (user_model.User);
     rpc GetAll (GetAllUser) returns (Users);
     rpc GetNew (GetNewUser) returns (Users);
+    rpc GetManagers (GetNewUser) returns (Users);
     rpc GetManagerEmail (GetUser) returns (Manager);
     rpc Create (CreateUser) returns (response_model.IdResponse);
     rpc Confirm (ConfirmUser) returns (user_model.User);
