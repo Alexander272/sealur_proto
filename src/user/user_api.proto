@@ -65,6 +65,11 @@ message UpdateUser {
     string password = 12;
 }
 
+message UserManager {
+    string id = 1;
+    string managerId = 2;
+}
+
 message DeleteUser {
     string id = 1;
 }
@@ -96,5 +101,6 @@ service UserService {
     rpc Create (CreateUser) returns (response_model.IdResponse);
     rpc Confirm (ConfirmUser) returns (user_model.User);
     rpc Update (UpdateUser) returns (response_model.Response);
+    rpc SetManager (UserManager) returns (response_model.Response);
     rpc Delete (DeleteUser) returns (response_model.Response);
 }

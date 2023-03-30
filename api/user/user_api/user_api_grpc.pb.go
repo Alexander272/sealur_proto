@@ -32,6 +32,7 @@ type UserServiceClient interface {
 	Create(ctx context.Context, in *CreateUser, opts ...grpc.CallOption) (*response_model.IdResponse, error)
 	Confirm(ctx context.Context, in *ConfirmUser, opts ...grpc.CallOption) (*user_model.User, error)
 	Update(ctx context.Context, in *UpdateUser, opts ...grpc.CallOption) (*response_model.Response, error)
+	SetManager(ctx context.Context, in *UserManager, opts ...grpc.CallOption) (*response_model.Response, error)
 	Delete(ctx context.Context, in *DeleteUser, opts ...grpc.CallOption) (*response_model.Response, error)
 }
 
@@ -115,6 +116,15 @@ func (c *userServiceClient) Update(ctx context.Context, in *UpdateUser, opts ...
 	return out, nil
 }
 
+func (c *userServiceClient) SetManager(ctx context.Context, in *UserManager, opts ...grpc.CallOption) (*response_model.Response, error) {
+	out := new(response_model.Response)
+	err := c.cc.Invoke(ctx, "/user_api.UserService/SetManager", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *userServiceClient) Delete(ctx context.Context, in *DeleteUser, opts ...grpc.CallOption) (*response_model.Response, error) {
 	out := new(response_model.Response)
 	err := c.cc.Invoke(ctx, "/user_api.UserService/Delete", in, out, opts...)
@@ -136,6 +146,7 @@ type UserServiceServer interface {
 	Create(context.Context, *CreateUser) (*response_model.IdResponse, error)
 	Confirm(context.Context, *ConfirmUser) (*user_model.User, error)
 	Update(context.Context, *UpdateUser) (*response_model.Response, error)
+	SetManager(context.Context, *UserManager) (*response_model.Response, error)
 	Delete(context.Context, *DeleteUser) (*response_model.Response, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
@@ -167,6 +178,9 @@ func (UnimplementedUserServiceServer) Confirm(context.Context, *ConfirmUser) (*u
 }
 func (UnimplementedUserServiceServer) Update(context.Context, *UpdateUser) (*response_model.Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
+}
+func (UnimplementedUserServiceServer) SetManager(context.Context, *UserManager) (*response_model.Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetManager not implemented")
 }
 func (UnimplementedUserServiceServer) Delete(context.Context, *DeleteUser) (*response_model.Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
@@ -328,6 +342,24 @@ func _UserService_Update_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_SetManager_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserManager)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).SetManager(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/user_api.UserService/SetManager",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).SetManager(ctx, req.(*UserManager))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _UserService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteUser)
 	if err := dec(in); err != nil {
@@ -384,6 +416,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Update",
 			Handler:    _UserService_Update_Handler,
+		},
+		{
+			MethodName: "SetManager",
+			Handler:    _UserService_SetManager_Handler,
 		},
 		{
 			MethodName: "Delete",

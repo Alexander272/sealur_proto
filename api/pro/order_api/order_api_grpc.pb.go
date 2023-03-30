@@ -34,6 +34,7 @@ type OrderServiceClient interface {
 	Create(ctx context.Context, in *CreateOrder, opts ...grpc.CallOption) (*response_model.IdResponse, error)
 	Copy(ctx context.Context, in *CopyOrder, opts ...grpc.CallOption) (*response_model.Response, error)
 	SetStatus(ctx context.Context, in *Status, opts ...grpc.CallOption) (*response_model.Response, error)
+	SetManager(ctx context.Context, in *Manager, opts ...grpc.CallOption) (*response_model.Response, error)
 	Delete(ctx context.Context, in *DeleteOrder, opts ...grpc.CallOption) (*response_model.Response, error)
 }
 
@@ -158,6 +159,15 @@ func (c *orderServiceClient) SetStatus(ctx context.Context, in *Status, opts ...
 	return out, nil
 }
 
+func (c *orderServiceClient) SetManager(ctx context.Context, in *Manager, opts ...grpc.CallOption) (*response_model.Response, error) {
+	out := new(response_model.Response)
+	err := c.cc.Invoke(ctx, "/order_api.OrderService/SetManager", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *orderServiceClient) Delete(ctx context.Context, in *DeleteOrder, opts ...grpc.CallOption) (*response_model.Response, error) {
 	out := new(response_model.Response)
 	err := c.cc.Invoke(ctx, "/order_api.OrderService/Delete", in, out, opts...)
@@ -181,6 +191,7 @@ type OrderServiceServer interface {
 	Create(context.Context, *CreateOrder) (*response_model.IdResponse, error)
 	Copy(context.Context, *CopyOrder) (*response_model.Response, error)
 	SetStatus(context.Context, *Status) (*response_model.Response, error)
+	SetManager(context.Context, *Manager) (*response_model.Response, error)
 	Delete(context.Context, *DeleteOrder) (*response_model.Response, error)
 	mustEmbedUnimplementedOrderServiceServer()
 }
@@ -218,6 +229,9 @@ func (UnimplementedOrderServiceServer) Copy(context.Context, *CopyOrder) (*respo
 }
 func (UnimplementedOrderServiceServer) SetStatus(context.Context, *Status) (*response_model.Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetStatus not implemented")
+}
+func (UnimplementedOrderServiceServer) SetManager(context.Context, *Manager) (*response_model.Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetManager not implemented")
 }
 func (UnimplementedOrderServiceServer) Delete(context.Context, *DeleteOrder) (*response_model.Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
@@ -418,6 +432,24 @@ func _OrderService_SetStatus_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrderService_SetManager_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Manager)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrderServiceServer).SetManager(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/order_api.OrderService/SetManager",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrderServiceServer).SetManager(ctx, req.(*Manager))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _OrderService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteOrder)
 	if err := dec(in); err != nil {
@@ -478,6 +510,10 @@ var OrderService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SetStatus",
 			Handler:    _OrderService_SetStatus_Handler,
+		},
+		{
+			MethodName: "SetManager",
+			Handler:    _OrderService_SetManager_Handler,
 		},
 		{
 			MethodName: "Delete",
