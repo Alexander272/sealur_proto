@@ -6,6 +6,7 @@ option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/positio
 import "pro/models/snp_size_model.proto";
 import "pro/models/snp_standard_model.proto";
 import "pro/models/pro_material_model.proto";
+import "pro/models/snp_material_model.proto";
 import "pro/models/snp_filler_model.proto";
 import "pro/models/snp_type_model.proto";
 
@@ -126,6 +127,10 @@ message OrderPositionSnp {
         pro_material_model.Material ir = 5;
         pro_material_model.Material or = 6;
         pro_material_model.Material fr = 7;
+        //TODO
+        snp_material_model.Material frame = 8;
+        snp_material_model.Material innerRing = 9;
+        snp_material_model.Material outerRing = 10;
     }
     message Design {
         message Jumper {

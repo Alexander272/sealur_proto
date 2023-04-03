@@ -20,6 +20,7 @@ message Material {
     string code = 5;
     bool isStandard = 6;
     string baseCode = 7;
+    string title = 8;
 }
 
 message SnpMaterials {
