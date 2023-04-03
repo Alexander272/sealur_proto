@@ -11,3 +11,19 @@ message SnpMaterial {
     pro_material_model.Material default = 3;
     string type = 4;
 }
+
+message Material {
+    string id = 1;
+    string materialId = 2;
+    string type = 3;
+    bool isDefault = 4;
+    string code = 5;
+    bool isStandard = 6;
+    string baseCode = 7;
+}
+
+message SnpMaterials {
+    repeated Material frame = 1;
+    repeated Material innerRing = 2;
+    repeated Material outerRing = 3;
+}

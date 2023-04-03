@@ -30,4 +30,6 @@ message SnpDataNew {
     repeated snp_material_model.SnpMaterial materials = 2;
     repeated mounting_model.Mounting mounting = 3;
     repeated snp_filler_model.SnpFillerNew fillers = 4;
+    //TODO 
+    snp_material_model.SnpMaterials snpMaterials = 5;
 }
