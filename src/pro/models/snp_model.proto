@@ -20,16 +20,7 @@ message FlangeType {
 
 message SnpData {
     repeated FlangeType flangeTypes = 1;
-    repeated snp_material_model.SnpMaterial materials = 2;
+    repeated snp_material_model.SnpMaterials materials = 2;
     repeated mounting_model.Mounting mounting = 3;
     repeated snp_filler_model.SnpFiller fillers = 4;
-}
-
-message SnpDataNew {
-    repeated FlangeType flangeTypes = 1;
-    repeated snp_material_model.SnpMaterial materials = 2;
-    repeated mounting_model.Mounting mounting = 3;
-    repeated snp_filler_model.SnpFillerNew fillers = 4;
-    //TODO 
-    snp_material_model.SnpMaterials snpMaterials = 5;
 }

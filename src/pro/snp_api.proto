@@ -33,17 +33,7 @@ message SnpData {
     snp_model.SnpData snpData = 1;
 }
 
-message SnpDataNew {
-    // flange_type & snp_type
-    // snp_material
-    // snp_filler
-    //* если стандарт не определен, то еще
-    // mounting
-    snp_model.SnpDataNew snpData = 1;
-}
-
 service SnpDataService {
     rpc Get (GetSnp) returns (Snp);
     rpc GetData (GetSnpData) returns (SnpData);
-    rpc GetDataNew (GetSnpData) returns (SnpDataNew);
 }
