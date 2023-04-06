@@ -39,7 +39,7 @@ message DeleteSnpData {
 }
 
 message SnpData {
-    repeated snp_data_model.SnpData snp = 1;
+    snp_data_model.SnpData snp = 1;
 }
 
 service SnpDataService {

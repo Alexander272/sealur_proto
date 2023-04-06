@@ -14,10 +14,10 @@ message GetSnpSize {
 }
 
 message CreateSnpSize {
-    string standardId = 1;
-    string flangeId = 2;
-    string typeId = 3;
-    int64 count = 4;
+    string snpTypeId = 1;
+    int64 count = 2;
+    string dn = 3;
+    string dnMm = 4;
     repeated snp_size_model.Pn pn = 5;
     string d4 = 6;
     string d3 = 7;
@@ -30,10 +30,10 @@ message CreateSnpSize {
 
 message UpdateSnpSize {
     string id = 1;
-    string standardId = 2;
-    string flangeId = 3;
-    string typeId = 4;
-    int64 count = 5;
+    string snpTypeId = 2;
+    int64 count = 3;
+    string dn = 4;
+    string dnMm = 5;
     repeated snp_size_model.Pn pn = 6;
     string d4 = 7;
     string d3 = 8;

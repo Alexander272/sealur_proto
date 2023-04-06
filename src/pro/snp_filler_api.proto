@@ -12,11 +12,14 @@ message GetSnpFillers {
 }
 
 message CreateSnpFiller {
-    string title = 1;
-    string anotherTitle = 2;
-    string code = 3;
-    string description = 4;
-    string designation = 5;
+    string standardId = 1;
+    string temperatureId = 2;
+    string baseCode = 3;
+    string code = 4;
+    string title = 5;
+    string description = 6;
+    string designation = 7;
+    repeated string disabledTypes = 8;
 }
 
 message CreateSeveralSnpFiller {
@@ -25,11 +28,14 @@ message CreateSeveralSnpFiller {
 
 message UpdateSnpFiller {
     string id = 1;
-    string title = 2;
-    string anotherTitle = 3;
-    string code = 4;
-    string description = 5;
-    string designation = 6;
+    string standardId = 2;
+    string temperatureId = 3;
+    string baseCode = 4;
+    string code = 5;
+    string title = 6;
+    string description = 7;
+    string designation = 8;
+    repeated string disabledTypes = 9;
 }
 
 message DeleteSnpFiller {
