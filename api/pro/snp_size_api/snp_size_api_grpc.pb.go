@@ -25,6 +25,7 @@ const _ = grpc.SupportPackageIsVersion7
 type SnpSizeServiceClient interface {
 	Get(ctx context.Context, in *GetSnpSize, opts ...grpc.CallOption) (*SnpSize, error)
 	Create(ctx context.Context, in *CreateSnpSize, opts ...grpc.CallOption) (*response_model.Response, error)
+	CreateSeveral(ctx context.Context, in *CreateSeveralSnpSize, opts ...grpc.CallOption) (*response_model.Response, error)
 	Update(ctx context.Context, in *UpdateSnpSize, opts ...grpc.CallOption) (*response_model.Response, error)
 	Delete(ctx context.Context, in *DeleteSnpSize, opts ...grpc.CallOption) (*response_model.Response, error)
 }
@@ -55,6 +56,15 @@ func (c *snpSizeServiceClient) Create(ctx context.Context, in *CreateSnpSize, op
 	return out, nil
 }
 
+func (c *snpSizeServiceClient) CreateSeveral(ctx context.Context, in *CreateSeveralSnpSize, opts ...grpc.CallOption) (*response_model.Response, error) {
+	out := new(response_model.Response)
+	err := c.cc.Invoke(ctx, "/snp_size_api.SnpSizeService/CreateSeveral", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *snpSizeServiceClient) Update(ctx context.Context, in *UpdateSnpSize, opts ...grpc.CallOption) (*response_model.Response, error) {
 	out := new(response_model.Response)
 	err := c.cc.Invoke(ctx, "/snp_size_api.SnpSizeService/Update", in, out, opts...)
@@ -79,6 +89,7 @@ func (c *snpSizeServiceClient) Delete(ctx context.Context, in *DeleteSnpSize, op
 type SnpSizeServiceServer interface {
 	Get(context.Context, *GetSnpSize) (*SnpSize, error)
 	Create(context.Context, *CreateSnpSize) (*response_model.Response, error)
+	CreateSeveral(context.Context, *CreateSeveralSnpSize) (*response_model.Response, error)
 	Update(context.Context, *UpdateSnpSize) (*response_model.Response, error)
 	Delete(context.Context, *DeleteSnpSize) (*response_model.Response, error)
 	mustEmbedUnimplementedSnpSizeServiceServer()
@@ -93,6 +104,9 @@ func (UnimplementedSnpSizeServiceServer) Get(context.Context, *GetSnpSize) (*Snp
 }
 func (UnimplementedSnpSizeServiceServer) Create(context.Context, *CreateSnpSize) (*response_model.Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
+}
+func (UnimplementedSnpSizeServiceServer) CreateSeveral(context.Context, *CreateSeveralSnpSize) (*response_model.Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateSeveral not implemented")
 }
 func (UnimplementedSnpSizeServiceServer) Update(context.Context, *UpdateSnpSize) (*response_model.Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
@@ -149,6 +163,24 @@ func _SnpSizeService_Create_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SnpSizeService_CreateSeveral_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateSeveralSnpSize)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SnpSizeServiceServer).CreateSeveral(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/snp_size_api.SnpSizeService/CreateSeveral",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SnpSizeServiceServer).CreateSeveral(ctx, req.(*CreateSeveralSnpSize))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _SnpSizeService_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateSnpSize)
 	if err := dec(in); err != nil {
@@ -199,6 +231,10 @@ var SnpSizeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Create",
 			Handler:    _SnpSizeService_Create_Handler,
+		},
+		{
+			MethodName: "CreateSeveral",
+			Handler:    _SnpSizeService_CreateSeveral_Handler,
 		},
 		{
 			MethodName: "Update",

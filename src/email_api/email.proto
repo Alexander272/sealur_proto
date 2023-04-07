@@ -81,6 +81,15 @@ message ConfirmUserRequest {
     string link = 3;
 }
 
+// Connect --------------------------------------------------
+message Feedback {
+    string subject = 1;
+    string email = 2;
+    string name = 3;
+    string company = 4;
+    string message = 5;
+}
+
 // Reject --------------------------------------------------
 message RejectUserRequest {
     string name = 1;
@@ -130,6 +139,9 @@ service EmailService {
     // Confirm --------------------------------------------------
     rpc SendConfirm (ConfirmUserRequestOld) returns (SuccessResponse);
     rpc ConfirmUser (ConfirmUserRequest) returns (SuccessResponse);
+
+    // Connect --------------------------------------------------
+    rpc SendFeedback (Feedback) returns (SuccessResponse);
     
     // Reject --------------------------------------------------
     rpc SendReject (RejectUserRequest) returns (SuccessResponse);

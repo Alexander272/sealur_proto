@@ -31,6 +31,8 @@ type EmailServiceClient interface {
 	// Confirm --------------------------------------------------
 	SendConfirm(ctx context.Context, in *ConfirmUserRequestOld, opts ...grpc.CallOption) (*SuccessResponse, error)
 	ConfirmUser(ctx context.Context, in *ConfirmUserRequest, opts ...grpc.CallOption) (*SuccessResponse, error)
+	// Connect --------------------------------------------------
+	SendFeedback(ctx context.Context, in *Feedback, opts ...grpc.CallOption) (*SuccessResponse, error)
 	// Reject --------------------------------------------------
 	SendReject(ctx context.Context, in *RejectUserRequest, opts ...grpc.CallOption) (*SuccessResponse, error)
 	// Join --------------------------------------------------
@@ -153,6 +155,15 @@ func (c *emailServiceClient) ConfirmUser(ctx context.Context, in *ConfirmUserReq
 	return out, nil
 }
 
+func (c *emailServiceClient) SendFeedback(ctx context.Context, in *Feedback, opts ...grpc.CallOption) (*SuccessResponse, error) {
+	out := new(SuccessResponse)
+	err := c.cc.Invoke(ctx, "/email_api.EmailService/SendFeedback", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *emailServiceClient) SendReject(ctx context.Context, in *RejectUserRequest, opts ...grpc.CallOption) (*SuccessResponse, error) {
 	out := new(SuccessResponse)
 	err := c.cc.Invoke(ctx, "/email_api.EmailService/SendReject", in, out, opts...)
@@ -202,6 +213,8 @@ type EmailServiceServer interface {
 	// Confirm --------------------------------------------------
 	SendConfirm(context.Context, *ConfirmUserRequestOld) (*SuccessResponse, error)
 	ConfirmUser(context.Context, *ConfirmUserRequest) (*SuccessResponse, error)
+	// Connect --------------------------------------------------
+	SendFeedback(context.Context, *Feedback) (*SuccessResponse, error)
 	// Reject --------------------------------------------------
 	SendReject(context.Context, *RejectUserRequest) (*SuccessResponse, error)
 	// Join --------------------------------------------------
@@ -234,6 +247,9 @@ func (UnimplementedEmailServiceServer) SendConfirm(context.Context, *ConfirmUser
 }
 func (UnimplementedEmailServiceServer) ConfirmUser(context.Context, *ConfirmUserRequest) (*SuccessResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ConfirmUser not implemented")
+}
+func (UnimplementedEmailServiceServer) SendFeedback(context.Context, *Feedback) (*SuccessResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendFeedback not implemented")
 }
 func (UnimplementedEmailServiceServer) SendReject(context.Context, *RejectUserRequest) (*SuccessResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendReject not implemented")
@@ -384,6 +400,24 @@ func _EmailService_ConfirmUser_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _EmailService_SendFeedback_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Feedback)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EmailServiceServer).SendFeedback(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/email_api.EmailService/SendFeedback",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EmailServiceServer).SendFeedback(ctx, req.(*Feedback))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _EmailService_SendReject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RejectUserRequest)
 	if err := dec(in); err != nil {
@@ -478,6 +512,10 @@ var EmailService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ConfirmUser",
 			Handler:    _EmailService_ConfirmUser_Handler,
+		},
+		{
+			MethodName: "SendFeedback",
+			Handler:    _EmailService_SendFeedback_Handler,
 		},
 		{
 			MethodName: "SendReject",

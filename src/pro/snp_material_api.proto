@@ -34,7 +34,7 @@ message DeleteSnpMaterial {
 }
 
 message SnpMaterials {
-    repeated snp_material_model.SnpMaterial materials = 1;
+    snp_material_model.SnpMaterials materials = 1;
 }
 
 service SnpMaterialService {

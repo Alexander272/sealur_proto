@@ -28,6 +28,11 @@ message CreateSnpSize {
     repeated string s3 = 12;
 }
 
+message CreateSeveralSnpSize {
+    repeated CreateSnpSize sizes = 1;
+}
+
+
 message UpdateSnpSize {
     string id = 1;
     string snpTypeId = 2;
@@ -55,6 +60,7 @@ message SnpSize {
 service SnpSizeService {
     rpc Get (GetSnpSize) returns (SnpSize);
     rpc Create (CreateSnpSize) returns (response_model.Response);
+    rpc CreateSeveral (CreateSeveralSnpSize) returns (response_model.Response);
     rpc Update (UpdateSnpSize) returns (response_model.Response);
     rpc Delete (DeleteSnpSize) returns (response_model.Response);
 }
