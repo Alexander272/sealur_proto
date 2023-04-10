@@ -31,6 +31,8 @@ type EmailServiceClient interface {
 	// Confirm --------------------------------------------------
 	SendConfirm(ctx context.Context, in *ConfirmUserRequestOld, opts ...grpc.CallOption) (*SuccessResponse, error)
 	ConfirmUser(ctx context.Context, in *ConfirmUserRequest, opts ...grpc.CallOption) (*SuccessResponse, error)
+	// Recovery password
+	Recovery(ctx context.Context, in *RecoveryPassword, opts ...grpc.CallOption) (*SuccessResponse, error)
 	// Connect --------------------------------------------------
 	SendFeedback(ctx context.Context, in *Feedback, opts ...grpc.CallOption) (*SuccessResponse, error)
 	// Reject --------------------------------------------------
@@ -155,6 +157,15 @@ func (c *emailServiceClient) ConfirmUser(ctx context.Context, in *ConfirmUserReq
 	return out, nil
 }
 
+func (c *emailServiceClient) Recovery(ctx context.Context, in *RecoveryPassword, opts ...grpc.CallOption) (*SuccessResponse, error) {
+	out := new(SuccessResponse)
+	err := c.cc.Invoke(ctx, "/email_api.EmailService/Recovery", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *emailServiceClient) SendFeedback(ctx context.Context, in *Feedback, opts ...grpc.CallOption) (*SuccessResponse, error) {
 	out := new(SuccessResponse)
 	err := c.cc.Invoke(ctx, "/email_api.EmailService/SendFeedback", in, out, opts...)
@@ -213,6 +224,8 @@ type EmailServiceServer interface {
 	// Confirm --------------------------------------------------
 	SendConfirm(context.Context, *ConfirmUserRequestOld) (*SuccessResponse, error)
 	ConfirmUser(context.Context, *ConfirmUserRequest) (*SuccessResponse, error)
+	// Recovery password
+	Recovery(context.Context, *RecoveryPassword) (*SuccessResponse, error)
 	// Connect --------------------------------------------------
 	SendFeedback(context.Context, *Feedback) (*SuccessResponse, error)
 	// Reject --------------------------------------------------
@@ -247,6 +260,9 @@ func (UnimplementedEmailServiceServer) SendConfirm(context.Context, *ConfirmUser
 }
 func (UnimplementedEmailServiceServer) ConfirmUser(context.Context, *ConfirmUserRequest) (*SuccessResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ConfirmUser not implemented")
+}
+func (UnimplementedEmailServiceServer) Recovery(context.Context, *RecoveryPassword) (*SuccessResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Recovery not implemented")
 }
 func (UnimplementedEmailServiceServer) SendFeedback(context.Context, *Feedback) (*SuccessResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendFeedback not implemented")
@@ -400,6 +416,24 @@ func _EmailService_ConfirmUser_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _EmailService_Recovery_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RecoveryPassword)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EmailServiceServer).Recovery(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/email_api.EmailService/Recovery",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EmailServiceServer).Recovery(ctx, req.(*RecoveryPassword))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _EmailService_SendFeedback_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Feedback)
 	if err := dec(in); err != nil {
@@ -512,6 +546,10 @@ var EmailService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ConfirmUser",
 			Handler:    _EmailService_ConfirmUser_Handler,
+		},
+		{
+			MethodName: "Recovery",
+			Handler:    _EmailService_Recovery_Handler,
 		},
 		{
 			MethodName: "SendFeedback",
