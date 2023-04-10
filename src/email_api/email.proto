@@ -81,6 +81,12 @@ message ConfirmUserRequest {
     string link = 3;
 }
 
+// Recovery password
+message RecoveryPassword {
+    string email = 1;
+    string link = 2;
+}
+
 // Connect --------------------------------------------------
 message Feedback {
     string subject = 1;
@@ -139,6 +145,9 @@ service EmailService {
     // Confirm --------------------------------------------------
     rpc SendConfirm (ConfirmUserRequestOld) returns (SuccessResponse);
     rpc ConfirmUser (ConfirmUserRequest) returns (SuccessResponse);
+
+    // Recovery password
+    rpc Recovery (RecoveryPassword) returns (SuccessResponse);
 
     // Connect --------------------------------------------------
     rpc SendFeedback (Feedback) returns (SuccessResponse);

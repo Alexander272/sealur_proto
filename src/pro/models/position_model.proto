@@ -55,15 +55,16 @@ message PositionSnp {
 
     message Size {
         string dn = 1;
-        snp_size_model.Pn pn = 2;
-        string d4 = 3;
-        string d3 = 4;
-        string d2 = 5;
-        string d1 = 6;
-        string h = 7;
-        string s2 = 8;
-        string s3 = 9;
-        string another = 10;
+        string dnMm = 2;
+        snp_size_model.Pn pn = 3;
+        string d4 = 4;
+        string d3 = 5;
+        string d2 = 6;
+        string d1 = 7;
+        string h = 8;
+        string s2 = 9;
+        string s3 = 10;
+        string another = 11;
     }
 
     message Material {
@@ -111,15 +112,16 @@ message OrderPositionSnp {
         string id = 1;
         string positionId = 2;
         string dn = 3;
-        snp_size_model.Pn pn = 4;
-        string d4 = 5;
-        string d3 = 6;
-        string d2 = 7;
-        string d1 = 8;
-        string h = 9;
-        string s2 = 10;
-        string s3 = 11;
-        string another = 12;
+        string dnMm = 4;
+        snp_size_model.Pn pn = 5;
+        string d4 = 6;
+        string d3 = 7;
+        string d2 = 8;
+        string d1 = 9;
+        string h = 10;
+        string s2 = 11;
+        string s3 = 12;
+        string another = 13;
     }
     message Material {
         string id = 1;
