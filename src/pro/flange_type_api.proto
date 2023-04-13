@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package flange_type_api;
+option go_package = "api/pro/flange_type_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/flange_type_model.proto";
+
+message GetFlangeType {
+}
+
+message CreateFlangeType {
+    string title = 1;
+    string code = 2;
+    // string description = 3;
+    // bool basis = 4;
+}
+
+message CreateSeveralFlangeType {
+    repeated CreateFlangeType flangeType = 1;
+}
+
+message UpdateFlangeType {
+    string id = 1;
+    string title = 2;
+    string code = 3;
+}
+
+message DeleteFlangeType {
+    string id = 1;
+}
+
+message FlangeType {
+    repeated flange_type_model.FlangeType flangeType = 1;
+}
+
+service FlangeTypeService {
+    rpc Get (GetFlangeType) returns (FlangeType);
+    rpc Create (CreateFlangeType) returns (response_model.Response);
+    rpc CreateSeveral (CreateSeveralFlangeType) returns (response_model.Response);
+    rpc Update (UpdateFlangeType) returns (response_model.Response);
+    rpc Delete (DeleteFlangeType) returns (response_model.Response);
+}
