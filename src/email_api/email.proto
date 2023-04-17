@@ -56,6 +56,13 @@ message NotificationData {
     user_model.User user = 3;
 }
 
+message RedirectData {
+    string email = 1;
+    string orderId = 2;
+    user_model.User user = 3;
+    user_model.User manager = 4;
+}
+
 message OrderData {
     User user = 1;
     FileData file = 2;
@@ -141,6 +148,7 @@ service EmailService {
     // Order --------------------------------------------------
     rpc SendOrder (stream SendOrderRequest) returns (SuccessResponse);
     rpc SendNotification (NotificationData) returns (SuccessResponse);
+    rpc SendRedirect (RedirectData) returns (SuccessResponse);
     
     // Confirm --------------------------------------------------
     rpc SendConfirm (ConfirmUserRequestOld) returns (SuccessResponse);

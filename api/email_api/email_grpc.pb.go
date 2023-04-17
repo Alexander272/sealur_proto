@@ -28,6 +28,7 @@ type EmailServiceClient interface {
 	// Order --------------------------------------------------
 	SendOrder(ctx context.Context, opts ...grpc.CallOption) (EmailService_SendOrderClient, error)
 	SendNotification(ctx context.Context, in *NotificationData, opts ...grpc.CallOption) (*SuccessResponse, error)
+	SendRedirect(ctx context.Context, in *RedirectData, opts ...grpc.CallOption) (*SuccessResponse, error)
 	// Confirm --------------------------------------------------
 	SendConfirm(ctx context.Context, in *ConfirmUserRequestOld, opts ...grpc.CallOption) (*SuccessResponse, error)
 	ConfirmUser(ctx context.Context, in *ConfirmUserRequest, opts ...grpc.CallOption) (*SuccessResponse, error)
@@ -139,6 +140,15 @@ func (c *emailServiceClient) SendNotification(ctx context.Context, in *Notificat
 	return out, nil
 }
 
+func (c *emailServiceClient) SendRedirect(ctx context.Context, in *RedirectData, opts ...grpc.CallOption) (*SuccessResponse, error) {
+	out := new(SuccessResponse)
+	err := c.cc.Invoke(ctx, "/email_api.EmailService/SendRedirect", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *emailServiceClient) SendConfirm(ctx context.Context, in *ConfirmUserRequestOld, opts ...grpc.CallOption) (*SuccessResponse, error) {
 	out := new(SuccessResponse)
 	err := c.cc.Invoke(ctx, "/email_api.EmailService/SendConfirm", in, out, opts...)
@@ -221,6 +231,7 @@ type EmailServiceServer interface {
 	// Order --------------------------------------------------
 	SendOrder(EmailService_SendOrderServer) error
 	SendNotification(context.Context, *NotificationData) (*SuccessResponse, error)
+	SendRedirect(context.Context, *RedirectData) (*SuccessResponse, error)
 	// Confirm --------------------------------------------------
 	SendConfirm(context.Context, *ConfirmUserRequestOld) (*SuccessResponse, error)
 	ConfirmUser(context.Context, *ConfirmUserRequest) (*SuccessResponse, error)
@@ -254,6 +265,9 @@ func (UnimplementedEmailServiceServer) SendOrder(EmailService_SendOrderServer) e
 }
 func (UnimplementedEmailServiceServer) SendNotification(context.Context, *NotificationData) (*SuccessResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendNotification not implemented")
+}
+func (UnimplementedEmailServiceServer) SendRedirect(context.Context, *RedirectData) (*SuccessResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendRedirect not implemented")
 }
 func (UnimplementedEmailServiceServer) SendConfirm(context.Context, *ConfirmUserRequestOld) (*SuccessResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendConfirm not implemented")
@@ -376,6 +390,24 @@ func _EmailService_SendNotification_Handler(srv interface{}, ctx context.Context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(EmailServiceServer).SendNotification(ctx, req.(*NotificationData))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _EmailService_SendRedirect_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RedirectData)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EmailServiceServer).SendRedirect(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/email_api.EmailService/SendRedirect",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EmailServiceServer).SendRedirect(ctx, req.(*RedirectData))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -538,6 +570,10 @@ var EmailService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SendNotification",
 			Handler:    _EmailService_SendNotification_Handler,
+		},
+		{
+			MethodName: "SendRedirect",
+			Handler:    _EmailService_SendRedirect_Handler,
 		},
 		{
 			MethodName: "SendConfirm",

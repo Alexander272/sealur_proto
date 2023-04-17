@@ -55,6 +55,7 @@ message Status {
 message Manager {
     string orderId = 1;
     string managerId = 2;
+    string userId = 3;
 }
 
 message Order {
