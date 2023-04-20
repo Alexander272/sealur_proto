@@ -82,6 +82,9 @@ message FlangeRequest {
 
     // Выводить ли формулы
     bool isNeedFormulas = 18;
+
+    // Коэффициент трения
+    double friction = 19;
 }
 
 message FlangeResponse {
@@ -145,6 +148,9 @@ message CapRequestOld {
     repeated cap_model.WasherData washer = 16; 
 
     bool isNeedFormulas = 17;
+
+    // Коэффициент трения
+    double friction = 18;
 }
 
 message CapResponseOld {
@@ -224,6 +230,9 @@ message FloatRequest {
     float_model.GasketData gasket = 9;
 
     bool isNeedFormulas = 10;
+
+    // Коэффициент трения
+    double friction = 11;
 }
 
 message FloatResponse {
@@ -297,6 +306,9 @@ message DevCoolingRequest {
     dev_cooling_model.GasketData gasket = 13;
 
     bool isNeedFormulas = 14;
+
+    // Коэффициент трения
+    double friction = 15;
 }
 
 message DevCoolingResponse {
@@ -346,6 +358,9 @@ message ExpressCircleRequest {
     express_circle_model.GasketData gasket = 5;
 
     bool isNeedFormulas = 6;
+
+    // Коэффициент трения
+    double friction = 7;
 }
 
 message ExpressCircleResponse {
@@ -379,6 +394,9 @@ message ExpressRectangleRequest {
     express_rectangle_model.GasketData gasket = 6;
 
     bool isNeedFormulas = 7;
+
+    // Коэффициент трения
+    double friction = 8;
 }
 
 message ExpressRectangleResponse {
