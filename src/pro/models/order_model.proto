@@ -10,7 +10,8 @@ message Order {
     string date = 2;
     int64 countPosition = 3; 
     int64 number = 4;
-    repeated position_model.Position positions = 5;
+    string info = 5;
+    repeated position_model.Position positions = 6;
 }
 
 message FullOrder {
@@ -20,6 +21,7 @@ message FullOrder {
     int64 number = 4;
     repeated position_model.FullPosition positions = 5;
     string userId = 6;
+    string info = 7;
 }
 
 message CurrentOrder {
@@ -27,6 +29,7 @@ message CurrentOrder {
     int64 number = 2;
     repeated position_model.OrderPosition positions = 3;
     string userId = 4;
+    string info = 5;
 }
 
 enum OrderStatus {

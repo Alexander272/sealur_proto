@@ -34,6 +34,7 @@ message CreateOrder {
     int64 count = 3;
     repeated position_model.FullPosition positions = 4;
     string managerId = 5;
+    string info = 6;
 }
 
 message DeleteOrder {
