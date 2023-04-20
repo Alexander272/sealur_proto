@@ -6,13 +6,15 @@ option go_package = "github.com/Alexander272/sealur_proto/api/moment/models/mate
 message Material {
     string id = 1;
     string title = 2;
+    MaterialType type = 3;
 }
 message MaterialWithIsEmpty {
     string id = 1;
     string title = 2;
-    bool IsEmptyAlpha = 3;
-    bool IsEmptyElasticity = 4;
-    bool IsEmptyVoltage = 5;
+    MaterialType type = 3;
+    bool IsEmptyAlpha = 4;
+    bool IsEmptyElasticity = 5;
+    bool IsEmptyVoltage = 6;
 }
 
 message Voltage {
