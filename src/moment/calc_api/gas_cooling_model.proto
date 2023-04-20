@@ -42,6 +42,8 @@ message MainData {
     TypeBolt typeBolt = 9;
     // Условие затяжки
     Condition condition = 10;
+    // Коэффициент трения
+    double friction = 11;
 }
 
 message BoltData {
