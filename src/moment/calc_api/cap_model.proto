@@ -54,6 +54,8 @@ message MainData {
     Condition condition = 8;
     // Расчет
     Calcutation calculation = 9;
+    // Коэффициент трения
+    double friction = 10;
 }
 
 message CapData {
