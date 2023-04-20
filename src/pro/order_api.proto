@@ -47,6 +47,11 @@ message CopyOrder {
     int64 count = 3;
 }
 
+message Info {
+    string orderId = 1;
+    string info = 2;
+}
+
 message Status {
     order_model.OrderStatus status = 1;
     string orderId = 2;
@@ -92,6 +97,7 @@ service OrderService {
     rpc Save (CreateOrder) returns (OrderNumber);
     rpc Create (CreateOrder) returns (response_model.IdResponse);
     rpc Copy (CopyOrder) returns (response_model.Response);
+    rpc SetInfo (Info) returns (response_model.Response);
     rpc SetStatus (Status) returns (response_model.Response);
     rpc SetManager (Manager) returns (response_model.Response);
     rpc Delete (DeleteOrder) returns (response_model.Response);

@@ -33,6 +33,7 @@ type OrderServiceClient interface {
 	Save(ctx context.Context, in *CreateOrder, opts ...grpc.CallOption) (*OrderNumber, error)
 	Create(ctx context.Context, in *CreateOrder, opts ...grpc.CallOption) (*response_model.IdResponse, error)
 	Copy(ctx context.Context, in *CopyOrder, opts ...grpc.CallOption) (*response_model.Response, error)
+	SetInfo(ctx context.Context, in *Info, opts ...grpc.CallOption) (*response_model.Response, error)
 	SetStatus(ctx context.Context, in *Status, opts ...grpc.CallOption) (*response_model.Response, error)
 	SetManager(ctx context.Context, in *Manager, opts ...grpc.CallOption) (*response_model.Response, error)
 	Delete(ctx context.Context, in *DeleteOrder, opts ...grpc.CallOption) (*response_model.Response, error)
@@ -150,6 +151,15 @@ func (c *orderServiceClient) Copy(ctx context.Context, in *CopyOrder, opts ...gr
 	return out, nil
 }
 
+func (c *orderServiceClient) SetInfo(ctx context.Context, in *Info, opts ...grpc.CallOption) (*response_model.Response, error) {
+	out := new(response_model.Response)
+	err := c.cc.Invoke(ctx, "/order_api.OrderService/SetInfo", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *orderServiceClient) SetStatus(ctx context.Context, in *Status, opts ...grpc.CallOption) (*response_model.Response, error) {
 	out := new(response_model.Response)
 	err := c.cc.Invoke(ctx, "/order_api.OrderService/SetStatus", in, out, opts...)
@@ -190,6 +200,7 @@ type OrderServiceServer interface {
 	Save(context.Context, *CreateOrder) (*OrderNumber, error)
 	Create(context.Context, *CreateOrder) (*response_model.IdResponse, error)
 	Copy(context.Context, *CopyOrder) (*response_model.Response, error)
+	SetInfo(context.Context, *Info) (*response_model.Response, error)
 	SetStatus(context.Context, *Status) (*response_model.Response, error)
 	SetManager(context.Context, *Manager) (*response_model.Response, error)
 	Delete(context.Context, *DeleteOrder) (*response_model.Response, error)
@@ -226,6 +237,9 @@ func (UnimplementedOrderServiceServer) Create(context.Context, *CreateOrder) (*r
 }
 func (UnimplementedOrderServiceServer) Copy(context.Context, *CopyOrder) (*response_model.Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Copy not implemented")
+}
+func (UnimplementedOrderServiceServer) SetInfo(context.Context, *Info) (*response_model.Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetInfo not implemented")
 }
 func (UnimplementedOrderServiceServer) SetStatus(context.Context, *Status) (*response_model.Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetStatus not implemented")
@@ -414,6 +428,24 @@ func _OrderService_Copy_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrderService_SetInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Info)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrderServiceServer).SetInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/order_api.OrderService/SetInfo",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrderServiceServer).SetInfo(ctx, req.(*Info))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _OrderService_SetStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Status)
 	if err := dec(in); err != nil {
@@ -506,6 +538,10 @@ var OrderService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Copy",
 			Handler:    _OrderService_Copy_Handler,
+		},
+		{
+			MethodName: "SetInfo",
+			Handler:    _OrderService_SetInfo_Handler,
 		},
 		{
 			MethodName: "SetStatus",
