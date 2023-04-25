@@ -197,8 +197,8 @@ type SnpData struct {
 
 	// flange_type & snp_type
 	// snp_material
-	// * если стандарт не определен, то еще
 	// snp_filler
+	// * если стандарт не определен, то еще
 	// mounting
 	SnpData *snp_model.SnpData `protobuf:"bytes,1,opt,name=snpData,proto3" json:"snpData,omitempty"`
 }

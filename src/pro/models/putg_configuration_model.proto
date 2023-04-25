@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package putg_configuration_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/putg_configuration_model";
+
+message PutgConfiguration {
+    string id = 1;
+    string title = 2;
+    string code = 3;
+    bool hasStandard = 4;
+    bool hasDrawing = 5;
+}

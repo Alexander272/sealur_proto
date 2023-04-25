@@ -27,8 +27,8 @@ message Snp {
 message SnpData {
     // flange_type & snp_type
     // snp_material
-    //* если стандарт не определен, то еще
     // snp_filler
+    //* если стандарт не определен, то еще
     // mounting
     snp_model.SnpData snpData = 1;
 }
