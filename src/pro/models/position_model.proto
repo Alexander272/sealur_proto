@@ -23,6 +23,7 @@ message Position {
     int64 count = 3;
     string title = 4;
     string amount = 5;
+    string info = 6;
 }
 
 message FullPosition {
@@ -33,6 +34,7 @@ message FullPosition {
     string amount = 5;
     PositionType type = 6;
     PositionSnp snpData = 7;
+    string info = 8;
 }
 
 message OrderPosition {
@@ -43,6 +45,7 @@ message OrderPosition {
     string amount = 5;
     PositionType type = 6;
     OrderPositionSnp snpData = 7;
+    string info = 8;
 }
 
 message PositionSnp {

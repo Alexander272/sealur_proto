@@ -42,14 +42,14 @@ message PutgData {
     // snp_model.SnpData snpData = 1;
    
     // если задан standardId
+    repeated putg_filler_model.PutgFiller fillers = 1;
     repeated putg_flange_type_model.PutgFlangeType flangeTypes = 5;
 }
 
 message PutgBase {
     repeated putg_configuration_model.PutgConfiguration configurations = 1;
     repeated putg_standard_model.PutgStandard standards = 2;
-    repeated putg_filler_model.PutgFiller fillers = 3;
-    repeated putg_construction_type_model.PutgConstruction construction = 4;
+    repeated putg_construction_type_model.PutgConstruction construction = 3;
 }
 
 service PutgDataService {
