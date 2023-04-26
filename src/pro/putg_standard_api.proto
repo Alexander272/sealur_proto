@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package putg_standard_api;
+option go_package = "api/pro/putg_standard_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/putg_standard_model.proto";
+
+message GetPutgStandard{
+    
+}
+
+message CreatePutgStandard{
+    string flangeStandardId = 1;
+    string dnTitle = 2;
+    string pnTitle = 3;
+    int64 count = 4;
+}
+
+message UpdatePutgStandard{
+    string id = 1;
+    string flangeStandardId = 2;
+    string dnTitle = 3;
+    string pnTitle = 4;
+    int64 count = 5;
+}
+
+message DeletePutgStandard{
+    string id = 1;
+}
+
+message PutgStandard{
+    repeated putg_standard_model.PutgStandard standards = 1;
+}
+
+service PutgStandardService {
+    rpc Get (GetPutgStandard) returns (PutgStandard);
+    rpc Create (CreatePutgStandard) returns (response_model.Response);
+    rpc Update (UpdatePutgStandard) returns (response_model.Response);
+    rpc Delete (DeletePutgStandard) returns (response_model.Response);
+}

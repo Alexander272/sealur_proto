@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package putg_flange_type_api;
+option go_package = "api/pro/putg_flange_type_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/putg_flange_type_model.proto";
+
+message GetPutgFlangeType {
+    string standardId = 1;
+}
+
+message CreatePutgFlangeType {
+    string standardId = 1;
+    string title = 2;
+    string code = 3;
+}
+
+message UpdatePutgFlangeType {
+    string id = 1;
+    string title = 2;
+    string code = 3;
+    string standardId = 4;
+}
+
+message DeletePutgFlangeType {
+    string id = 1;
+}
+
+message PutgFlangeType {
+    repeated putg_flange_type_model.PutgFlangeType flangeTypes = 1;
+}
+
+service PutgFlangeTypeService {
+    rpc Get (GetPutgFlangeType) returns (PutgFlangeType);
+    rpc Create (CreatePutgFlangeType) returns (response_model.Response);
+    rpc Update (UpdatePutgFlangeType) returns (response_model.Response);
+    rpc Delete (DeletePutgFlangeType) returns (response_model.Response);
+}

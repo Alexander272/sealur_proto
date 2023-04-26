@@ -49,7 +49,7 @@ message PutgData {
 message PutgBase {
     repeated putg_configuration_model.PutgConfiguration configurations = 1;
     repeated putg_standard_model.PutgStandard standards = 2;
-    repeated putg_construction_type_model.PutgConstruction construction = 3;
+    repeated putg_construction_type_model.PutgConstruction constructions = 3;
 }
 
 service PutgDataService {

@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package putg_conf_api;
+option go_package = "api/pro/putg_conf_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/putg_configuration_model.proto";
+
+message GetPutgConfiguration {
+    
+}
+
+message CreatePutgConfiguration {
+    string title = 1;
+    string code = 2;
+    bool hasStandard = 3;
+    bool hasDrawing = 4;
+    bool isDefault = 5;
+}
+
+message UpdatePutgConfiguration {
+    string id = 1;
+    string title = 2;
+    string code = 3;
+    bool hasStandard = 4;
+    bool hasDrawing = 5;
+    bool isDefault = 6;
+}
+
+message DeletePutgConfiguration {
+    string id = 1;
+}
+
+message PutgConfiguration {
+    repeated putg_configuration_model.PutgConfiguration configurations = 1;
+}
+
+service PutgConfigurationService {
+    rpc Get (GetPutgConfiguration) returns (PutgConfiguration);
+    rpc Create (CreatePutgConfiguration) returns (response_model.Response);
+    rpc Update (UpdatePutgConfiguration) returns (response_model.Response);
+    rpc Delete (DeletePutgConfiguration) returns (response_model.Response);
+}
