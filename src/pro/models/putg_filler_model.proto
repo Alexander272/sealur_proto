@@ -5,7 +5,7 @@ option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/putg_fi
 
 message PutgFiller {
     string id = 1;
-    string temperatureId = 2;
+    string temperature = 2;
     string title = 3;
     string code = 4;
     string description = 5;

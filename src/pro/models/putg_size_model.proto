@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package putg_size_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/putg_size_model";
+
+message PutgSize {
+    string id = 1;
+    string dn = 2;
+    string dnMm = 3;
+    repeated Size sizes = 5;
+}
+
+message Size {
+    repeated Pn pn = 1;
+    string d4 = 2;
+    string d3 = 3;
+    string d2 = 4;
+    string d1 = 5;
+    repeated string h = 6;
+}
+
+message Pn {
+    string mpa = 1;
+    string kg = 2;
+}

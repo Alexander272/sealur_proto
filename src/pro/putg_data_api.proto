@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package putg_data_api;
+option go_package = "api/pro/putg_data_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/putg_data_model.proto";
+
+message GetPutgData {
+    string fillerId = 1;
+}
+
+message CreatePutgData {
+    string fillerId = 1;
+    bool hasJumper = 2;
+    bool hasHole = 3;
+    bool hasRemovable = 4;
+    bool hasMounting = 5;
+    bool hasCoating = 6;
+}
+
+message UpdatePutgData {
+    string id = 1;
+    bool hasJumper = 2;
+    bool hasHole = 3;
+    bool hasRemovable = 4;
+    bool hasMounting = 5;
+    bool hasCoating = 6;
+    string fillerId = 7;
+}
+
+message DeletePutgData {
+    string id = 1;
+}
+
+message PutgData {
+    repeated putg_data_model.PutgData data = 1;
+}
+
+service PutgDataService {
+    rpc Get (GetPutgData) returns (PutgData);
+    rpc Create (CreatePutgData) returns (response_model.Response);
+    rpc Update (UpdatePutgData) returns (response_model.Response);
+    rpc Delete (DeletePutgData) returns (response_model.Response);
+}

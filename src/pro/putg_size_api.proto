@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package putg_size_api;
+option go_package = "api/pro/putg_size_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/putg_size_model.proto";
+
+message GetPutgSize {
+    string putgStandardId = 1;
+    string constructionId = 2;
+}
+
+message CreatePutgSize {
+    string putgStandardId = 1;
+    string constructionId = 2;
+    int64 count = 3;
+    string dn = 4;
+    string dnMm = 5;
+    repeated putg_size_model.Pn pn = 6;
+    string d4 = 7;
+    string d3 = 8;
+    string d2 = 9;
+    string d1 = 10;
+    repeated string h = 11;
+}
+
+message CreateSeveralPutgSize {
+    repeated CreatePutgSize sizes = 1;
+}
+
+
+message UpdatePutgSize {
+    string id = 1;
+    string putgStandardId = 2;
+    string constructionId = 3;
+    int64 count = 4;
+    string dn = 5;
+    string dnMm = 6;
+    repeated putg_size_model.Pn pn = 7;
+    string d4 = 8;
+    string d3 = 9;
+    string d2 = 10;
+    string d1 = 11;
+    repeated string h = 12;
+}
+
+message DeletePutgSize {
+    string id = 1;
+}
+
+message PutgSize {
+    repeated putg_size_model.PutgSize sizes = 1;
+}
+
+service PutgSizeService {
+    rpc Get (GetPutgSize) returns (PutgSize);
+    rpc Create (CreatePutgSize) returns (response_model.Response);
+    rpc CreateSeveral (CreateSeveralPutgSize) returns (response_model.Response);
+    rpc Update (UpdatePutgSize) returns (response_model.Response);
+    rpc Delete (DeletePutgSize) returns (response_model.Response);
+}

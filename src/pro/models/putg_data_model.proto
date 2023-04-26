@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package putg_data_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/putg_data_model";
+
+message PutgData {
+    string id = 1;
+    bool hasJumper = 2;
+    bool hasHole = 3;
+    bool hasRemovable = 4;
+    bool hasMounting = 5;
+    bool hasCoating = 6;
+}
