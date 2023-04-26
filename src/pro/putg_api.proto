@@ -66,6 +66,6 @@ message PutgBase {
 
 service PutgDataService {
     // rpc Get (GetPutg) returns (Putg);
-    // rpc GetData (GetPutgData) returns (PutgData);
+    rpc GetData (GetPutgData) returns (PutgData);
     rpc GetBase (GetPutgBase) returns (PutgBase);
 }
