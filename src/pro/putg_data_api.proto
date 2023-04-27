@@ -7,7 +7,8 @@ import "pro/models/response_model.proto";
 import "pro/models/putg_data_model.proto";
 
 message GetPutgData {
-    string fillerId = 1;
+    // string fillerId = 1;
+    string constructionId = 1;
 }
 
 message CreatePutgData {

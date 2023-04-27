@@ -3,9 +3,6 @@ syntax = "proto3";
 package putg_api;
 option go_package = "api/pro/putg_api";
 
-// import "pro/models/snp_data_model.proto";
-// import "pro/models/snp_size_model.proto";
-// import "pro/models/snp_model.proto";
 import "pro/models/putg_configuration_model.proto";
 import "pro/models/putg_standard_model.proto";
 import "pro/models/putg_flange_type_model.proto";
@@ -13,6 +10,7 @@ import "pro/models/putg_filler_model.proto";
 import "pro/models/putg_construction_type_model.proto";
 import "pro/models/putg_data_model.proto";
 import "pro/models/putg_size_model.proto";
+import "pro/models/putg_materials_model.proto";
 
 message GetPutg {
     // string snpTypeId = 1;
@@ -23,14 +21,11 @@ message GetPutgData {
     string standardId = 1;
     string constructionId = 2;
     string configuration = 3;
-    string fillerId = 4;
+    // string fillerId = 4;
     // bool changeStandard = 5;
-    // string snpStandardId = 2;
 }
 
-message GetPutgBase {
-
-}
+message GetPutgBase {}
 
 message Putg {
     // // snp_data
@@ -47,12 +42,15 @@ message PutgData {
     // mounting
     // snp_model.SnpData snpData = 1;
    
-    // если задан standardId
+    //? Может сделать еще один запрос на получение data
+    //? или можно получать это вместе с filler
     repeated putg_filler_model.PutgFiller fillers = 1;
     repeated putg_flange_type_model.PutgFlangeType flangeTypes = 2;
     repeated putg_data_model.PutgData data = 3;
     repeated putg_size_model.PutgSize sizes = 4;
+    putg_material_model.PutgMaterials materials = 5;
 
+    // flangeType зависит от standard
     // filler зависит от construction
     // data зависит от filler
     // size зависит от standard, construction и configuration (нужно свои размеры отдавать овальным и прямоугольным прокладкам)

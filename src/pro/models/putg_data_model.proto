@@ -5,6 +5,7 @@ option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/putg_da
 
 message PutgData {
     string id = 1;
+    string fillerId = 7;
     bool hasJumper = 2;
     bool hasHole = 3;
     bool hasRemovable = 4;

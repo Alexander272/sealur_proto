@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package putg_material_api;
+option go_package = "api/pro/putg_material_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/putg_materials_model.proto";
+
+message GetPutgMaterial {
+    string standardId = 1;
+}
+
+message CreatePutgMaterial {
+    string standardId = 1;
+    string materialId = 2;
+    string type = 3;
+    bool isDefault = 4;
+    string code = 5;
+    // bool isStandard = 6;
+}
+
+message UpdatePutgMaterial {
+    string id = 1;
+    string standardId = 2;
+    string materialId = 3;
+    string type = 4;
+    bool isDefault = 5;
+    string code = 6;
+    // bool isStandard = 7;
+}
+
+message DeletePutgMaterial {
+    string id = 1;
+}
+
+message PutgMaterials {
+    putg_material_model.PutgMaterials materials = 1;
+}
+
+service PutgMaterialService {
+    rpc Get (GetPutgMaterial) returns (PutgMaterials);
+    rpc Create (CreatePutgMaterial) returns (response_model.Response);
+    rpc Update (UpdatePutgMaterial) returns (response_model.Response);
+    rpc Delete (DeletePutgMaterial) returns (response_model.Response);
+}
