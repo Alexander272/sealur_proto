@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package putg_type_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/putg_type_model";
+
+message PutgType {
+    string id = 1;
+    string title = 2;
+    string code = 3;
+}

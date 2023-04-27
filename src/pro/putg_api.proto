@@ -11,10 +11,11 @@ import "pro/models/putg_construction_type_model.proto";
 import "pro/models/putg_data_model.proto";
 import "pro/models/putg_size_model.proto";
 import "pro/models/putg_materials_model.proto";
+import "pro/models/putg_type_model.proto";
+import "pro/models/mounting_model.proto";
 
 message GetPutg {
-    // string snpTypeId = 1;
-    // bool hasD2 = 2;
+    string FillerId = 1;
 }
 
 message GetPutgData {
@@ -28,10 +29,8 @@ message GetPutgData {
 message GetPutgBase {}
 
 message Putg {
-    // // snp_data
-    // snp_data_model.SnpData snp = 1;
-    // // sizes
-    // repeated snp_size_model.SnpSize sizes = 2;
+    putg_data_model.PutgData data = 1;
+    repeated putg_type_model.PutgType putgTypes = 2;
 }
 
 message PutgData {
@@ -49,6 +48,8 @@ message PutgData {
     repeated putg_data_model.PutgData data = 3;
     repeated putg_size_model.PutgSize sizes = 4;
     putg_material_model.PutgMaterials materials = 5;
+    // TODO добавить тип прокладки (200, 205) зависит от filler, но не зависит от construction
+    
 
     // flangeType зависит от standard
     // filler зависит от construction
@@ -60,10 +61,11 @@ message PutgBase {
     repeated putg_configuration_model.PutgConfiguration configurations = 1;
     repeated putg_standard_model.PutgStandard standards = 2;
     repeated putg_construction_type_model.PutgConstruction constructions = 3;
+    repeated mounting_model.Mounting mounting = 4;
 }
 
 service PutgDataService {
-    // rpc Get (GetPutg) returns (Putg);
+    rpc Get (GetPutg) returns (Putg);
     rpc GetData (GetPutgData) returns (PutgData);
     rpc GetBase (GetPutgBase) returns (PutgBase);
 }

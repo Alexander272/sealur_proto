@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package putg_type_api;
+option go_package = "api/pro/putg_type_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/putg_type_model.proto";
+
+
+message GetPutgType {
+    string fillerId = 1;
+}
+
+message CreatePutgType {
+    string title = 1;
+    string code = 2;
+    string fillerId = 3;
+}
+
+message UpdatePutgType {
+    string id = 1;
+    string title = 2;
+    string code = 3;
+    string fillerId = 4;
+}
+
+message DeletePutgType {
+    string id = 1;
+}
+
+message PutgType {
+    repeated putg_type_model.PutgType putgTypes = 1;
+}
+
+service PutgTypeService {
+    rpc Get (GetPutgType) returns (PutgType);
+    rpc Create (CreatePutgType) returns (response_model.Response);
+    rpc Update (UpdatePutgType) returns (response_model.Response);
+    rpc Delete (DeletePutgType) returns (response_model.Response);
+}

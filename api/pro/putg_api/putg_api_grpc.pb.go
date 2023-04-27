@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PutgDataServiceClient interface {
-	// rpc Get (GetPutg) returns (Putg);
+	Get(ctx context.Context, in *GetPutg, opts ...grpc.CallOption) (*Putg, error)
 	GetData(ctx context.Context, in *GetPutgData, opts ...grpc.CallOption) (*PutgData, error)
 	GetBase(ctx context.Context, in *GetPutgBase, opts ...grpc.CallOption) (*PutgBase, error)
 }
@@ -33,6 +33,15 @@ type putgDataServiceClient struct {
 
 func NewPutgDataServiceClient(cc grpc.ClientConnInterface) PutgDataServiceClient {
 	return &putgDataServiceClient{cc}
+}
+
+func (c *putgDataServiceClient) Get(ctx context.Context, in *GetPutg, opts ...grpc.CallOption) (*Putg, error) {
+	out := new(Putg)
+	err := c.cc.Invoke(ctx, "/putg_api.PutgDataService/Get", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *putgDataServiceClient) GetData(ctx context.Context, in *GetPutgData, opts ...grpc.CallOption) (*PutgData, error) {
@@ -57,7 +66,7 @@ func (c *putgDataServiceClient) GetBase(ctx context.Context, in *GetPutgBase, op
 // All implementations must embed UnimplementedPutgDataServiceServer
 // for forward compatibility
 type PutgDataServiceServer interface {
-	// rpc Get (GetPutg) returns (Putg);
+	Get(context.Context, *GetPutg) (*Putg, error)
 	GetData(context.Context, *GetPutgData) (*PutgData, error)
 	GetBase(context.Context, *GetPutgBase) (*PutgBase, error)
 	mustEmbedUnimplementedPutgDataServiceServer()
@@ -67,6 +76,9 @@ type PutgDataServiceServer interface {
 type UnimplementedPutgDataServiceServer struct {
 }
 
+func (UnimplementedPutgDataServiceServer) Get(context.Context, *GetPutg) (*Putg, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
+}
 func (UnimplementedPutgDataServiceServer) GetData(context.Context, *GetPutgData) (*PutgData, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetData not implemented")
 }
@@ -84,6 +96,24 @@ type UnsafePutgDataServiceServer interface {
 
 func RegisterPutgDataServiceServer(s grpc.ServiceRegistrar, srv PutgDataServiceServer) {
 	s.RegisterService(&PutgDataService_ServiceDesc, srv)
+}
+
+func _PutgDataService_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPutg)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PutgDataServiceServer).Get(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/putg_api.PutgDataService/Get",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PutgDataServiceServer).Get(ctx, req.(*GetPutg))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _PutgDataService_GetData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -129,6 +159,10 @@ var PutgDataService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "putg_api.PutgDataService",
 	HandlerType: (*PutgDataServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Get",
+			Handler:    _PutgDataService_Get_Handler,
+		},
 		{
 			MethodName: "GetData",
 			Handler:    _PutgDataService_GetData_Handler,
