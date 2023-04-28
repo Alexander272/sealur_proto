@@ -8,7 +8,7 @@ import "pro/models/putg_type_model.proto";
 
 
 message GetPutgType {
-    string fillerId = 1;
+    string baseId = 1;
 }
 
 message CreatePutgType {

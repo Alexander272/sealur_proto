@@ -16,6 +16,7 @@ import "pro/models/mounting_model.proto";
 
 message GetPutg {
     string FillerId = 1;
+    string BaseId = 2;
 }
 
 message GetPutgData {
@@ -45,10 +46,9 @@ message PutgData {
     //? или можно получать это вместе с filler
     repeated putg_filler_model.PutgFiller fillers = 1;
     repeated putg_flange_type_model.PutgFlangeType flangeTypes = 2;
-    repeated putg_data_model.PutgData data = 3;
-    repeated putg_size_model.PutgSize sizes = 4;
-    putg_material_model.PutgMaterials materials = 5;
-    // TODO добавить тип прокладки (200, 205) зависит от filler, но не зависит от construction
+    // repeated putg_data_model.PutgData data = 3;
+    repeated putg_size_model.PutgSize sizes = 3;
+    putg_material_model.PutgMaterials materials = 4;
     
 
     // flangeType зависит от standard
