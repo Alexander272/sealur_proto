@@ -34,14 +34,7 @@ message Putg {
     repeated putg_type_model.PutgType putgTypes = 2;
 }
 
-message PutgData {
-    // flange_type & snp_type
-    // snp_material
-    //* если стандарт не определен, то еще
-    // snp_filler
-    // mounting
-    // snp_model.SnpData snpData = 1;
-   
+message PutgData {   
     //? Может сделать еще один запрос на получение data
     //? или можно получать это вместе с filler
     repeated putg_filler_model.PutgFiller fillers = 1;

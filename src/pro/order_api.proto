@@ -6,6 +6,7 @@ option go_package = "api/pro/order_api";
 import "pro/models/response_model.proto";
 import "pro/models/order_model.proto";
 import "pro/models/position_model.proto";
+import "pro/models/analytic_model.proto";
 import "user/models/user_model.proto";
 
 message GetOrder {
@@ -26,6 +27,11 @@ message GetManagerOrders {
 }
 message GetAllManagerOrders {
     
+}
+
+message GetAnalytics {
+    string periodAt = 1;
+    string periodEnd = 2;
 }
 
 message CreateOrder {
@@ -73,6 +79,13 @@ message Order {
 
 message Orders {
     repeated order_model.Order orders = 1;
+}
+
+message Analytics {
+    int64 ordersCount = 1;
+    int64 usersCount = 2;
+    int64 snpPositionCount = 3;
+    repeated analytic_model.Order orders = 4; 
 }
 
 message Positions {

@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package analytic_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/analytic_model";
+
+message Order {
+    string id = 1;
+    string manager = 2;
+    repeated Clients clients = 3;
+}
+
+message Clients {
+    string id = 1;
+    string name = 2;
+    int64 ordersCount = 3;
+    int64 snpPositionCount = 4;
+}
