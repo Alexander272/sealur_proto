@@ -17,6 +17,7 @@ message User {
     string phone = 11;
     string roleCode = 12;
     string managerId = 13;
+    bool useLink = 14;
 
     // string organization = 2;
     // string name = 3;

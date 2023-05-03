@@ -48,6 +48,7 @@ message CreateUser {
     string phone = 10;
     string password = 11;
     string managerId = 12;
+    bool useLink = 13;
 }
 
 message UpdateUser {
