@@ -35,6 +35,10 @@ message GetAllUser {
 }
 message GetNewUser {}
 
+message GetUserAnalytics {
+    
+}
+
 message CreateUser {
     string company = 1;
     string address = 2;
@@ -93,6 +97,11 @@ message Manager {
     user_model.User user = 2;
 }
 
+message Analytics {
+    int64 usersCountRegister = 1;
+    int64 userCountLink = 2;
+}
+
 service UserService {
     rpc Get (GetUser) returns (user_model.User);
     rpc GetByEmail (GetUserByEmail) returns (user_model.User);
@@ -100,6 +109,7 @@ service UserService {
     rpc GetNew (GetNewUser) returns (Users);
     rpc GetManagers (GetNewUser) returns (Users);
     rpc GetManagerEmail (GetUser) returns (Manager);
+    rpc GetAnalytics (GetUserAnalytics) returns (Analytics);
     rpc Create (CreateUser) returns (response_model.IdResponse);
     rpc Confirm (ConfirmUser) returns (user_model.User);
     rpc Update (UpdateUser) returns (response_model.Response);

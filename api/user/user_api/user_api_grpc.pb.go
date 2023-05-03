@@ -30,6 +30,7 @@ type UserServiceClient interface {
 	GetNew(ctx context.Context, in *GetNewUser, opts ...grpc.CallOption) (*Users, error)
 	GetManagers(ctx context.Context, in *GetNewUser, opts ...grpc.CallOption) (*Users, error)
 	GetManagerEmail(ctx context.Context, in *GetUser, opts ...grpc.CallOption) (*Manager, error)
+	GetAnalytics(ctx context.Context, in *GetUserAnalytics, opts ...grpc.CallOption) (*Analytics, error)
 	Create(ctx context.Context, in *CreateUser, opts ...grpc.CallOption) (*response_model.IdResponse, error)
 	Confirm(ctx context.Context, in *ConfirmUser, opts ...grpc.CallOption) (*user_model.User, error)
 	Update(ctx context.Context, in *UpdateUser, opts ...grpc.CallOption) (*response_model.Response, error)
@@ -99,6 +100,15 @@ func (c *userServiceClient) GetManagerEmail(ctx context.Context, in *GetUser, op
 	return out, nil
 }
 
+func (c *userServiceClient) GetAnalytics(ctx context.Context, in *GetUserAnalytics, opts ...grpc.CallOption) (*Analytics, error) {
+	out := new(Analytics)
+	err := c.cc.Invoke(ctx, "/user_api.UserService/GetAnalytics", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *userServiceClient) Create(ctx context.Context, in *CreateUser, opts ...grpc.CallOption) (*response_model.IdResponse, error) {
 	out := new(response_model.IdResponse)
 	err := c.cc.Invoke(ctx, "/user_api.UserService/Create", in, out, opts...)
@@ -154,6 +164,7 @@ type UserServiceServer interface {
 	GetNew(context.Context, *GetNewUser) (*Users, error)
 	GetManagers(context.Context, *GetNewUser) (*Users, error)
 	GetManagerEmail(context.Context, *GetUser) (*Manager, error)
+	GetAnalytics(context.Context, *GetUserAnalytics) (*Analytics, error)
 	Create(context.Context, *CreateUser) (*response_model.IdResponse, error)
 	Confirm(context.Context, *ConfirmUser) (*user_model.User, error)
 	Update(context.Context, *UpdateUser) (*response_model.Response, error)
@@ -183,6 +194,9 @@ func (UnimplementedUserServiceServer) GetManagers(context.Context, *GetNewUser) 
 }
 func (UnimplementedUserServiceServer) GetManagerEmail(context.Context, *GetUser) (*Manager, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetManagerEmail not implemented")
+}
+func (UnimplementedUserServiceServer) GetAnalytics(context.Context, *GetUserAnalytics) (*Analytics, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAnalytics not implemented")
 }
 func (UnimplementedUserServiceServer) Create(context.Context, *CreateUser) (*response_model.IdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
@@ -320,6 +334,24 @@ func _UserService_GetManagerEmail_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_GetAnalytics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserAnalytics)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetAnalytics(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/user_api.UserService/GetAnalytics",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetAnalytics(ctx, req.(*GetUserAnalytics))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _UserService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateUser)
 	if err := dec(in); err != nil {
@@ -440,6 +472,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetManagerEmail",
 			Handler:    _UserService_GetManagerEmail_Handler,
+		},
+		{
+			MethodName: "GetAnalytics",
+			Handler:    _UserService_GetAnalytics_Handler,
 		},
 		{
 			MethodName: "Create",

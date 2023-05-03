@@ -30,6 +30,7 @@ type OrderServiceClient interface {
 	GetFile(ctx context.Context, in *GetOrder, opts ...grpc.CallOption) (OrderService_GetFileClient, error)
 	GetOpen(ctx context.Context, in *GetManagerOrders, opts ...grpc.CallOption) (*ManagerOrders, error)
 	GetAllOpen(ctx context.Context, in *GetAllManagerOrders, opts ...grpc.CallOption) (*ManagerOrders, error)
+	GetAnalytics(ctx context.Context, in *GetOrderAnalytics, opts ...grpc.CallOption) (*Analytics, error)
 	Save(ctx context.Context, in *CreateOrder, opts ...grpc.CallOption) (*OrderNumber, error)
 	Create(ctx context.Context, in *CreateOrder, opts ...grpc.CallOption) (*response_model.IdResponse, error)
 	Copy(ctx context.Context, in *CopyOrder, opts ...grpc.CallOption) (*response_model.Response, error)
@@ -124,6 +125,15 @@ func (c *orderServiceClient) GetAllOpen(ctx context.Context, in *GetAllManagerOr
 	return out, nil
 }
 
+func (c *orderServiceClient) GetAnalytics(ctx context.Context, in *GetOrderAnalytics, opts ...grpc.CallOption) (*Analytics, error) {
+	out := new(Analytics)
+	err := c.cc.Invoke(ctx, "/order_api.OrderService/GetAnalytics", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *orderServiceClient) Save(ctx context.Context, in *CreateOrder, opts ...grpc.CallOption) (*OrderNumber, error) {
 	out := new(OrderNumber)
 	err := c.cc.Invoke(ctx, "/order_api.OrderService/Save", in, out, opts...)
@@ -197,6 +207,7 @@ type OrderServiceServer interface {
 	GetFile(*GetOrder, OrderService_GetFileServer) error
 	GetOpen(context.Context, *GetManagerOrders) (*ManagerOrders, error)
 	GetAllOpen(context.Context, *GetAllManagerOrders) (*ManagerOrders, error)
+	GetAnalytics(context.Context, *GetOrderAnalytics) (*Analytics, error)
 	Save(context.Context, *CreateOrder) (*OrderNumber, error)
 	Create(context.Context, *CreateOrder) (*response_model.IdResponse, error)
 	Copy(context.Context, *CopyOrder) (*response_model.Response, error)
@@ -228,6 +239,9 @@ func (UnimplementedOrderServiceServer) GetOpen(context.Context, *GetManagerOrder
 }
 func (UnimplementedOrderServiceServer) GetAllOpen(context.Context, *GetAllManagerOrders) (*ManagerOrders, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllOpen not implemented")
+}
+func (UnimplementedOrderServiceServer) GetAnalytics(context.Context, *GetOrderAnalytics) (*Analytics, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAnalytics not implemented")
 }
 func (UnimplementedOrderServiceServer) Save(context.Context, *CreateOrder) (*OrderNumber, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Save not implemented")
@@ -370,6 +384,24 @@ func _OrderService_GetAllOpen_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrderServiceServer).GetAllOpen(ctx, req.(*GetAllManagerOrders))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrderService_GetAnalytics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOrderAnalytics)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrderServiceServer).GetAnalytics(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/order_api.OrderService/GetAnalytics",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrderServiceServer).GetAnalytics(ctx, req.(*GetOrderAnalytics))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -526,6 +558,10 @@ var OrderService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAllOpen",
 			Handler:    _OrderService_GetAllOpen_Handler,
+		},
+		{
+			MethodName: "GetAnalytics",
+			Handler:    _OrderService_GetAnalytics_Handler,
 		},
 		{
 			MethodName: "Save",

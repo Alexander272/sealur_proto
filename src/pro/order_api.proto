@@ -29,7 +29,7 @@ message GetAllManagerOrders {
     
 }
 
-message GetAnalytics {
+message GetOrderAnalytics {
     string periodAt = 1;
     string periodEnd = 2;
 }
@@ -84,10 +84,11 @@ message Orders {
 message Analytics {
     int64 ordersCount = 1;
     int64 usersCountRegister = 2;
-    int64 userCount = 3;
-    int64 positionCount = 4;
-    int64 snpPositionCount = 5;
-    repeated analytic_model.Order orders = 6; 
+    int64 userCountLink = 3;
+    int64 userCount = 4;
+    int64 positionCount = 5;
+    int64 snpPositionCount = 6;
+    repeated analytic_model.Order orders = 7; 
 }
 
 message Positions {
@@ -109,6 +110,7 @@ service OrderService {
     rpc GetFile (GetOrder) returns (stream response_model.FileResponse);
     rpc GetOpen (GetManagerOrders) returns (ManagerOrders);
     rpc GetAllOpen (GetAllManagerOrders) returns (ManagerOrders);
+    rpc GetAnalytics (GetOrderAnalytics) returns (Analytics);
     rpc Save (CreateOrder) returns (OrderNumber);
     rpc Create (CreateOrder) returns (response_model.IdResponse);
     rpc Copy (CopyOrder) returns (response_model.Response);

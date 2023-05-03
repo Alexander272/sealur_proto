@@ -13,5 +13,6 @@ message Clients {
     string id = 1;
     string name = 2;
     int64 ordersCount = 3;
-    int64 snpPositionCount = 4;
+    int64 positionCount = 4;
+    int64 snpPositionCount = 5;
 }
