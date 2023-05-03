@@ -36,7 +36,8 @@ message GetAllUser {
 message GetNewUser {}
 
 message GetUserAnalytics {
-    
+    string periodAt = 1;
+    string periodEnd = 2;
 }
 
 message CreateUser {
@@ -100,6 +101,7 @@ message Manager {
 message Analytics {
     int64 usersCountRegister = 1;
     int64 userCountLink = 2;
+    int64 newUserCount = 3;
 }
 
 service UserService {
