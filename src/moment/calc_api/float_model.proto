@@ -162,6 +162,11 @@ message Calculated {
     double Qmax = 26;
     bool vSigmaB1 = 27;
     bool vSigmaB2 = 28;
+    //TODO наверное надо это все переписать
+    // Коэффициент трения
+    double Friction = 29;
+    // используется ли график для расчета
+    bool useGraphic = 30;
 }
 
 message FlangeFormulas {
