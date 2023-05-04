@@ -89,7 +89,8 @@ message Analytics {
     int64 positionCount = 5;
     int64 snpPositionCount = 6;
     int64 newUserCount = 7;
-    repeated analytic_model.Order orders = 8; 
+    int64 newUserCountLink = 8;
+    repeated analytic_model.Order orders = 9; 
 }
 
 message Positions {

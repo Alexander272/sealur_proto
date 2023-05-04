@@ -102,6 +102,7 @@ message Analytics {
     int64 usersCountRegister = 1;
     int64 userCountLink = 2;
     int64 newUserCount = 3;
+    int64 newUserCountLink = 4;
 }
 
 service UserService {
