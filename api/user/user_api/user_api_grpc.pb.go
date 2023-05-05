@@ -26,6 +26,7 @@ const _ = grpc.SupportPackageIsVersion7
 type UserServiceClient interface {
 	Get(ctx context.Context, in *GetUser, opts ...grpc.CallOption) (*user_model.User, error)
 	GetByEmail(ctx context.Context, in *GetUserByEmail, opts ...grpc.CallOption) (*user_model.User, error)
+	GetByParam(ctx context.Context, in *GetUsersByParam, opts ...grpc.CallOption) (*AnalyticsUsers, error)
 	GetAll(ctx context.Context, in *GetAllUser, opts ...grpc.CallOption) (*Users, error)
 	GetNew(ctx context.Context, in *GetNewUser, opts ...grpc.CallOption) (*Users, error)
 	GetManagers(ctx context.Context, in *GetNewUser, opts ...grpc.CallOption) (*Users, error)
@@ -58,6 +59,15 @@ func (c *userServiceClient) Get(ctx context.Context, in *GetUser, opts ...grpc.C
 func (c *userServiceClient) GetByEmail(ctx context.Context, in *GetUserByEmail, opts ...grpc.CallOption) (*user_model.User, error) {
 	out := new(user_model.User)
 	err := c.cc.Invoke(ctx, "/user_api.UserService/GetByEmail", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) GetByParam(ctx context.Context, in *GetUsersByParam, opts ...grpc.CallOption) (*AnalyticsUsers, error) {
+	out := new(AnalyticsUsers)
+	err := c.cc.Invoke(ctx, "/user_api.UserService/GetByParam", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -160,6 +170,7 @@ func (c *userServiceClient) Delete(ctx context.Context, in *DeleteUser, opts ...
 type UserServiceServer interface {
 	Get(context.Context, *GetUser) (*user_model.User, error)
 	GetByEmail(context.Context, *GetUserByEmail) (*user_model.User, error)
+	GetByParam(context.Context, *GetUsersByParam) (*AnalyticsUsers, error)
 	GetAll(context.Context, *GetAllUser) (*Users, error)
 	GetNew(context.Context, *GetNewUser) (*Users, error)
 	GetManagers(context.Context, *GetNewUser) (*Users, error)
@@ -182,6 +193,9 @@ func (UnimplementedUserServiceServer) Get(context.Context, *GetUser) (*user_mode
 }
 func (UnimplementedUserServiceServer) GetByEmail(context.Context, *GetUserByEmail) (*user_model.User, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetByEmail not implemented")
+}
+func (UnimplementedUserServiceServer) GetByParam(context.Context, *GetUsersByParam) (*AnalyticsUsers, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetByParam not implemented")
 }
 func (UnimplementedUserServiceServer) GetAll(context.Context, *GetAllUser) (*Users, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAll not implemented")
@@ -258,6 +272,24 @@ func _UserService_GetByEmail_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServiceServer).GetByEmail(ctx, req.(*GetUserByEmail))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_GetByParam_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUsersByParam)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetByParam(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/user_api.UserService/GetByParam",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetByParam(ctx, req.(*GetUsersByParam))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -456,6 +488,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetByEmail",
 			Handler:    _UserService_GetByEmail_Handler,
+		},
+		{
+			MethodName: "GetByParam",
+			Handler:    _UserService_GetByParam_Handler,
 		},
 		{
 			MethodName: "GetAll",

@@ -29,3 +29,9 @@ message User {
     // repeated Role roles = 9;
     // repeated Ip ip = 10;
 }
+
+message AnalyticUsers {
+    string id = 1;
+    string manager = 2;
+    repeated User users = 3;
+}

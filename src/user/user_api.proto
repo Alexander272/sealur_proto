@@ -35,6 +35,14 @@ message GetAllUser {
 }
 message GetNewUser {}
 
+message GetUsersByParam {
+    bool empty = 1;
+    string periodAt = 2;
+    string periodEnd = 3;
+    bool useLink = 4;
+    bool hasOrder = 5;
+}
+
 message GetUserAnalytics {
     string periodAt = 1;
     string periodEnd = 2;
@@ -105,9 +113,14 @@ message Analytics {
     int64 newUserCountLink = 4;
 }
 
+message AnalyticsUsers {
+    repeated user_model.AnalyticUsers users = 1;
+}
+
 service UserService {
     rpc Get (GetUser) returns (user_model.User);
     rpc GetByEmail (GetUserByEmail) returns (user_model.User);
+    rpc GetByParam (GetUsersByParam) returns (AnalyticsUsers);
     rpc GetAll (GetAllUser) returns (Users);
     rpc GetNew (GetNewUser) returns (Users);
     rpc GetManagers (GetNewUser) returns (Users);

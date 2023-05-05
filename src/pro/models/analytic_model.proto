@@ -16,3 +16,23 @@ message Clients {
     int64 positionCount = 4;
     int64 snpPositionCount = 5;
 }
+
+message FullOrder {
+    string id = 1;
+    string manager = 2;
+    repeated Client clients = 3;
+}
+
+message Client {
+    string id = 1;
+    string company = 2;
+    string name = 3;
+    repeated ClientOrder orders = 4;
+}
+
+message ClientOrder {
+    string id = 1;
+    string number = 2;
+	string date = 3;
+	string status = 4;
+}

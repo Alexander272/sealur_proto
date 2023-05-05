@@ -34,6 +34,12 @@ message GetOrderAnalytics {
     string periodEnd = 2;
 }
 
+message GetFullOrderAnalytics {
+    string periodAt = 1;
+    string periodEnd = 2;
+    string userId = 3;
+}
+
 message CreateOrder {
     string id = 1;
     string userId = 2;
@@ -93,6 +99,10 @@ message Analytics {
     repeated analytic_model.Order orders = 9; 
 }
 
+message OrderAnalytics {
+    repeated analytic_model.FullOrder orders = 1;
+}
+
 message Positions {
     repeated position_model.Position positions = 1;
 }
@@ -113,6 +123,7 @@ service OrderService {
     rpc GetOpen (GetManagerOrders) returns (ManagerOrders);
     rpc GetAllOpen (GetAllManagerOrders) returns (ManagerOrders);
     rpc GetAnalytics (GetOrderAnalytics) returns (Analytics);
+    rpc GetBidAnalytics (GetFullOrderAnalytics) returns (OrderAnalytics);
     rpc Save (CreateOrder) returns (OrderNumber);
     rpc Create (CreateOrder) returns (response_model.IdResponse);
     rpc Copy (CopyOrder) returns (response_model.Response);
