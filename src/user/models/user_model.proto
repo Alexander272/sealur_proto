@@ -33,5 +33,19 @@ message User {
 message AnalyticUsers {
     string id = 1;
     string manager = 2;
-    repeated User users = 3;
+    repeated UserData users = 3;
+}
+
+message UserData {
+    string id = 1;
+    string company = 2;
+    string address = 3;
+    string name = 4;
+    string position = 5;
+    string email = 6;
+    string phone = 7;
+    string managerId = 8;
+    bool useLink = 9;
+    int64 ordersCount = 10;
+    bool hasOrders = 11;
 }
