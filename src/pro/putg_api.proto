@@ -27,7 +27,9 @@ message GetPutgData {
     // bool changeStandard = 5;
 }
 
-message GetPutgBase {}
+message GetPutgBase {
+    string standardId = 1;
+}
 
 message Putg {
     putg_data_model.PutgData data = 1;
@@ -38,11 +40,13 @@ message PutgData {
     //? Может сделать еще один запрос на получение data
     //? или можно получать это вместе с filler
     repeated putg_filler_model.PutgFiller fillers = 1;
-    repeated putg_flange_type_model.PutgFlangeType flangeTypes = 2;
+    // repeated putg_flange_type_model.PutgFlangeType flangeTypes = 2;
     // repeated putg_data_model.PutgData data = 3;
     repeated putg_size_model.PutgSize sizes = 3;
-    putg_material_model.PutgMaterials materials = 4;
-    
+    // putg_material_model.PutgMaterials materials = 4;
+
+    //TODO проблема тк наполнитель и размеры зависят от конструкции
+    // repeated putg_construction_type_model.PutgConstruction constructions = 5;    
 
     // flangeType зависит от standard
     // filler зависит от construction
@@ -53,8 +57,10 @@ message PutgData {
 message PutgBase {
     repeated putg_configuration_model.PutgConfiguration configurations = 1;
     repeated putg_standard_model.PutgStandard standards = 2;
-    repeated putg_construction_type_model.PutgConstruction constructions = 3;
-    repeated mounting_model.Mounting mounting = 4;
+    repeated mounting_model.Mounting mounting = 3;
+    repeated putg_construction_type_model.PutgConstruction constructions = 4;
+    repeated putg_flange_type_model.PutgFlangeType flangeTypes = 5;
+    putg_material_model.PutgMaterials materials = 6;
 }
 
 service PutgDataService {

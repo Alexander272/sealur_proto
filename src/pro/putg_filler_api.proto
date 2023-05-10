@@ -12,21 +12,13 @@ message GetPutgFiller {
 
 message CreatePutgFiller {
     string constructionId = 1;
-    string temperatureId = 2;
-    string title = 3;
-    string code = 4;
-    string description = 5;
-    string designation = 6;
+    string fillerId = 2;
 }
 
 message UpdatePutgFiller {
     string id = 1;
-    string temperatureId = 2;
-    string title = 3;
-    string code = 4;
-    string description = 5;
-    string designation = 6;
-    string constructionId = 7;
+    string fillerId = 2;
+    string constructionId = 3;
 }
 
 message DeletePutgFiller {

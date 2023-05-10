@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package putg_filler_base_api;
+option go_package = "api/pro/putg_filler_base_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/putg_filler_model.proto";
+
+message GetPutgBaseFiller {
+}
+
+message CreatePutgBaseFiller {
+    string temperatureId = 1;
+    string title = 2;
+    string code = 3;
+    string description = 4;
+    string designation = 5;
+}
+
+message UpdatePutgBaseFiller {
+    string id = 1;
+    string temperatureId = 2;
+    string title = 3;
+    string code = 4;
+    string description = 5;
+    string designation = 6;
+}
+
+message DeletePutgBaseFiller {
+    string id = 1;
+}
+
+message PutgBaseFiller {
+    repeated putg_filler_model.PutgFiller fillers = 1;
+}
+
+service PutgBaseFillerService {
+    rpc Get (GetPutgBaseFiller) returns (PutgBaseFiller);
+    rpc Create (CreatePutgBaseFiller) returns (response_model.Response);
+    rpc Update (UpdatePutgBaseFiller) returns (response_model.Response);
+    rpc Delete (DeletePutgBaseFiller) returns (response_model.Response);
+}

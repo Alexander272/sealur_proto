@@ -6,39 +6,19 @@ option go_package = "api/pro/putg_construction_api";
 import "pro/models/response_model.proto";
 import "pro/models/putg_construction_type_model.proto";
 
-// enum ConstructionCode {
-//     round = 0;
-//     oval = 1;
-//     rectangular = 2;
-// }
-
 message GetPutgConstruction {
-    
+    string standardId = 1;
 }
 
 message CreatePutgConstruction {
-    string title = 1;
-    string code = 2;
-    bool hasD4 = 3;
-    bool hasD3 = 4;
-    bool hasD2 = 5;
-    bool hasD1 = 6;
-    bool hasRotaryPlug = 7;
-    bool hasInnerRing = 8;
-    bool hasOuterRing = 9;
+    string constructionId = 1;
+    string standardId = 2;
 }
 
 message UpdatePutgConstruction {
     string id = 1;
-    string title = 2;
-    string code = 3;
-    bool hasD4 = 4;
-    bool hasD3 = 5;
-    bool hasD2 = 6;
-    bool hasD1 = 7;
-    bool hasRotaryPlug = 8;
-    bool hasInnerRing = 9;
-    bool hasOuterRing = 10;
+    string constructionId = 2;
+    string standardId = 3;
 }
 
 message DeletePutgConstruction {
