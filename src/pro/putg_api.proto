@@ -29,6 +29,7 @@ message GetPutgData {
 
 message GetPutgBase {
     string standardId = 1;
+    string flangeTypeId = 2;
 }
 
 message Putg {

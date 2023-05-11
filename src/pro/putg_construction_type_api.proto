@@ -7,18 +7,22 @@ import "pro/models/response_model.proto";
 import "pro/models/putg_construction_type_model.proto";
 
 message GetPutgConstruction {
+    //TODO удалить standardId
     string standardId = 1;
+    string flangeTypeId = 2;
 }
 
 message CreatePutgConstruction {
     string constructionId = 1;
     string standardId = 2;
+    string flangeTypeId = 3;
 }
 
 message UpdatePutgConstruction {
     string id = 1;
     string constructionId = 2;
     string standardId = 3;
+    string flangeTypeId = 4;
 }
 
 message DeletePutgConstruction {
