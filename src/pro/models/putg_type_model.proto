@@ -7,4 +7,6 @@ message PutgType {
     string id = 1;
     string title = 2;
     string code = 3;
+    double minThickness = 4;
+    double maxThickness = 5;
 }
