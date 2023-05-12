@@ -22,7 +22,8 @@ message GetPutg {
 message GetPutgData {
     string standardId = 1;
     string constructionId = 2;
-    string configuration = 3;
+    string baseConstructionId = 3;
+    string configuration = 4;
     // string fillerId = 4;
     // bool changeStandard = 5;
 }
