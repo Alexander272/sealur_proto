@@ -15,4 +15,5 @@ message PutgConstruction {
     bool hasInnerRing = 9;
     bool hasOuterRing = 10;
     string baseId = 11;
+    string description = 12;
 }

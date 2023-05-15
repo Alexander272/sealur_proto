@@ -9,4 +9,5 @@ message PutgType {
     string code = 3;
     double minThickness = 4;
     double maxThickness = 5;
+    string description = 6;
 }
