@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             (unknown)
-// source: pro/putg_construction_type_api.proto
+// source: pro/putg_construction_api.proto
 
 package putg_construction_api
 
@@ -24,6 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PutgConstructionServiceClient interface {
 	Get(ctx context.Context, in *GetPutgConstruction, opts ...grpc.CallOption) (*PutgConstruction, error)
+	Get_New(ctx context.Context, in *GetPutgConstruction_New, opts ...grpc.CallOption) (*PutgConstruction, error)
 	Create(ctx context.Context, in *CreatePutgConstruction, opts ...grpc.CallOption) (*response_model.Response, error)
 	Update(ctx context.Context, in *UpdatePutgConstruction, opts ...grpc.CallOption) (*response_model.Response, error)
 	Delete(ctx context.Context, in *DeletePutgConstruction, opts ...grpc.CallOption) (*response_model.Response, error)
@@ -40,6 +41,15 @@ func NewPutgConstructionServiceClient(cc grpc.ClientConnInterface) PutgConstruct
 func (c *putgConstructionServiceClient) Get(ctx context.Context, in *GetPutgConstruction, opts ...grpc.CallOption) (*PutgConstruction, error) {
 	out := new(PutgConstruction)
 	err := c.cc.Invoke(ctx, "/putg_construction_api.PutgConstructionService/Get", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *putgConstructionServiceClient) Get_New(ctx context.Context, in *GetPutgConstruction_New, opts ...grpc.CallOption) (*PutgConstruction, error) {
+	out := new(PutgConstruction)
+	err := c.cc.Invoke(ctx, "/putg_construction_api.PutgConstructionService/Get_New", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -78,6 +88,7 @@ func (c *putgConstructionServiceClient) Delete(ctx context.Context, in *DeletePu
 // for forward compatibility
 type PutgConstructionServiceServer interface {
 	Get(context.Context, *GetPutgConstruction) (*PutgConstruction, error)
+	Get_New(context.Context, *GetPutgConstruction_New) (*PutgConstruction, error)
 	Create(context.Context, *CreatePutgConstruction) (*response_model.Response, error)
 	Update(context.Context, *UpdatePutgConstruction) (*response_model.Response, error)
 	Delete(context.Context, *DeletePutgConstruction) (*response_model.Response, error)
@@ -90,6 +101,9 @@ type UnimplementedPutgConstructionServiceServer struct {
 
 func (UnimplementedPutgConstructionServiceServer) Get(context.Context, *GetPutgConstruction) (*PutgConstruction, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
+}
+func (UnimplementedPutgConstructionServiceServer) Get_New(context.Context, *GetPutgConstruction_New) (*PutgConstruction, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Get_New not implemented")
 }
 func (UnimplementedPutgConstructionServiceServer) Create(context.Context, *CreatePutgConstruction) (*response_model.Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
@@ -128,6 +142,24 @@ func _PutgConstructionService_Get_Handler(srv interface{}, ctx context.Context, 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PutgConstructionServiceServer).Get(ctx, req.(*GetPutgConstruction))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PutgConstructionService_Get_New_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPutgConstruction_New)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PutgConstructionServiceServer).Get_New(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/putg_construction_api.PutgConstructionService/Get_New",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PutgConstructionServiceServer).Get_New(ctx, req.(*GetPutgConstruction_New))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -198,6 +230,10 @@ var PutgConstructionService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _PutgConstructionService_Get_Handler,
 		},
 		{
+			MethodName: "Get_New",
+			Handler:    _PutgConstructionService_Get_New_Handler,
+		},
+		{
 			MethodName: "Create",
 			Handler:    _PutgConstructionService_Create_Handler,
 		},
@@ -211,5 +247,5 @@ var PutgConstructionService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "pro/putg_construction_type_api.proto",
+	Metadata: "pro/putg_construction_api.proto",
 }

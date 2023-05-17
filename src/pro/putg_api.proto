@@ -15,8 +15,9 @@ import "pro/models/putg_type_model.proto";
 import "pro/models/mounting_model.proto";
 
 message GetPutg {
-    string FillerId = 1;
-    string BaseId = 2;
+    string fillerId = 1;
+    string baseId = 2;
+    string flangeTypeId = 3;
 }
 
 message GetPutgData {
@@ -36,15 +37,16 @@ message GetPutgBase {
 message Putg {
     putg_data_model.PutgData data = 1;
     repeated putg_type_model.PutgType putgTypes = 2;
+    repeated putg_construction_type_model.PutgConstruction constructions = 3;
 }
 
 message PutgData {   
     //? Может сделать еще один запрос на получение data
     //? или можно получать это вместе с filler
     repeated putg_filler_model.PutgFiller fillers = 1;
+    repeated putg_size_model.PutgSize sizes = 2;
     // repeated putg_flange_type_model.PutgFlangeType flangeTypes = 2;
     // repeated putg_data_model.PutgData data = 3;
-    repeated putg_size_model.PutgSize sizes = 3;
     // putg_material_model.PutgMaterials materials = 4;
 
     //TODO проблема тк наполнитель и размеры зависят от конструкции

@@ -10,4 +10,5 @@ message PutgType {
     double minThickness = 4;
     double maxThickness = 5;
     string description = 6;
+    string typeCode = 7;
 }

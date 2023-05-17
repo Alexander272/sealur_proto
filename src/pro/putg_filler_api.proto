@@ -10,6 +10,10 @@ message GetPutgFiller {
     string constructionId = 1;
 }
 
+message GetPutgFiller_New {
+    string standardId = 1;
+}
+
 message CreatePutgFiller {
     string constructionId = 1;
     string fillerId = 2;
@@ -31,6 +35,7 @@ message PutgFiller {
 
 service PutgFillerService {
     rpc Get (GetPutgFiller) returns (PutgFiller);
+    rpc Get_New (GetPutgFiller_New) returns (PutgFiller);
     rpc Create (CreatePutgFiller) returns (response_model.Response);
     rpc Update (UpdatePutgFiller) returns (response_model.Response);
     rpc Delete (DeletePutgFiller) returns (response_model.Response);

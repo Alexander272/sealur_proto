@@ -24,6 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PutgFillerServiceClient interface {
 	Get(ctx context.Context, in *GetPutgFiller, opts ...grpc.CallOption) (*PutgFiller, error)
+	Get_New(ctx context.Context, in *GetPutgFiller_New, opts ...grpc.CallOption) (*PutgFiller, error)
 	Create(ctx context.Context, in *CreatePutgFiller, opts ...grpc.CallOption) (*response_model.Response, error)
 	Update(ctx context.Context, in *UpdatePutgFiller, opts ...grpc.CallOption) (*response_model.Response, error)
 	Delete(ctx context.Context, in *DeletePutgFiller, opts ...grpc.CallOption) (*response_model.Response, error)
@@ -40,6 +41,15 @@ func NewPutgFillerServiceClient(cc grpc.ClientConnInterface) PutgFillerServiceCl
 func (c *putgFillerServiceClient) Get(ctx context.Context, in *GetPutgFiller, opts ...grpc.CallOption) (*PutgFiller, error) {
 	out := new(PutgFiller)
 	err := c.cc.Invoke(ctx, "/putg_filler_api.PutgFillerService/Get", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *putgFillerServiceClient) Get_New(ctx context.Context, in *GetPutgFiller_New, opts ...grpc.CallOption) (*PutgFiller, error) {
+	out := new(PutgFiller)
+	err := c.cc.Invoke(ctx, "/putg_filler_api.PutgFillerService/Get_New", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -78,6 +88,7 @@ func (c *putgFillerServiceClient) Delete(ctx context.Context, in *DeletePutgFill
 // for forward compatibility
 type PutgFillerServiceServer interface {
 	Get(context.Context, *GetPutgFiller) (*PutgFiller, error)
+	Get_New(context.Context, *GetPutgFiller_New) (*PutgFiller, error)
 	Create(context.Context, *CreatePutgFiller) (*response_model.Response, error)
 	Update(context.Context, *UpdatePutgFiller) (*response_model.Response, error)
 	Delete(context.Context, *DeletePutgFiller) (*response_model.Response, error)
@@ -90,6 +101,9 @@ type UnimplementedPutgFillerServiceServer struct {
 
 func (UnimplementedPutgFillerServiceServer) Get(context.Context, *GetPutgFiller) (*PutgFiller, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
+}
+func (UnimplementedPutgFillerServiceServer) Get_New(context.Context, *GetPutgFiller_New) (*PutgFiller, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Get_New not implemented")
 }
 func (UnimplementedPutgFillerServiceServer) Create(context.Context, *CreatePutgFiller) (*response_model.Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
@@ -127,6 +141,24 @@ func _PutgFillerService_Get_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PutgFillerServiceServer).Get(ctx, req.(*GetPutgFiller))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PutgFillerService_Get_New_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPutgFiller_New)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PutgFillerServiceServer).Get_New(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/putg_filler_api.PutgFillerService/Get_New",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PutgFillerServiceServer).Get_New(ctx, req.(*GetPutgFiller_New))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -195,6 +227,10 @@ var PutgFillerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Get",
 			Handler:    _PutgFillerService_Get_Handler,
+		},
+		{
+			MethodName: "Get_New",
+			Handler:    _PutgFillerService_Get_New_Handler,
 		},
 		{
 			MethodName: "Create",

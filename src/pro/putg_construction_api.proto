@@ -12,6 +12,11 @@ message GetPutgConstruction {
     string flangeTypeId = 2;
 }
 
+message GetPutgConstruction_New {
+    string fillerId = 1;
+    string flangeTypeId = 2;
+}
+
 message CreatePutgConstruction {
     string constructionId = 1;
     string standardId = 2;
@@ -35,6 +40,7 @@ message PutgConstruction {
 
 service PutgConstructionService {
     rpc Get (GetPutgConstruction) returns (PutgConstruction);
+    rpc Get_New (GetPutgConstruction_New) returns (PutgConstruction);
     rpc Create (CreatePutgConstruction) returns (response_model.Response);
     rpc Update (UpdatePutgConstruction) returns (response_model.Response);
     rpc Delete (DeletePutgConstruction) returns (response_model.Response);
