@@ -17,6 +17,8 @@ message CreatePutgType {
     string fillerId = 3;
     double minThickness = 4;
     double maxThickness = 5;
+    string description = 6;
+    string typeCode = 7;
 }
 
 message UpdatePutgType {
@@ -26,6 +28,8 @@ message UpdatePutgType {
     string fillerId = 4;
     double minThickness = 5;
     double maxThickness = 6;
+    string description = 7;
+    string typeCode = 8;
 }
 
 message DeletePutgType {

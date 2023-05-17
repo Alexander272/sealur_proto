@@ -62,7 +62,9 @@ message PutgBase {
     repeated putg_configuration_model.PutgConfiguration configurations = 1;
     repeated putg_standard_model.PutgStandard standards = 2;
     repeated mounting_model.Mounting mounting = 3;
+    //TODO
     repeated putg_construction_type_model.PutgConstruction constructions = 4;
+    repeated putg_filler_model.PutgFiller fillers = 7;
     repeated putg_flange_type_model.PutgFlangeType flangeTypes = 5;
     putg_material_model.PutgMaterials materials = 6;
 }
