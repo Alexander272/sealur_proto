@@ -49,3 +49,24 @@ message UserData {
     int64 ordersCount = 10;
     bool hasOrders = 11;
 }
+
+message FullUser {
+    string id = 1;
+    string company = 2;
+    string address = 3;
+    string inn = 4;
+    string kpp = 5;
+    string region = 6;
+    string city = 7;
+    string name = 8;
+    string position = 9;
+    string email = 10;
+    string phone = 11;
+    string roleCode = 12;
+    string manager = 13;
+    bool useLink = 14;
+    bool confirmed = 15;
+    string date = 16;
+    bool useLanding = 17;
+    string lastVisit = 18;
+}

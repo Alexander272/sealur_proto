@@ -11,6 +11,11 @@ message GetPutgSize {
     string constructionId = 2;
 }
 
+message GetPutgSize_New {
+    string flangeTypeId = 1;
+    string baseConstructionId = 2;
+}
+
 message CreatePutgSize {
     string putgStandardId = 1;
     string constructionId = 2;
@@ -55,6 +60,7 @@ message PutgSize {
 
 service PutgSizeService {
     rpc Get (GetPutgSize) returns (PutgSize);
+    rpc GetNew (GetPutgSize_New) returns (PutgSize);
     rpc Create (CreatePutgSize) returns (response_model.Response);
     rpc CreateSeveral (CreateSeveralPutgSize) returns (response_model.Response);
     rpc Update (UpdatePutgSize) returns (response_model.Response);

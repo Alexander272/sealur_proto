@@ -119,6 +119,7 @@ message AnalyticsUsers {
 
 service UserService {
     rpc Get (GetUser) returns (user_model.User);
+    rpc GetFull (GetUser) returns (user_model.FullUser);
     rpc GetByEmail (GetUserByEmail) returns (user_model.User);
     rpc GetByParam (GetUsersByParam) returns (AnalyticsUsers);
     rpc GetAll (GetAllUser) returns (Users);

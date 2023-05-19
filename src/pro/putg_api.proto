@@ -25,6 +25,7 @@ message GetPutgData {
     string constructionId = 2;
     string baseConstructionId = 3;
     string configuration = 4;
+    string flangeTypeId = 5;
     // string fillerId = 4;
     // bool changeStandard = 5;
 }
