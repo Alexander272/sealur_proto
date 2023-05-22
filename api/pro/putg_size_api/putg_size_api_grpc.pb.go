@@ -24,6 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PutgSizeServiceClient interface {
 	Get(ctx context.Context, in *GetPutgSize, opts ...grpc.CallOption) (*PutgSize, error)
+	GetNew(ctx context.Context, in *GetPutgSize_New, opts ...grpc.CallOption) (*PutgSize, error)
 	Create(ctx context.Context, in *CreatePutgSize, opts ...grpc.CallOption) (*response_model.Response, error)
 	CreateSeveral(ctx context.Context, in *CreateSeveralPutgSize, opts ...grpc.CallOption) (*response_model.Response, error)
 	Update(ctx context.Context, in *UpdatePutgSize, opts ...grpc.CallOption) (*response_model.Response, error)
@@ -41,6 +42,15 @@ func NewPutgSizeServiceClient(cc grpc.ClientConnInterface) PutgSizeServiceClient
 func (c *putgSizeServiceClient) Get(ctx context.Context, in *GetPutgSize, opts ...grpc.CallOption) (*PutgSize, error) {
 	out := new(PutgSize)
 	err := c.cc.Invoke(ctx, "/putg_size_api.PutgSizeService/Get", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *putgSizeServiceClient) GetNew(ctx context.Context, in *GetPutgSize_New, opts ...grpc.CallOption) (*PutgSize, error) {
+	out := new(PutgSize)
+	err := c.cc.Invoke(ctx, "/putg_size_api.PutgSizeService/GetNew", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -88,6 +98,7 @@ func (c *putgSizeServiceClient) Delete(ctx context.Context, in *DeletePutgSize, 
 // for forward compatibility
 type PutgSizeServiceServer interface {
 	Get(context.Context, *GetPutgSize) (*PutgSize, error)
+	GetNew(context.Context, *GetPutgSize_New) (*PutgSize, error)
 	Create(context.Context, *CreatePutgSize) (*response_model.Response, error)
 	CreateSeveral(context.Context, *CreateSeveralPutgSize) (*response_model.Response, error)
 	Update(context.Context, *UpdatePutgSize) (*response_model.Response, error)
@@ -101,6 +112,9 @@ type UnimplementedPutgSizeServiceServer struct {
 
 func (UnimplementedPutgSizeServiceServer) Get(context.Context, *GetPutgSize) (*PutgSize, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
+}
+func (UnimplementedPutgSizeServiceServer) GetNew(context.Context, *GetPutgSize_New) (*PutgSize, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetNew not implemented")
 }
 func (UnimplementedPutgSizeServiceServer) Create(context.Context, *CreatePutgSize) (*response_model.Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
@@ -141,6 +155,24 @@ func _PutgSizeService_Get_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PutgSizeServiceServer).Get(ctx, req.(*GetPutgSize))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PutgSizeService_GetNew_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPutgSize_New)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PutgSizeServiceServer).GetNew(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/putg_size_api.PutgSizeService/GetNew",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PutgSizeServiceServer).GetNew(ctx, req.(*GetPutgSize_New))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -227,6 +259,10 @@ var PutgSizeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Get",
 			Handler:    _PutgSizeService_Get_Handler,
+		},
+		{
+			MethodName: "GetNew",
+			Handler:    _PutgSizeService_GetNew_Handler,
 		},
 		{
 			MethodName: "Create",

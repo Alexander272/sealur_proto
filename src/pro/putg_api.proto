@@ -42,8 +42,6 @@ message Putg {
 }
 
 message PutgData {   
-    //? Может сделать еще один запрос на получение data
-    //? или можно получать это вместе с filler
     repeated putg_filler_model.PutgFiller fillers = 1;
     repeated putg_size_model.PutgSize sizes = 2;
     // repeated putg_flange_type_model.PutgFlangeType flangeTypes = 2;

@@ -14,6 +14,7 @@ message GetPutgSize {
 message GetPutgSize_New {
     string flangeTypeId = 1;
     string baseConstructionId = 2;
+    string baseFillerId = 3;
 }
 
 message CreatePutgSize {
