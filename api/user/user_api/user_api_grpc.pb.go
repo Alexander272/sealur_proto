@@ -35,6 +35,7 @@ type UserServiceClient interface {
 	GetAnalytics(ctx context.Context, in *GetUserAnalytics, opts ...grpc.CallOption) (*Analytics, error)
 	Create(ctx context.Context, in *CreateUser, opts ...grpc.CallOption) (*response_model.IdResponse, error)
 	Confirm(ctx context.Context, in *ConfirmUser, opts ...grpc.CallOption) (*user_model.User, error)
+	Visit(ctx context.Context, in *GetUser, opts ...grpc.CallOption) (*response_model.Response, error)
 	Update(ctx context.Context, in *UpdateUser, opts ...grpc.CallOption) (*response_model.Response, error)
 	SetManager(ctx context.Context, in *UserManager, opts ...grpc.CallOption) (*response_model.Response, error)
 	Delete(ctx context.Context, in *DeleteUser, opts ...grpc.CallOption) (*response_model.Response, error)
@@ -147,6 +148,15 @@ func (c *userServiceClient) Confirm(ctx context.Context, in *ConfirmUser, opts .
 	return out, nil
 }
 
+func (c *userServiceClient) Visit(ctx context.Context, in *GetUser, opts ...grpc.CallOption) (*response_model.Response, error) {
+	out := new(response_model.Response)
+	err := c.cc.Invoke(ctx, "/user_api.UserService/Visit", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *userServiceClient) Update(ctx context.Context, in *UpdateUser, opts ...grpc.CallOption) (*response_model.Response, error) {
 	out := new(response_model.Response)
 	err := c.cc.Invoke(ctx, "/user_api.UserService/Update", in, out, opts...)
@@ -189,6 +199,7 @@ type UserServiceServer interface {
 	GetAnalytics(context.Context, *GetUserAnalytics) (*Analytics, error)
 	Create(context.Context, *CreateUser) (*response_model.IdResponse, error)
 	Confirm(context.Context, *ConfirmUser) (*user_model.User, error)
+	Visit(context.Context, *GetUser) (*response_model.Response, error)
 	Update(context.Context, *UpdateUser) (*response_model.Response, error)
 	SetManager(context.Context, *UserManager) (*response_model.Response, error)
 	Delete(context.Context, *DeleteUser) (*response_model.Response, error)
@@ -231,6 +242,9 @@ func (UnimplementedUserServiceServer) Create(context.Context, *CreateUser) (*res
 }
 func (UnimplementedUserServiceServer) Confirm(context.Context, *ConfirmUser) (*user_model.User, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Confirm not implemented")
+}
+func (UnimplementedUserServiceServer) Visit(context.Context, *GetUser) (*response_model.Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Visit not implemented")
 }
 func (UnimplementedUserServiceServer) Update(context.Context, *UpdateUser) (*response_model.Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
@@ -452,6 +466,24 @@ func _UserService_Confirm_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_Visit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUser)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).Visit(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/user_api.UserService/Visit",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).Visit(ctx, req.(*GetUser))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _UserService_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateUser)
 	if err := dec(in); err != nil {
@@ -556,6 +588,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Confirm",
 			Handler:    _UserService_Confirm_Handler,
+		},
+		{
+			MethodName: "Visit",
+			Handler:    _UserService_Visit_Handler,
 		},
 		{
 			MethodName: "Update",

@@ -9,6 +9,13 @@ message Order {
     repeated Clients clients = 3;
 }
 
+message OrderCount {
+    string id = 1;
+    string name = 2;
+    string company = 3;
+    int64 orderCount = 4;
+}
+
 message Clients {
     string id = 1;
     string name = 2;

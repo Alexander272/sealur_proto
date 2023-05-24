@@ -62,6 +62,7 @@ message CreateUser {
     string password = 11;
     string managerId = 12;
     bool useLink = 13;
+    bool useLanding = 14;
 }
 
 message UpdateUser {
@@ -129,6 +130,7 @@ service UserService {
     rpc GetAnalytics (GetUserAnalytics) returns (Analytics);
     rpc Create (CreateUser) returns (response_model.IdResponse);
     rpc Confirm (ConfirmUser) returns (user_model.User);
+    rpc Visit (GetUser) returns (response_model.Response);
     rpc Update (UpdateUser) returns (response_model.Response);
     rpc SetManager (UserManager) returns (response_model.Response);
     rpc Delete (DeleteUser) returns (response_model.Response);

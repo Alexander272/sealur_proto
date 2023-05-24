@@ -31,6 +31,7 @@ type OrderServiceClient interface {
 	GetOpen(ctx context.Context, in *GetManagerOrders, opts ...grpc.CallOption) (*ManagerOrders, error)
 	GetAllOpen(ctx context.Context, in *GetAllManagerOrders, opts ...grpc.CallOption) (*ManagerOrders, error)
 	GetAnalytics(ctx context.Context, in *GetOrderAnalytics, opts ...grpc.CallOption) (*Analytics, error)
+	GetOrderCount(ctx context.Context, in *GetOrderCountAnalytics, opts ...grpc.CallOption) (*OrderCount, error)
 	GetBidAnalytics(ctx context.Context, in *GetFullOrderAnalytics, opts ...grpc.CallOption) (*OrderAnalytics, error)
 	Save(ctx context.Context, in *CreateOrder, opts ...grpc.CallOption) (*OrderNumber, error)
 	Create(ctx context.Context, in *CreateOrder, opts ...grpc.CallOption) (*response_model.IdResponse, error)
@@ -135,6 +136,15 @@ func (c *orderServiceClient) GetAnalytics(ctx context.Context, in *GetOrderAnaly
 	return out, nil
 }
 
+func (c *orderServiceClient) GetOrderCount(ctx context.Context, in *GetOrderCountAnalytics, opts ...grpc.CallOption) (*OrderCount, error) {
+	out := new(OrderCount)
+	err := c.cc.Invoke(ctx, "/order_api.OrderService/GetOrderCount", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *orderServiceClient) GetBidAnalytics(ctx context.Context, in *GetFullOrderAnalytics, opts ...grpc.CallOption) (*OrderAnalytics, error) {
 	out := new(OrderAnalytics)
 	err := c.cc.Invoke(ctx, "/order_api.OrderService/GetBidAnalytics", in, out, opts...)
@@ -218,6 +228,7 @@ type OrderServiceServer interface {
 	GetOpen(context.Context, *GetManagerOrders) (*ManagerOrders, error)
 	GetAllOpen(context.Context, *GetAllManagerOrders) (*ManagerOrders, error)
 	GetAnalytics(context.Context, *GetOrderAnalytics) (*Analytics, error)
+	GetOrderCount(context.Context, *GetOrderCountAnalytics) (*OrderCount, error)
 	GetBidAnalytics(context.Context, *GetFullOrderAnalytics) (*OrderAnalytics, error)
 	Save(context.Context, *CreateOrder) (*OrderNumber, error)
 	Create(context.Context, *CreateOrder) (*response_model.IdResponse, error)
@@ -253,6 +264,9 @@ func (UnimplementedOrderServiceServer) GetAllOpen(context.Context, *GetAllManage
 }
 func (UnimplementedOrderServiceServer) GetAnalytics(context.Context, *GetOrderAnalytics) (*Analytics, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAnalytics not implemented")
+}
+func (UnimplementedOrderServiceServer) GetOrderCount(context.Context, *GetOrderCountAnalytics) (*OrderCount, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOrderCount not implemented")
 }
 func (UnimplementedOrderServiceServer) GetBidAnalytics(context.Context, *GetFullOrderAnalytics) (*OrderAnalytics, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBidAnalytics not implemented")
@@ -416,6 +430,24 @@ func _OrderService_GetAnalytics_Handler(srv interface{}, ctx context.Context, de
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrderServiceServer).GetAnalytics(ctx, req.(*GetOrderAnalytics))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrderService_GetOrderCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOrderCountAnalytics)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrderServiceServer).GetOrderCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/order_api.OrderService/GetOrderCount",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrderServiceServer).GetOrderCount(ctx, req.(*GetOrderCountAnalytics))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -594,6 +626,10 @@ var OrderService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAnalytics",
 			Handler:    _OrderService_GetAnalytics_Handler,
+		},
+		{
+			MethodName: "GetOrderCount",
+			Handler:    _OrderService_GetOrderCount_Handler,
 		},
 		{
 			MethodName: "GetBidAnalytics",
