@@ -5,10 +5,17 @@ option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/positio
 
 import "pro/models/snp_size_model.proto";
 import "pro/models/snp_standard_model.proto";
-import "pro/models/pro_material_model.proto";
+// import "pro/models/pro_material_model.proto";
 import "pro/models/snp_material_model.proto";
 import "pro/models/snp_filler_model.proto";
 import "pro/models/snp_type_model.proto";
+import "pro/models/putg_standard_model.proto";
+import "pro/models/putg_flange_type_model.proto";
+import "pro/models/putg_configuration_model.proto";
+import "pro/models/putg_filler_model.proto";
+import "pro/models/putg_type_model.proto";
+import "pro/models/putg_construction_type_model.proto";
+import "pro/models/putg_material_model.proto";
 
 
 enum PositionType {
@@ -33,8 +40,9 @@ message FullPosition {
     string title = 4;
     string amount = 5;
     PositionType type = 6;
-    PositionSnp snpData = 7;
-    string info = 8;
+    string info = 7;
+    PositionSnp snpData = 8;
+    PositionPutg putgData = 9;
 }
 
 message OrderPosition {
@@ -44,8 +52,9 @@ message OrderPosition {
     string title = 4;
     string amount = 5;
     PositionType type = 6;
-    OrderPositionSnp snpData = 7;
-    string info = 8;
+    string info = 7;
+    OrderPositionSnp snpData = 8;
+    OrderPositionPutg putgData = 9;
 }
 
 message PositionSnp {
@@ -151,6 +160,115 @@ message OrderPositionSnp {
         bool hasHole = 4;
         Mounting mounting = 5;
         string drawing = 6;
+    }
+
+    Main main = 1;
+    Size size = 2;
+    Material material = 3;
+    Design design = 4;
+}
+
+message PositionPutg {
+    message Main {
+        string putgStandardId = 1;
+        string flangeTypeId = 2;
+        string configurationId = 3;
+    }
+
+    message Size {
+        string dn = 1;
+        string dnMm = 2;
+        snp_size_model.Pn pn = 3;
+        string d4 = 4;
+        string d3 = 5;
+        string d2 = 6;
+        string d1 = 7;
+        string h = 8;
+        string another = 9;
+        bool useDimensions = 10;
+    }
+
+    message Material {
+        string fillerId = 1;
+        string fillerCode = 2;
+        string typeId = 3;
+        string constructionId = 4;
+        string constructionCode = 5;
+        string rotaryPlugId = 6;
+        string rotaryPlugCode = 7;
+        string innerRingId = 8;
+        string innerRindCode = 9;
+        string outerRingId = 10;
+        string outerRingCode = 11;
+    }
+
+    message Design {
+        bool hasJumper = 1;
+        string jumperCode = 2;
+        string jumperWidth = 3;
+        bool hasHole = 4;
+        bool hasRemovable = 5;
+        bool hasMounting = 6;
+        string mountingCode = 7;
+        string drawing = 8;
+    }
+
+    Main main = 1;
+    Size size = 2;
+    Material material = 3;
+    Design design = 4;
+}
+
+message OrderPositionPutg {
+    message Main {
+        string id = 1;
+        string positionId = 2;
+        putg_standard_model.PutgStandard standard = 3;
+        putg_flange_type_model.PutgFlangeType flangeType = 4;
+        putg_configuration_model.PutgConfiguration configuration = 5;
+    }
+    message Size {
+        string id = 1;
+        string positionId = 2;
+        string dn = 3;
+        string dnMm = 4;
+        snp_size_model.Pn pn = 5;
+        string d4 = 6;
+        string d3 = 7;
+        string d2 = 8;
+        string d1 = 9;
+        string h = 10;
+        string another = 11;
+        bool useDimensions = 12;
+    }
+    message Material {
+        string id = 1;
+        string positionId = 2;
+        putg_filler_model.PutgFiller filler = 3;
+        putg_type_model.PutgType putgType = 4;
+        putg_construction_type_model.PutgConstruction construction = 5;
+        putg_material_model.Material rotaryPlug = 6;
+        putg_material_model.Material innerRing = 7;
+        putg_material_model.Material outerRing = 8;
+    }
+    message Design {
+        message Jumper {
+            bool hasJumper = 1;
+            string code = 2;
+            string width = 3;
+        }
+        message Mounting {
+            bool hasMounting = 1;
+            string code = 2;
+        }
+
+        string id = 1;
+        string positionId = 2;
+        Jumper jumper = 3;
+        bool hasHole = 4;
+        bool hasRemovable = 5;
+        Mounting mounting = 6;
+        string drawing = 7;
     }
 
     Main main = 1;

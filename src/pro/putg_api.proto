@@ -10,7 +10,7 @@ import "pro/models/putg_filler_model.proto";
 import "pro/models/putg_construction_type_model.proto";
 import "pro/models/putg_data_model.proto";
 import "pro/models/putg_size_model.proto";
-import "pro/models/putg_materials_model.proto";
+import "pro/models/putg_material_model.proto";
 import "pro/models/putg_type_model.proto";
 import "pro/models/mounting_model.proto";
 
