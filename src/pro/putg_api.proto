@@ -24,15 +24,15 @@ message GetPutgData {
     string standardId = 1;
     string constructionId = 2;
     string baseConstructionId = 3;
-    string configuration = 4;
-    string flangeTypeId = 5;
+    // string configuration = 4;
+    // string flangeTypeId = 5;
     // string fillerId = 4;
     // bool changeStandard = 5;
 }
 
 message GetPutgBase {
     string standardId = 1;
-    string flangeTypeId = 2;
+    // string flangeTypeId = 2;
 }
 
 message Putg {
@@ -42,8 +42,8 @@ message Putg {
 }
 
 message PutgData {   
-    repeated putg_filler_model.PutgFiller fillers = 1;
-    repeated putg_size_model.PutgSize sizes = 2;
+    // repeated putg_filler_model.PutgFiller fillers = 1;
+    repeated putg_size_model.PutgSize sizes = 1;
     // repeated putg_flange_type_model.PutgFlangeType flangeTypes = 2;
     // repeated putg_data_model.PutgData data = 3;
     // putg_material_model.PutgMaterials materials = 4;
@@ -61,9 +61,7 @@ message PutgBase {
     repeated putg_configuration_model.PutgConfiguration configurations = 1;
     repeated putg_standard_model.PutgStandard standards = 2;
     repeated mounting_model.Mounting mounting = 3;
-    //TODO
-    repeated putg_construction_type_model.PutgConstruction constructions = 4;
-    repeated putg_filler_model.PutgFiller fillers = 7;
+    repeated putg_filler_model.PutgFiller fillers = 4;
     repeated putg_flange_type_model.PutgFlangeType flangeTypes = 5;
     putg_material_model.PutgMaterials materials = 6;
 }

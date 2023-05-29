@@ -200,6 +200,9 @@ message PositionPutg {
         string innerRindCode = 9;
         string outerRingId = 10;
         string outerRingCode = 11;
+        string rotaryPlugTitle = 12;
+        string innerRingTitle = 13;
+        string outerRingTitle = 14;
     }
 
     message Design {
