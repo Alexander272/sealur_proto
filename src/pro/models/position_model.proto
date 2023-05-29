@@ -51,10 +51,11 @@ message OrderPosition {
     int64 count = 3;
     string title = 4;
     string amount = 5;
-    PositionType type = 6;
-    string info = 7;
-    OrderPositionSnp snpData = 8;
-    OrderPositionPutg putgData = 9;
+    string type = 6;
+    PositionType typeCode = 7;
+    string info = 8;
+    OrderPositionSnp snpData = 9;
+    OrderPositionPutg putgData = 10;
 }
 
 message PositionSnp {
