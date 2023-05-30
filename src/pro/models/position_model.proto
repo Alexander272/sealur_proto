@@ -174,6 +174,7 @@ message PositionPutg {
         string putgStandardId = 1;
         string flangeTypeId = 2;
         string configurationId = 3;
+        string configurationCode = 4;
     }
 
     message Size {
@@ -193,17 +194,18 @@ message PositionPutg {
         string fillerId = 1;
         string fillerCode = 2;
         string typeId = 3;
-        string constructionId = 4;
-        string constructionCode = 5;
-        string rotaryPlugId = 6;
-        string rotaryPlugCode = 7;
-        string innerRingId = 8;
-        string innerRindCode = 9;
-        string outerRingId = 10;
-        string outerRingCode = 11;
-        string rotaryPlugTitle = 12;
-        string innerRingTitle = 13;
-        string outerRingTitle = 14;
+        string typeCode = 4;
+        string constructionId = 5;
+        string constructionCode = 6;
+        string rotaryPlugId = 7;
+        string rotaryPlugCode = 8;
+        string innerRingId = 9;
+        string innerRindCode = 10;
+        string outerRingId = 11;
+        string outerRingCode = 12;
+        string rotaryPlugTitle = 13;
+        string innerRingTitle = 14;
+        string outerRingTitle = 15;
     }
 
     message Design {
