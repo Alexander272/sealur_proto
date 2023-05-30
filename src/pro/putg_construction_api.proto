@@ -8,7 +8,7 @@ import "pro/models/putg_construction_type_model.proto";
 
 message GetPutgConstruction {
     //TODO удалить standardId
-    string standardId = 1;
+    // string standardId = 1;
     string flangeTypeId = 2;
 }
 

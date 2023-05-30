@@ -8,11 +8,8 @@ import "pro/models/standard_model.proto";
 
 message PutgStandard {
     string id = 1;
-    //TODO title & code тут похоже не нужны 
-    string title = 2;
-    string code = 3;
-    string dnTitle = 4;
-    string pnTitle = 5;
-    standard_model.Standard standard = 6;
-    flange_standard_model.FlangeStandard flangeStandard = 7;
+    string dnTitle = 2;
+    string pnTitle = 3;
+    standard_model.Standard standard = 4;
+    flange_standard_model.FlangeStandard flangeStandard = 5;
 }
