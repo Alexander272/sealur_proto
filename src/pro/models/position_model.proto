@@ -213,10 +213,11 @@ message PositionPutg {
         string jumperCode = 2;
         string jumperWidth = 3;
         bool hasHole = 4;
-        bool hasRemovable = 5;
-        bool hasMounting = 6;
-        string mountingCode = 7;
-        string drawing = 8;
+        bool hasCoating = 5;
+        bool hasRemovable = 6;
+        bool hasMounting = 7;
+        string mountingCode = 8;
+        string drawing = 9;
     }
 
     Main main = 1;
@@ -272,9 +273,10 @@ message OrderPositionPutg {
         string positionId = 2;
         Jumper jumper = 3;
         bool hasHole = 4;
-        bool hasRemovable = 5;
-        Mounting mounting = 6;
-        string drawing = 7;
+        bool hasCoating = 5;
+        bool hasRemovable = 6;
+        Mounting mounting = 7;
+        string drawing = 8;
     }
 
     Main main = 1;
