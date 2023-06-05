@@ -11,4 +11,5 @@ message PutgType {
     double maxThickness = 5;
     string description = 6;
     string typeCode = 7;
+    bool hasReinforce = 8;
 }

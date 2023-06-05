@@ -188,6 +188,7 @@ message PositionPutg {
         string h = 8;
         string another = 9;
         bool useDimensions = 10;
+        bool hasRounding = 11;
     }
 
     message Material {
@@ -197,15 +198,18 @@ message PositionPutg {
         string typeCode = 4;
         string constructionId = 5;
         string constructionCode = 6;
-        string rotaryPlugId = 7;
-        string rotaryPlugCode = 8;
-        string innerRingId = 9;
-        string innerRindCode = 10;
-        string outerRingId = 11;
-        string outerRingCode = 12;
-        string rotaryPlugTitle = 13;
-        string innerRingTitle = 14;
-        string outerRingTitle = 15;
+        string reinforceId = 7;
+        string reinforceCode = 8;
+        string rotaryPlugId = 9;
+        string rotaryPlugCode = 10;
+        string innerRingId = 11;
+        string innerRindCode = 12;
+        string outerRingId = 13;
+        string outerRingCode = 14;
+        string reinforceTitle = 15;
+        string rotaryPlugTitle = 16;
+        string innerRingTitle = 17;
+        string outerRingTitle = 18;
     }
 
     message Design {
@@ -247,6 +251,7 @@ message OrderPositionPutg {
         string h = 10;
         string another = 11;
         bool useDimensions = 12;
+        bool hasRounding = 13;
     }
     message Material {
         string id = 1;
@@ -254,9 +259,10 @@ message OrderPositionPutg {
         putg_filler_model.PutgFiller filler = 3;
         putg_type_model.PutgType putgType = 4;
         putg_construction_type_model.PutgConstruction construction = 5;
-        putg_material_model.Material rotaryPlug = 6;
-        putg_material_model.Material innerRing = 7;
-        putg_material_model.Material outerRing = 8;
+        putg_material_model.Material reinforce = 6;
+        putg_material_model.Material rotaryPlug = 7;
+        putg_material_model.Material innerRing = 8;
+        putg_material_model.Material outerRing = 9;
     }
     message Design {
         message Jumper {

@@ -19,6 +19,7 @@ message CreatePutgType {
     double maxThickness = 5;
     string description = 6;
     string typeCode = 7;
+    bool hasReinforce = 8;
 }
 
 message UpdatePutgType {
@@ -30,6 +31,7 @@ message UpdatePutgType {
     double maxThickness = 6;
     string description = 7;
     string typeCode = 8;
+    bool hasReinforce = 9;
 }
 
 message DeletePutgType {

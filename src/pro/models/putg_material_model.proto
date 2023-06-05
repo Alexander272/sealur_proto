@@ -16,10 +16,12 @@ message Material {
 }
 
 message PutgMaterials {
-    repeated Material rotaryPlug = 1;
-    repeated Material innerRing = 2;
-    repeated Material outerRing = 3;
-    int64 rotaryPlugDefaultIndex = 4;
-    int64 innerRingDefaultIndex = 5;
-    int64 outerRingDefaultIndex = 6;
+    repeated Material reinforce = 1;
+    repeated Material rotaryPlug = 2;
+    repeated Material innerRing = 3;
+    repeated Material outerRing = 4;
+    int64 reinforceDefaultIndex = 5;
+    int64 rotaryPlugDefaultIndex = 6;
+    int64 innerRingDefaultIndex = 7;
+    int64 outerRingDefaultIndex = 8;
 }
