@@ -26,6 +26,8 @@ message CreatePutgBaseConstruction {
     bool hasRotaryPlug = 7;
     bool hasInnerRing = 8;
     bool hasOuterRing = 9;
+    string description = 10;
+    double minWidth = 11;
 }
 
 message UpdatePutgBaseConstruction {
@@ -39,6 +41,8 @@ message UpdatePutgBaseConstruction {
     bool hasRotaryPlug = 8;
     bool hasInnerRing = 9;
     bool hasOuterRing = 10;
+    string description = 11;
+    double minWidth = 12;
 }
 
 message DeletePutgBaseConstruction {

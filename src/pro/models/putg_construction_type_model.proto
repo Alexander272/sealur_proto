@@ -16,4 +16,12 @@ message PutgConstruction {
     bool hasOuterRing = 10;
     string baseId = 11;
     string description = 12;
+    double minWidth = 13;
+    repeated int64 jumperRange = 14;
+    repeated WidthRange widthRange = 15;
+}
+
+message WidthRange {
+    double maxD3 = 1;
+    double width = 2;
 }
