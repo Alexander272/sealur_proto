@@ -28,6 +28,9 @@ message CreatePutgBaseConstruction {
     bool hasOuterRing = 9;
     string description = 10;
     double minWidth = 11;
+    repeated int64 jumperRange = 12;
+    repeated putg_construction_type_model.WidthRange widthRange = 13;
+    int64 minSize = 14;
 }
 
 message UpdatePutgBaseConstruction {
@@ -43,6 +46,9 @@ message UpdatePutgBaseConstruction {
     bool hasOuterRing = 10;
     string description = 11;
     double minWidth = 12;
+    repeated int64 jumperRange = 13;
+    repeated putg_construction_type_model.WidthRange widthRange = 14;
+    int64 minSize = 15;
 }
 
 message DeletePutgBaseConstruction {

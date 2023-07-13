@@ -19,6 +19,7 @@ message PutgConstruction {
     double minWidth = 13;
     repeated int64 jumperRange = 14;
     repeated WidthRange widthRange = 15;
+    int64 minSize = 16;
 }
 
 message WidthRange {
