@@ -8,6 +8,7 @@ package order_api
 
 import (
 	context "context"
+	analytic_model "github.com/Alexander272/sealur_proto/api/pro/models/analytic_model"
 	order_model "github.com/Alexander272/sealur_proto/api/pro/models/order_model"
 	response_model "github.com/Alexander272/sealur_proto/api/pro/models/response_model"
 	grpc "google.golang.org/grpc"
@@ -26,6 +27,8 @@ const (
 	OrderService_GetAll_FullMethodName          = "/order_api.OrderService/GetAll"
 	OrderService_GetFile_FullMethodName         = "/order_api.OrderService/GetFile"
 	OrderService_GetOpen_FullMethodName         = "/order_api.OrderService/GetOpen"
+	OrderService_GetLast_FullMethodName         = "/order_api.OrderService/GetLast"
+	OrderService_GetByNumber_FullMethodName     = "/order_api.OrderService/GetByNumber"
 	OrderService_GetAllOpen_FullMethodName      = "/order_api.OrderService/GetAllOpen"
 	OrderService_GetAnalytics_FullMethodName    = "/order_api.OrderService/GetAnalytics"
 	OrderService_GetOrderCount_FullMethodName   = "/order_api.OrderService/GetOrderCount"
@@ -48,6 +51,8 @@ type OrderServiceClient interface {
 	GetAll(ctx context.Context, in *GetAllOrders, opts ...grpc.CallOption) (*Orders, error)
 	GetFile(ctx context.Context, in *GetOrder, opts ...grpc.CallOption) (OrderService_GetFileClient, error)
 	GetOpen(ctx context.Context, in *GetManagerOrders, opts ...grpc.CallOption) (*ManagerOrders, error)
+	GetLast(ctx context.Context, in *GetLastOrders, opts ...grpc.CallOption) (*OrderAnalytics, error)
+	GetByNumber(ctx context.Context, in *GetOrderByNumber, opts ...grpc.CallOption) (*analytic_model.FullOrder, error)
 	GetAllOpen(ctx context.Context, in *GetAllManagerOrders, opts ...grpc.CallOption) (*ManagerOrders, error)
 	GetAnalytics(ctx context.Context, in *GetOrderAnalytics, opts ...grpc.CallOption) (*Analytics, error)
 	GetOrderCount(ctx context.Context, in *GetOrderCountAnalytics, opts ...grpc.CallOption) (*OrderCount, error)
@@ -131,6 +136,24 @@ func (x *orderServiceGetFileClient) Recv() (*response_model.FileResponse, error)
 func (c *orderServiceClient) GetOpen(ctx context.Context, in *GetManagerOrders, opts ...grpc.CallOption) (*ManagerOrders, error) {
 	out := new(ManagerOrders)
 	err := c.cc.Invoke(ctx, OrderService_GetOpen_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *orderServiceClient) GetLast(ctx context.Context, in *GetLastOrders, opts ...grpc.CallOption) (*OrderAnalytics, error) {
+	out := new(OrderAnalytics)
+	err := c.cc.Invoke(ctx, OrderService_GetLast_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *orderServiceClient) GetByNumber(ctx context.Context, in *GetOrderByNumber, opts ...grpc.CallOption) (*analytic_model.FullOrder, error) {
+	out := new(analytic_model.FullOrder)
+	err := c.cc.Invoke(ctx, OrderService_GetByNumber_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -245,6 +268,8 @@ type OrderServiceServer interface {
 	GetAll(context.Context, *GetAllOrders) (*Orders, error)
 	GetFile(*GetOrder, OrderService_GetFileServer) error
 	GetOpen(context.Context, *GetManagerOrders) (*ManagerOrders, error)
+	GetLast(context.Context, *GetLastOrders) (*OrderAnalytics, error)
+	GetByNumber(context.Context, *GetOrderByNumber) (*analytic_model.FullOrder, error)
 	GetAllOpen(context.Context, *GetAllManagerOrders) (*ManagerOrders, error)
 	GetAnalytics(context.Context, *GetOrderAnalytics) (*Analytics, error)
 	GetOrderCount(context.Context, *GetOrderCountAnalytics) (*OrderCount, error)
@@ -277,6 +302,12 @@ func (UnimplementedOrderServiceServer) GetFile(*GetOrder, OrderService_GetFileSe
 }
 func (UnimplementedOrderServiceServer) GetOpen(context.Context, *GetManagerOrders) (*ManagerOrders, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOpen not implemented")
+}
+func (UnimplementedOrderServiceServer) GetLast(context.Context, *GetLastOrders) (*OrderAnalytics, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLast not implemented")
+}
+func (UnimplementedOrderServiceServer) GetByNumber(context.Context, *GetOrderByNumber) (*analytic_model.FullOrder, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetByNumber not implemented")
 }
 func (UnimplementedOrderServiceServer) GetAllOpen(context.Context, *GetAllManagerOrders) (*ManagerOrders, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllOpen not implemented")
@@ -413,6 +444,42 @@ func _OrderService_GetOpen_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrderServiceServer).GetOpen(ctx, req.(*GetManagerOrders))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrderService_GetLast_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLastOrders)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrderServiceServer).GetLast(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrderService_GetLast_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrderServiceServer).GetLast(ctx, req.(*GetLastOrders))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrderService_GetByNumber_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOrderByNumber)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrderServiceServer).GetByNumber(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrderService_GetByNumber_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrderServiceServer).GetByNumber(ctx, req.(*GetOrderByNumber))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -637,6 +704,14 @@ var OrderService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetOpen",
 			Handler:    _OrderService_GetOpen_Handler,
+		},
+		{
+			MethodName: "GetLast",
+			Handler:    _OrderService_GetLast_Handler,
+		},
+		{
+			MethodName: "GetByNumber",
+			Handler:    _OrderService_GetByNumber_Handler,
 		},
 		{
 			MethodName: "GetAllOpen",

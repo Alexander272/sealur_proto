@@ -29,6 +29,14 @@ message GetAllManagerOrders {
     
 }
 
+message GetLastOrders {
+    
+}
+
+message GetOrderByNumber {
+    string number = 1;
+}
+
 message GetOrderAnalytics {
     string periodAt = 1;
     string periodEnd = 2;
@@ -129,6 +137,8 @@ service OrderService {
     rpc GetAll (GetAllOrders) returns (Orders);
     rpc GetFile (GetOrder) returns (stream response_model.FileResponse);
     rpc GetOpen (GetManagerOrders) returns (ManagerOrders);
+    rpc GetLast (GetLastOrders) returns (OrderAnalytics);
+    rpc GetByNumber (GetOrderByNumber) returns (analytic_model.FullOrder);
     rpc GetAllOpen (GetAllManagerOrders) returns (ManagerOrders);
     rpc GetAnalytics (GetOrderAnalytics) returns (Analytics);
     rpc GetOrderCount (GetOrderCountAnalytics) returns (OrderCount);
