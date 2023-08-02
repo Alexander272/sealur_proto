@@ -30,6 +30,7 @@ message Clients {
     int64 ordersCount = 3;
     int64 positionCount = 4;
     int64 snpPositionCount = 5;
+    int64 putgPositionCount = 6;
 }
 
 message FullOrder {
