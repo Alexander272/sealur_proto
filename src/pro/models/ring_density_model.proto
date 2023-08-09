@@ -10,3 +10,12 @@ message RingDensity {
     string description = 4;
     bool hasRotaryPlug = 5;
 }
+
+message Density {
+    repeated ring_density_model.RingDensity density = 1;
+}
+
+
+message RingDensityMap {
+    map<string, Density> density = 1;
+}

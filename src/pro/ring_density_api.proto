@@ -30,7 +30,8 @@ message DeleteRingDensity {
 }
 
 message RingDensity {
-    repeated ring_density_model.RingDensity density = 1;
+    // repeated ring_density_model.RingDensity density = 1;
+    ring_density_model.RingDensityMap density = 1;
 }
 
 service SnpMaterialService {

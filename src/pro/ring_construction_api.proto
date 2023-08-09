@@ -32,7 +32,8 @@ message DeleteRingConstruction {
 }
 
 message RingConstructions {
-    repeated ring_construction_model.RingConstruction ringConstruction = 1;
+    // repeated ring_construction_model.RingConstruction ringConstruction = 1;
+    ring_construction_model.RingConstructionMap ringConstruction = 1;
 }
 
 service SnpMaterialService {

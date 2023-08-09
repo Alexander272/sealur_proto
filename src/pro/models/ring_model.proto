@@ -7,10 +7,18 @@ import "pro/models/ring_type_model.proto";
 import "pro/models/ring_density_model.proto";
 import "pro/models/ring_construction_model.proto";
 
+// message Density {
+//     repeated ring_density_model.RingDensity density = 1;
+// }
+
+message Construction {
+    repeated ring_construction_model.RingConstruction constructions = 1;
+}
+
 message Ring {
     repeated ring_type_model.RingType ringTypes = 1;
-    map<string, ring_density_model.RingDensity> density = 2;
-    map<string, ring_construction_model.RingConstruction> constructions = 3;
-    // repeated ring_density.RingDensity density = 2;
-    // repeated ring_construction.RingConstruction constructions = 3;
+    // map<string, Density> density = 2;
+    // map<string, Construction> constructions = 3;
+    ring_density_model.RingDensityMap density = 2;
+    ring_construction_model.RingConstructionMap constructions = 3;
 }

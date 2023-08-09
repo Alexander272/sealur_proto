@@ -10,3 +10,11 @@ message RingConstruction {
     string description = 4;
     string image = 5;
 }
+
+message Construction {
+    repeated ring_construction_model.RingConstruction constructions = 1;
+}
+
+message RingConstructionMap {
+    map<string, Construction> constructions = 1;
+}
