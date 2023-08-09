@@ -11,9 +11,9 @@ import "pro/models/ring_construction_model.proto";
 //     repeated ring_density_model.RingDensity density = 1;
 // }
 
-message Construction {
-    repeated ring_construction_model.RingConstruction constructions = 1;
-}
+// message Construction {
+//     repeated ring_construction_model.RingConstruction constructions = 1;
+// }
 
 message Ring {
     repeated ring_type_model.RingType ringTypes = 1;

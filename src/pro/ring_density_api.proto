@@ -34,7 +34,7 @@ message RingDensity {
     ring_density_model.RingDensityMap density = 1;
 }
 
-service SnpMaterialService {
+service RingDensityService {
     rpc GetAll (GetRingDensity) returns (RingDensity);
     rpc Create (CreateRingDensity) returns (response_model.Response);
     rpc Update (UpdateRingDensity) returns (response_model.Response);

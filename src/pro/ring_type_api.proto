@@ -37,7 +37,7 @@ message RingTypes {
     repeated ring_type_model.RingType ringTypes = 1;
 }
 
-service SnpMaterialService {
+service RingTypeService {
     rpc GetAll (GetRingTypes) returns (RingTypes);
     rpc Create (CreateRingType) returns (response_model.Response);
     rpc Update (UpdateRingType) returns (response_model.Response);

@@ -36,7 +36,7 @@ message RingConstructions {
     ring_construction_model.RingConstructionMap ringConstruction = 1;
 }
 
-service SnpMaterialService {
+service RingConstructionService {
     rpc GetAll (GetRingConstructions) returns (RingConstructions);
     rpc Create (CreateRingConstruction) returns (response_model.Response);
     rpc Update (UpdateRingConstruction) returns (response_model.Response);

@@ -20,200 +20,201 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	SnpMaterialService_GetAll_FullMethodName = "/ring_construction_api.SnpMaterialService/GetAll"
-	SnpMaterialService_Create_FullMethodName = "/ring_construction_api.SnpMaterialService/Create"
-	SnpMaterialService_Update_FullMethodName = "/ring_construction_api.SnpMaterialService/Update"
-	SnpMaterialService_Delete_FullMethodName = "/ring_construction_api.SnpMaterialService/Delete"
+	RingConstructionService_GetAll_FullMethodName = "/ring_construction_api.RingConstructionService/GetAll"
+	RingConstructionService_Create_FullMethodName = "/ring_construction_api.RingConstructionService/Create"
+	RingConstructionService_Update_FullMethodName = "/ring_construction_api.RingConstructionService/Update"
+	RingConstructionService_Delete_FullMethodName = "/ring_construction_api.RingConstructionService/Delete"
 )
 
-// SnpMaterialServiceClient is the client API for SnpMaterialService service.
+// RingConstructionServiceClient is the client API for RingConstructionService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type SnpMaterialServiceClient interface {
+type RingConstructionServiceClient interface {
 	GetAll(ctx context.Context, in *GetRingConstructions, opts ...grpc.CallOption) (*RingConstructions, error)
 	Create(ctx context.Context, in *CreateRingConstruction, opts ...grpc.CallOption) (*response_model.Response, error)
 	Update(ctx context.Context, in *UpdateRingConstruction, opts ...grpc.CallOption) (*response_model.Response, error)
 	Delete(ctx context.Context, in *DeleteRingConstruction, opts ...grpc.CallOption) (*response_model.Response, error)
 }
 
-type snpMaterialServiceClient struct {
+type ringConstructionServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewSnpMaterialServiceClient(cc grpc.ClientConnInterface) SnpMaterialServiceClient {
-	return &snpMaterialServiceClient{cc}
+func NewRingConstructionServiceClient(cc grpc.ClientConnInterface) RingConstructionServiceClient {
+	return &ringConstructionServiceClient{cc}
 }
 
-func (c *snpMaterialServiceClient) GetAll(ctx context.Context, in *GetRingConstructions, opts ...grpc.CallOption) (*RingConstructions, error) {
+func (c *ringConstructionServiceClient) GetAll(ctx context.Context, in *GetRingConstructions, opts ...grpc.CallOption) (*RingConstructions, error) {
 	out := new(RingConstructions)
-	err := c.cc.Invoke(ctx, SnpMaterialService_GetAll_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, RingConstructionService_GetAll_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *snpMaterialServiceClient) Create(ctx context.Context, in *CreateRingConstruction, opts ...grpc.CallOption) (*response_model.Response, error) {
+func (c *ringConstructionServiceClient) Create(ctx context.Context, in *CreateRingConstruction, opts ...grpc.CallOption) (*response_model.Response, error) {
 	out := new(response_model.Response)
-	err := c.cc.Invoke(ctx, SnpMaterialService_Create_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, RingConstructionService_Create_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *snpMaterialServiceClient) Update(ctx context.Context, in *UpdateRingConstruction, opts ...grpc.CallOption) (*response_model.Response, error) {
+func (c *ringConstructionServiceClient) Update(ctx context.Context, in *UpdateRingConstruction, opts ...grpc.CallOption) (*response_model.Response, error) {
 	out := new(response_model.Response)
-	err := c.cc.Invoke(ctx, SnpMaterialService_Update_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, RingConstructionService_Update_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *snpMaterialServiceClient) Delete(ctx context.Context, in *DeleteRingConstruction, opts ...grpc.CallOption) (*response_model.Response, error) {
+func (c *ringConstructionServiceClient) Delete(ctx context.Context, in *DeleteRingConstruction, opts ...grpc.CallOption) (*response_model.Response, error) {
 	out := new(response_model.Response)
-	err := c.cc.Invoke(ctx, SnpMaterialService_Delete_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, RingConstructionService_Delete_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// SnpMaterialServiceServer is the server API for SnpMaterialService service.
-// All implementations must embed UnimplementedSnpMaterialServiceServer
+// RingConstructionServiceServer is the server API for RingConstructionService service.
+// All implementations must embed UnimplementedRingConstructionServiceServer
 // for forward compatibility
-type SnpMaterialServiceServer interface {
+type RingConstructionServiceServer interface {
 	GetAll(context.Context, *GetRingConstructions) (*RingConstructions, error)
 	Create(context.Context, *CreateRingConstruction) (*response_model.Response, error)
 	Update(context.Context, *UpdateRingConstruction) (*response_model.Response, error)
 	Delete(context.Context, *DeleteRingConstruction) (*response_model.Response, error)
-	mustEmbedUnimplementedSnpMaterialServiceServer()
+	mustEmbedUnimplementedRingConstructionServiceServer()
 }
 
-// UnimplementedSnpMaterialServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedSnpMaterialServiceServer struct {
+// UnimplementedRingConstructionServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedRingConstructionServiceServer struct {
 }
 
-func (UnimplementedSnpMaterialServiceServer) GetAll(context.Context, *GetRingConstructions) (*RingConstructions, error) {
+func (UnimplementedRingConstructionServiceServer) GetAll(context.Context, *GetRingConstructions) (*RingConstructions, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAll not implemented")
 }
-func (UnimplementedSnpMaterialServiceServer) Create(context.Context, *CreateRingConstruction) (*response_model.Response, error) {
+func (UnimplementedRingConstructionServiceServer) Create(context.Context, *CreateRingConstruction) (*response_model.Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
-func (UnimplementedSnpMaterialServiceServer) Update(context.Context, *UpdateRingConstruction) (*response_model.Response, error) {
+func (UnimplementedRingConstructionServiceServer) Update(context.Context, *UpdateRingConstruction) (*response_model.Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
 }
-func (UnimplementedSnpMaterialServiceServer) Delete(context.Context, *DeleteRingConstruction) (*response_model.Response, error) {
+func (UnimplementedRingConstructionServiceServer) Delete(context.Context, *DeleteRingConstruction) (*response_model.Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
-func (UnimplementedSnpMaterialServiceServer) mustEmbedUnimplementedSnpMaterialServiceServer() {}
+func (UnimplementedRingConstructionServiceServer) mustEmbedUnimplementedRingConstructionServiceServer() {
+}
 
-// UnsafeSnpMaterialServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to SnpMaterialServiceServer will
+// UnsafeRingConstructionServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to RingConstructionServiceServer will
 // result in compilation errors.
-type UnsafeSnpMaterialServiceServer interface {
-	mustEmbedUnimplementedSnpMaterialServiceServer()
+type UnsafeRingConstructionServiceServer interface {
+	mustEmbedUnimplementedRingConstructionServiceServer()
 }
 
-func RegisterSnpMaterialServiceServer(s grpc.ServiceRegistrar, srv SnpMaterialServiceServer) {
-	s.RegisterService(&SnpMaterialService_ServiceDesc, srv)
+func RegisterRingConstructionServiceServer(s grpc.ServiceRegistrar, srv RingConstructionServiceServer) {
+	s.RegisterService(&RingConstructionService_ServiceDesc, srv)
 }
 
-func _SnpMaterialService_GetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RingConstructionService_GetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetRingConstructions)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SnpMaterialServiceServer).GetAll(ctx, in)
+		return srv.(RingConstructionServiceServer).GetAll(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: SnpMaterialService_GetAll_FullMethodName,
+		FullMethod: RingConstructionService_GetAll_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SnpMaterialServiceServer).GetAll(ctx, req.(*GetRingConstructions))
+		return srv.(RingConstructionServiceServer).GetAll(ctx, req.(*GetRingConstructions))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SnpMaterialService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RingConstructionService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateRingConstruction)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SnpMaterialServiceServer).Create(ctx, in)
+		return srv.(RingConstructionServiceServer).Create(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: SnpMaterialService_Create_FullMethodName,
+		FullMethod: RingConstructionService_Create_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SnpMaterialServiceServer).Create(ctx, req.(*CreateRingConstruction))
+		return srv.(RingConstructionServiceServer).Create(ctx, req.(*CreateRingConstruction))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SnpMaterialService_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RingConstructionService_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateRingConstruction)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SnpMaterialServiceServer).Update(ctx, in)
+		return srv.(RingConstructionServiceServer).Update(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: SnpMaterialService_Update_FullMethodName,
+		FullMethod: RingConstructionService_Update_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SnpMaterialServiceServer).Update(ctx, req.(*UpdateRingConstruction))
+		return srv.(RingConstructionServiceServer).Update(ctx, req.(*UpdateRingConstruction))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SnpMaterialService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RingConstructionService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteRingConstruction)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SnpMaterialServiceServer).Delete(ctx, in)
+		return srv.(RingConstructionServiceServer).Delete(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: SnpMaterialService_Delete_FullMethodName,
+		FullMethod: RingConstructionService_Delete_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SnpMaterialServiceServer).Delete(ctx, req.(*DeleteRingConstruction))
+		return srv.(RingConstructionServiceServer).Delete(ctx, req.(*DeleteRingConstruction))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// SnpMaterialService_ServiceDesc is the grpc.ServiceDesc for SnpMaterialService service.
+// RingConstructionService_ServiceDesc is the grpc.ServiceDesc for RingConstructionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var SnpMaterialService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "ring_construction_api.SnpMaterialService",
-	HandlerType: (*SnpMaterialServiceServer)(nil),
+var RingConstructionService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "ring_construction_api.RingConstructionService",
+	HandlerType: (*RingConstructionServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "GetAll",
-			Handler:    _SnpMaterialService_GetAll_Handler,
+			Handler:    _RingConstructionService_GetAll_Handler,
 		},
 		{
 			MethodName: "Create",
-			Handler:    _SnpMaterialService_Create_Handler,
+			Handler:    _RingConstructionService_Create_Handler,
 		},
 		{
 			MethodName: "Update",
-			Handler:    _SnpMaterialService_Update_Handler,
+			Handler:    _RingConstructionService_Update_Handler,
 		},
 		{
 			MethodName: "Delete",
-			Handler:    _SnpMaterialService_Delete_Handler,
+			Handler:    _RingConstructionService_Delete_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

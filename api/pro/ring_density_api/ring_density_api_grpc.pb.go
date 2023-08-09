@@ -20,200 +20,200 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	SnpMaterialService_GetAll_FullMethodName = "/ring_density_api.SnpMaterialService/GetAll"
-	SnpMaterialService_Create_FullMethodName = "/ring_density_api.SnpMaterialService/Create"
-	SnpMaterialService_Update_FullMethodName = "/ring_density_api.SnpMaterialService/Update"
-	SnpMaterialService_Delete_FullMethodName = "/ring_density_api.SnpMaterialService/Delete"
+	RingDensityService_GetAll_FullMethodName = "/ring_density_api.RingDensityService/GetAll"
+	RingDensityService_Create_FullMethodName = "/ring_density_api.RingDensityService/Create"
+	RingDensityService_Update_FullMethodName = "/ring_density_api.RingDensityService/Update"
+	RingDensityService_Delete_FullMethodName = "/ring_density_api.RingDensityService/Delete"
 )
 
-// SnpMaterialServiceClient is the client API for SnpMaterialService service.
+// RingDensityServiceClient is the client API for RingDensityService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type SnpMaterialServiceClient interface {
+type RingDensityServiceClient interface {
 	GetAll(ctx context.Context, in *GetRingDensity, opts ...grpc.CallOption) (*RingDensity, error)
 	Create(ctx context.Context, in *CreateRingDensity, opts ...grpc.CallOption) (*response_model.Response, error)
 	Update(ctx context.Context, in *UpdateRingDensity, opts ...grpc.CallOption) (*response_model.Response, error)
 	Delete(ctx context.Context, in *DeleteRingDensity, opts ...grpc.CallOption) (*response_model.Response, error)
 }
 
-type snpMaterialServiceClient struct {
+type ringDensityServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewSnpMaterialServiceClient(cc grpc.ClientConnInterface) SnpMaterialServiceClient {
-	return &snpMaterialServiceClient{cc}
+func NewRingDensityServiceClient(cc grpc.ClientConnInterface) RingDensityServiceClient {
+	return &ringDensityServiceClient{cc}
 }
 
-func (c *snpMaterialServiceClient) GetAll(ctx context.Context, in *GetRingDensity, opts ...grpc.CallOption) (*RingDensity, error) {
+func (c *ringDensityServiceClient) GetAll(ctx context.Context, in *GetRingDensity, opts ...grpc.CallOption) (*RingDensity, error) {
 	out := new(RingDensity)
-	err := c.cc.Invoke(ctx, SnpMaterialService_GetAll_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, RingDensityService_GetAll_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *snpMaterialServiceClient) Create(ctx context.Context, in *CreateRingDensity, opts ...grpc.CallOption) (*response_model.Response, error) {
+func (c *ringDensityServiceClient) Create(ctx context.Context, in *CreateRingDensity, opts ...grpc.CallOption) (*response_model.Response, error) {
 	out := new(response_model.Response)
-	err := c.cc.Invoke(ctx, SnpMaterialService_Create_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, RingDensityService_Create_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *snpMaterialServiceClient) Update(ctx context.Context, in *UpdateRingDensity, opts ...grpc.CallOption) (*response_model.Response, error) {
+func (c *ringDensityServiceClient) Update(ctx context.Context, in *UpdateRingDensity, opts ...grpc.CallOption) (*response_model.Response, error) {
 	out := new(response_model.Response)
-	err := c.cc.Invoke(ctx, SnpMaterialService_Update_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, RingDensityService_Update_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *snpMaterialServiceClient) Delete(ctx context.Context, in *DeleteRingDensity, opts ...grpc.CallOption) (*response_model.Response, error) {
+func (c *ringDensityServiceClient) Delete(ctx context.Context, in *DeleteRingDensity, opts ...grpc.CallOption) (*response_model.Response, error) {
 	out := new(response_model.Response)
-	err := c.cc.Invoke(ctx, SnpMaterialService_Delete_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, RingDensityService_Delete_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// SnpMaterialServiceServer is the server API for SnpMaterialService service.
-// All implementations must embed UnimplementedSnpMaterialServiceServer
+// RingDensityServiceServer is the server API for RingDensityService service.
+// All implementations must embed UnimplementedRingDensityServiceServer
 // for forward compatibility
-type SnpMaterialServiceServer interface {
+type RingDensityServiceServer interface {
 	GetAll(context.Context, *GetRingDensity) (*RingDensity, error)
 	Create(context.Context, *CreateRingDensity) (*response_model.Response, error)
 	Update(context.Context, *UpdateRingDensity) (*response_model.Response, error)
 	Delete(context.Context, *DeleteRingDensity) (*response_model.Response, error)
-	mustEmbedUnimplementedSnpMaterialServiceServer()
+	mustEmbedUnimplementedRingDensityServiceServer()
 }
 
-// UnimplementedSnpMaterialServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedSnpMaterialServiceServer struct {
+// UnimplementedRingDensityServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedRingDensityServiceServer struct {
 }
 
-func (UnimplementedSnpMaterialServiceServer) GetAll(context.Context, *GetRingDensity) (*RingDensity, error) {
+func (UnimplementedRingDensityServiceServer) GetAll(context.Context, *GetRingDensity) (*RingDensity, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAll not implemented")
 }
-func (UnimplementedSnpMaterialServiceServer) Create(context.Context, *CreateRingDensity) (*response_model.Response, error) {
+func (UnimplementedRingDensityServiceServer) Create(context.Context, *CreateRingDensity) (*response_model.Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
-func (UnimplementedSnpMaterialServiceServer) Update(context.Context, *UpdateRingDensity) (*response_model.Response, error) {
+func (UnimplementedRingDensityServiceServer) Update(context.Context, *UpdateRingDensity) (*response_model.Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
 }
-func (UnimplementedSnpMaterialServiceServer) Delete(context.Context, *DeleteRingDensity) (*response_model.Response, error) {
+func (UnimplementedRingDensityServiceServer) Delete(context.Context, *DeleteRingDensity) (*response_model.Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
-func (UnimplementedSnpMaterialServiceServer) mustEmbedUnimplementedSnpMaterialServiceServer() {}
+func (UnimplementedRingDensityServiceServer) mustEmbedUnimplementedRingDensityServiceServer() {}
 
-// UnsafeSnpMaterialServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to SnpMaterialServiceServer will
+// UnsafeRingDensityServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to RingDensityServiceServer will
 // result in compilation errors.
-type UnsafeSnpMaterialServiceServer interface {
-	mustEmbedUnimplementedSnpMaterialServiceServer()
+type UnsafeRingDensityServiceServer interface {
+	mustEmbedUnimplementedRingDensityServiceServer()
 }
 
-func RegisterSnpMaterialServiceServer(s grpc.ServiceRegistrar, srv SnpMaterialServiceServer) {
-	s.RegisterService(&SnpMaterialService_ServiceDesc, srv)
+func RegisterRingDensityServiceServer(s grpc.ServiceRegistrar, srv RingDensityServiceServer) {
+	s.RegisterService(&RingDensityService_ServiceDesc, srv)
 }
 
-func _SnpMaterialService_GetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RingDensityService_GetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetRingDensity)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SnpMaterialServiceServer).GetAll(ctx, in)
+		return srv.(RingDensityServiceServer).GetAll(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: SnpMaterialService_GetAll_FullMethodName,
+		FullMethod: RingDensityService_GetAll_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SnpMaterialServiceServer).GetAll(ctx, req.(*GetRingDensity))
+		return srv.(RingDensityServiceServer).GetAll(ctx, req.(*GetRingDensity))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SnpMaterialService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RingDensityService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateRingDensity)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SnpMaterialServiceServer).Create(ctx, in)
+		return srv.(RingDensityServiceServer).Create(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: SnpMaterialService_Create_FullMethodName,
+		FullMethod: RingDensityService_Create_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SnpMaterialServiceServer).Create(ctx, req.(*CreateRingDensity))
+		return srv.(RingDensityServiceServer).Create(ctx, req.(*CreateRingDensity))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SnpMaterialService_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RingDensityService_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateRingDensity)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SnpMaterialServiceServer).Update(ctx, in)
+		return srv.(RingDensityServiceServer).Update(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: SnpMaterialService_Update_FullMethodName,
+		FullMethod: RingDensityService_Update_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SnpMaterialServiceServer).Update(ctx, req.(*UpdateRingDensity))
+		return srv.(RingDensityServiceServer).Update(ctx, req.(*UpdateRingDensity))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SnpMaterialService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RingDensityService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteRingDensity)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SnpMaterialServiceServer).Delete(ctx, in)
+		return srv.(RingDensityServiceServer).Delete(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: SnpMaterialService_Delete_FullMethodName,
+		FullMethod: RingDensityService_Delete_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SnpMaterialServiceServer).Delete(ctx, req.(*DeleteRingDensity))
+		return srv.(RingDensityServiceServer).Delete(ctx, req.(*DeleteRingDensity))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// SnpMaterialService_ServiceDesc is the grpc.ServiceDesc for SnpMaterialService service.
+// RingDensityService_ServiceDesc is the grpc.ServiceDesc for RingDensityService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var SnpMaterialService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "ring_density_api.SnpMaterialService",
-	HandlerType: (*SnpMaterialServiceServer)(nil),
+var RingDensityService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "ring_density_api.RingDensityService",
+	HandlerType: (*RingDensityServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "GetAll",
-			Handler:    _SnpMaterialService_GetAll_Handler,
+			Handler:    _RingDensityService_GetAll_Handler,
 		},
 		{
 			MethodName: "Create",
-			Handler:    _SnpMaterialService_Create_Handler,
+			Handler:    _RingDensityService_Create_Handler,
 		},
 		{
 			MethodName: "Update",
-			Handler:    _SnpMaterialService_Update_Handler,
+			Handler:    _RingDensityService_Update_Handler,
 		},
 		{
 			MethodName: "Delete",
-			Handler:    _SnpMaterialService_Delete_Handler,
+			Handler:    _RingDensityService_Delete_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
