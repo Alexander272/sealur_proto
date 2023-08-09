@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package ring_type_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/ring_type_model";
+
+message RingType {
+    string id = 1;
+    string title = 2;
+    string code = 3;
+    string description = 4;
+    bool hasRotaryPlug = 5;
+    bool hasDensity = 6;
+    bool hasThickness = 7;
+    string materialType = 8;
+}

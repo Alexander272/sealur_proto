@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package ring_api;
+option go_package = "api/pro/ring_api";
+
+import "pro/models/ring_model.proto";
+
+message GetRings {}
+
+service RingService {
+    rpc Get (GetRings) returns (ring_model.Ring);
+}

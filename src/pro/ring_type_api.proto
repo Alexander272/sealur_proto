@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package ring_type_api;
+option go_package = "api/pro/ring_type_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/ring_type_model.proto";
+
+message GetRingTypes {}
+
+message CreateRingType {
+    string title = 1;
+    string code = 2;
+    string description = 3;
+    bool hasRotaryPlug = 4;
+    bool hasDensity = 5;
+    bool hasThickness = 6;
+    string materialType = 7;
+}
+
+message UpdateRingType {
+    string id = 1;
+    string title = 2;
+    string code = 3;
+    string description = 4;
+    bool hasRotaryPlug = 5;
+    bool hasDensity = 6;
+    bool hasThickness = 7;
+    string materialType = 8;
+}
+
+message DeleteRingType {
+    string id = 1;
+}
+
+message RingTypes {
+    repeated ring_type_model.RingType ringTypes = 1;
+}
+
+service SnpMaterialService {
+    rpc GetAll (GetRingTypes) returns (RingTypes);
+    rpc Create (CreateRingType) returns (response_model.Response);
+    rpc Update (UpdateRingType) returns (response_model.Response);
+    rpc Delete (DeleteRingType) returns (response_model.Response);
+}

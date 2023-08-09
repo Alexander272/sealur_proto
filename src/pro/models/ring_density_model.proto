@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package ring_density_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/ring_density_model";
+
+message RingDensity {
+    string id = 1;
+    string title = 2;
+    string code = 3;
+    string description = 4;
+    bool hasRotaryPlug = 5;
+}

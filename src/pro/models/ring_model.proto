@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package ring_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/ring_model";
+
+import "pro/models/ring_type_model.proto";
+import "pro/models/ring_density_model.proto";
+import "pro/models/ring_construction_model.proto";
+
+message Ring {
+    repeated ring_type_model.RingType ringTypes = 1;
+    map<string, ring_density_model.RingDensity> density = 2;
+    map<string, ring_construction_model.RingConstruction> constructions = 3;
+    // repeated ring_density.RingDensity density = 2;
+    // repeated ring_construction.RingConstruction constructions = 3;
+}

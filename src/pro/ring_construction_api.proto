@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package ring_construction_api;
+option go_package = "api/pro/ring_construction_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/ring_construction_model.proto";
+
+message GetRingConstructions {}
+
+message CreateRingConstruction {
+    string typeId = 1;
+    string title = 2;
+    string code = 3;
+    string description = 4;
+    string image = 5;
+    int64 count = 6;
+}
+
+message UpdateRingConstruction {
+    string id = 1;
+    string typeId = 2;
+    string title = 3;
+    string code = 4;
+    string description = 5;
+    string image = 6;
+    int64 count = 7;
+}
+
+message DeleteRingConstruction {
+    string id = 1;
+}
+
+message RingConstructions {
+    repeated ring_construction_model.RingConstruction ringConstruction = 1;
+}
+
+service SnpMaterialService {
+    rpc GetAll (GetRingConstructions) returns (RingConstructions);
+    rpc Create (CreateRingConstruction) returns (response_model.Response);
+    rpc Update (UpdateRingConstruction) returns (response_model.Response);
+    rpc Delete (DeleteRingConstruction) returns (response_model.Response);
+}

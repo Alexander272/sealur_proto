@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package ring_density_api;
+option go_package = "api/pro/ring_density_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/ring_density_model.proto";
+
+message GetRingDensity {}
+
+message CreateRingDensity {
+    string typeId = 1;
+    string title = 2;
+    string code = 3;
+    string description = 4;
+    bool hasRotaryPlug = 5;
+}
+
+message UpdateRingDensity {
+    string id = 1;
+    string typeId = 2;
+    string title = 3;
+    string code = 4;
+    string description = 5;
+    bool hasRotaryPlug = 6;
+}
+
+message DeleteRingDensity {
+    string id = 1;
+}
+
+message RingDensity {
+    repeated ring_density_model.RingDensity density = 1;
+}
+
+service SnpMaterialService {
+    rpc GetAll (GetRingDensity) returns (RingDensity);
+    rpc Create (CreateRingDensity) returns (response_model.Response);
+    rpc Update (UpdateRingDensity) returns (response_model.Response);
+    rpc Delete (DeleteRingDensity) returns (response_model.Response);
+}
