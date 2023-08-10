@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package ring_modifying_api;
+option go_package = "api/pro/ring_modifying_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/ring_modifying_model.proto";
+
+message GetRingModifying {
+}
+
+message CreateRingModifying {
+    string code = 1;
+    string description = 2;
+}
+
+message UpdateRingModifying {
+    string id = 1;
+    string code = 2;
+    string description = 3;
+}
+
+message DeleteRingModifying {
+    string id = 1;
+}
+
+message RingModifying {
+    ring_modifying_model.RingModifying modifying = 1;
+}
+
+service RingModifyingService {
+    rpc GetAll (GetRingModifying) returns (RingModifying);
+    rpc Create (CreateRingModifying) returns (response_model.Response);
+    rpc Update (UpdateRingModifying) returns (response_model.Response);
+    rpc Delete (DeleteRingModifying) returns (response_model.Response);
+}

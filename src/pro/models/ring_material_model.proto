@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package ring_material_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/ring_material_model";
+
+message RingMaterial {
+    string id = 1;
+    string title = 2;
+    string code = 3;
+    string type = 4;
+    bool isDefault = 5;
+}

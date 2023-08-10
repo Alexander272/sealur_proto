@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package ring_material_api;
+option go_package = "api/pro/ring_material_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/ring_material_model.proto";
+
+message GetRingMaterial {
+    string type = 1;
+}
+
+message CreateRingMaterial {
+    string title = 1;
+    string code = 2;
+    string type = 3;
+    bool isDefault = 4;
+    int64 count = 5;
+}
+
+message UpdateRingMaterial {
+    string id = 1;
+    string title = 2;
+    string code = 3;
+    string type = 4;
+    bool isDefault = 5;
+    int64 count = 6;
+}
+
+message DeleteRingMaterial {
+    string id = 1;
+}
+
+message RingMaterial {
+    ring_material_model.RingMaterial materials = 1;
+}
+
+service RingMaterialService {
+    rpc Get (GetRingMaterial) returns (RingMaterial);
+    rpc Create (CreateRingMaterial) returns (response_model.Response);
+    rpc Update (UpdateRingMaterial) returns (response_model.Response);
+    rpc Delete (DeleteRingMaterial) returns (response_model.Response);
+}

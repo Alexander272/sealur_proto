@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package ring_modifying_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/ring_modifying_model";
+
+message RingModifying {
+    string id = 1;
+    string code = 2;
+    string description = 3;
+}
