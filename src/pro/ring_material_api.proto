@@ -32,7 +32,7 @@ message DeleteRingMaterial {
 }
 
 message RingMaterial {
-    ring_material_model.RingMaterial materials = 1;
+    repeated ring_material_model.RingMaterial materials = 1;
 }
 
 service RingMaterialService {
