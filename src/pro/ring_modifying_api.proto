@@ -25,7 +25,7 @@ message DeleteRingModifying {
 }
 
 message RingModifying {
-    ring_modifying_model.RingModifying modifying = 1;
+    repeated ring_modifying_model.RingModifying modifying = 1;
 }
 
 service RingModifyingService {
