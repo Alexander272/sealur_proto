@@ -12,4 +12,5 @@ message RingType {
     bool hasDensity = 6;
     bool hasThickness = 7;
     string materialType = 8;
+    string image = 9;
 }

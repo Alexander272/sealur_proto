@@ -9,6 +9,7 @@ message RingConstruction {
     string code = 3;
     string description = 4;
     string image = 5;
+    bool withoutRotaryPlug = 6;
 }
 
 message Construction {

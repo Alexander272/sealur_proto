@@ -15,6 +15,7 @@ message CreateRingConstruction {
     string description = 4;
     string image = 5;
     int64 count = 6;
+    bool withoutRotaryPlug = 7;
 }
 
 message UpdateRingConstruction {
@@ -25,6 +26,7 @@ message UpdateRingConstruction {
     string description = 5;
     string image = 6;
     int64 count = 7;
+    bool withoutRotaryPlug = 8;
 }
 
 message DeleteRingConstruction {

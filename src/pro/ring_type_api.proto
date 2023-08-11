@@ -16,6 +16,7 @@ message CreateRingType {
     bool hasDensity = 5;
     bool hasThickness = 6;
     string materialType = 7;
+    string image = 8;
 }
 
 message UpdateRingType {
@@ -27,6 +28,7 @@ message UpdateRingType {
     bool hasDensity = 6;
     bool hasThickness = 7;
     string materialType = 8;
+    string image = 9;
 }
 
 message DeleteRingType {
