@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package ring_size_api;
+option go_package = "api/pro/ring_size_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/ring_size_model.proto";
+
+message GetRingSize {
+}
+
+message CreateRingSize {
+    double outer = 1;
+    double inner = 2;
+    string type = 3;
+}
+
+message UpdateRingSize {
+    string id = 1;
+    double outer = 2;
+    double inner = 3;
+    string type = 4;
+}
+
+message DeleteRingSize {
+    string id = 1;
+}
+
+message RingSize {
+    repeated ring_size_model.RingSize Size = 1;
+}
+
+service RingSizeService {
+    rpc GetAll (GetRingSize) returns (RingSize);
+    rpc Create (CreateRingSize) returns (response_model.Response);
+    rpc Update (UpdateRingSize) returns (response_model.Response);
+    rpc Delete (DeleteRingSize) returns (response_model.Response);
+}
