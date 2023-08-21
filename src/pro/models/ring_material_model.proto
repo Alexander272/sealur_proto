@@ -8,5 +8,6 @@ message RingMaterial {
     string title = 2;
     string code = 3;
     string type = 4;
-    bool isDefault = 5;
+    string description = 5;
+    bool isDefault = 6;
 }

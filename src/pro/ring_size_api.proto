@@ -27,7 +27,7 @@ message DeleteRingSize {
 }
 
 message RingSize {
-    repeated ring_size_model.RingSize Size = 1;
+    repeated ring_size_model.RingSize sizes = 1;
 }
 
 service RingSizeService {

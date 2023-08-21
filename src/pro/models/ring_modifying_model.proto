@@ -7,4 +7,5 @@ message RingModifying {
     string id = 1;
     string code = 2;
     string description = 3;
+    string title = 4;
 }
