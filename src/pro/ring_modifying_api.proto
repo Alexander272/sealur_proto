@@ -12,12 +12,16 @@ message GetRingModifying {
 message CreateRingModifying {
     string code = 1;
     string description = 2;
+    string title = 3;
+    string designation = 4;
 }
 
 message UpdateRingModifying {
     string id = 1;
     string code = 2;
     string description = 3;
+    string title = 4;
+    string designation = 5;
 }
 
 message DeleteRingModifying {

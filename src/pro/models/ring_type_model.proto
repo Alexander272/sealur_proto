@@ -13,4 +13,5 @@ message RingType {
     bool hasThickness = 7;
     string materialType = 8;
     string image = 9;
+    string designation = 10;
 }

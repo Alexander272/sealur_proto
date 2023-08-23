@@ -10,4 +10,5 @@ message RingMaterial {
     string type = 4;
     string description = 5;
     bool isDefault = 6;
+    string designation = 7;
 }
