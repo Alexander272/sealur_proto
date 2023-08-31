@@ -295,23 +295,28 @@ message OrderPositionPutg {
 
 message PositionRing {
     string typeId = 1;
-    string densityId = 2;
-    string constructionCode = 3;
-    bool constructionWRP = 4;
-    string size = 5;
-    string thickness = 6;
-    string material = 7;
-    string modifying = 8;
-    string drawing = 9;
+    string typeCode = 2;
+    string densityId = 3;
+    string densityCode = 4;
+    string constructionCode = 5;
+    bool constructionWRP = 6;
+    string constructionBaseCode = 7;
+    string size = 8;
+    string thickness = 9;
+    string material = 10;
+    string modifying = 11;
+    string drawing = 12;
 }
 
 message OrderPositionRing {
-    ring_type_model.RingType ringType = 1;
-    ring_density_model.RingDensity density = 2;
-    ring_construction_model.RingConstruction construction = 3;
-    string size = 4;
-    string thickness = 5;
-    string material = 6;
-    string modifying = 7;
-    string drawing = 8;
+    string id = 1;
+    string positionId = 2;
+    ring_type_model.RingType ringType = 3;
+    ring_density_model.RingDensity density = 4;
+    ring_construction_model.RingConstruction construction = 5;
+    string size = 6;
+    string thickness = 7;
+    string material = 8;
+    string modifying = 9;
+    string drawing = 10;
 }

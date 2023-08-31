@@ -10,6 +10,7 @@ message RingConstruction {
     string description = 4;
     string image = 5;
     bool withoutRotaryPlug = 6;
+    string baseCode = 7;
 }
 
 message Construction {
