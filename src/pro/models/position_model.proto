@@ -16,12 +16,16 @@ import "pro/models/putg_filler_model.proto";
 import "pro/models/putg_type_model.proto";
 import "pro/models/putg_construction_type_model.proto";
 import "pro/models/putg_material_model.proto";
-
+import "pro/models/ring_type_model.proto";
+import "pro/models/ring_density_model.proto";
+import "pro/models/ring_construction_model.proto";
 
 enum PositionType {
     Snp = 0;
     Putg = 1;
     Putgm = 2;
+    Ring = 3;
+    RingsKit = 4;
 }
 
 message Position {
@@ -43,6 +47,7 @@ message FullPosition {
     string info = 7;
     PositionSnp snpData = 8;
     PositionPutg putgData = 9;
+    PositionRing ringData = 10;
 }
 
 message OrderPosition {
@@ -56,6 +61,7 @@ message OrderPosition {
     string info = 8;
     OrderPositionSnp snpData = 9;
     OrderPositionPutg putgData = 10;
+    OrderPositionRing ringData = 11;
 }
 
 message PositionSnp {
@@ -285,4 +291,27 @@ message OrderPositionPutg {
     Size size = 2;
     Material material = 3;
     Design design = 4;
+}
+
+message PositionRing {
+    string typeId = 1;
+    string densityId = 2;
+    string constructionCode = 3;
+    bool constructionWRP = 4;
+    string size = 5;
+    string thickness = 6;
+    string material = 7;
+    string modifying = 8;
+    string drawing = 9;
+}
+
+message OrderPositionRing {
+    ring_type_model.RingType ringType = 1;
+    ring_density_model.RingDensity density = 2;
+    ring_construction_model.RingConstruction construction = 3;
+    string size = 4;
+    string thickness = 5;
+    string material = 6;
+    string modifying = 7;
+    string drawing = 8;
 }
