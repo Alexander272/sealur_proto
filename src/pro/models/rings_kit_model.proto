@@ -9,5 +9,6 @@ import "pro/models/rings_kit_construction_model.proto";
 
 message RingsKit {
     repeated rings_kit_type_model.RingsKitType ringsKitTypes = 1;
-    rings_kit_construction_model.RingsKitConstructionMap constructions = 2;
+    map<string, rings_kit_construction_model.KitConstruction> constructionGroups = 2;
+    //rings_kit_construction_model.RingsKitConstructionMap constructions = 2;
 }
