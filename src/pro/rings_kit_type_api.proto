@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package rings_kit_type_api;
+option go_package = "api/pro/rings_kit_type_api";
+
+import "pro/models/response_model.proto";
+import "pro/models/rings_kit_type_model.proto";
+
+message GetRingsKitTypes {}
+
+message CreateRingsKitType {
+    string title = 1;
+    string code = 2;
+    string description = 3;
+    string image = 4;
+    string designation = 5;
+}
+
+message UpdateRingsKitType {
+    string id = 1;
+    string title = 2;
+    string code = 3;
+    string description = 4;
+    string image = 5;
+    string designation = 6;
+}
+
+message DeleteRingsKitType {
+    string id = 1;
+}
+
+message RingsKitTypes {
+    repeated rings_kit_type_model.RingsKitType ringsKitTypes = 1;
+}
+
+service RingsKitTypeService {
+    rpc GetAll (GetRingsKitTypes) returns (RingsKitTypes);
+    rpc Create (CreateRingsKitType) returns (response_model.Response);
+    rpc Update (UpdateRingsKitType) returns (response_model.Response);
+    rpc Delete (DeleteRingsKitType) returns (response_model.Response);
+}

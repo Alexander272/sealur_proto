@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package rings_kit_construction_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/rings_kit_construction_model";
+
+message RingsKitConstruction {
+    string id = 1;
+    string code = 2;
+    string title = 3;
+    string image = 4;
+    bool sameRings = 5;
+    string materialTypes = 6;
+    bool hasThickness = 7;
+    string defaultCount = 8;
+}
+
+message KitConstruction {
+    repeated RingsKitConstruction constructions = 1;
+}
+
+message RingsKitConstructionMap {
+    map<string, KitConstruction> constructions = 1;
+}

@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package rings_kit_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/rings_kit_model";
+
+import "pro/models/rings_kit_type_model.proto";
+import "pro/models/rings_kit_construction_model.proto";
+
+
+message RingsKit {
+    repeated rings_kit_type_model.RingsKitType ringsKitTypes = 1;
+    rings_kit_construction_model.RingsKitConstructionMap constructions = 2;
+}
