@@ -9,24 +9,30 @@ import "pro/models/rings_kit_construction_model.proto";
 message GetRingsKitConstructions {}
 
 message CreateRingsKitConstruction {
-    string code = 1;
-    string title = 2;
-    string image = 3;
-    bool sameRings = 4;
-    string materialTypes = 5;
-    bool hasThickness = 6;
-    string defaultCount = 7;
-}
-
-message UpdateRingsKitConstruction {
-    string id = 1;
+    string typeId = 1;
     string code = 2;
     string title = 3;
     string image = 4;
     bool sameRings = 5;
     string materialTypes = 6;
     bool hasThickness = 7;
-    string defaultCount = 8;
+    string defaultCount = 8;    
+    int64 count = 9;
+    string defaultMaterials = 10;
+}
+
+message UpdateRingsKitConstruction {
+    string id = 1;
+    string typeId = 2;
+    string code = 3;
+    string title = 4;
+    string image = 5;
+    bool sameRings = 6;
+    string materialTypes = 7;
+    bool hasThickness = 8;
+    string defaultCount = 9;
+    int64 count = 10;
+    string defaultMaterials = 11;
 }
 
 message DeleteRingsKitConstruction {
