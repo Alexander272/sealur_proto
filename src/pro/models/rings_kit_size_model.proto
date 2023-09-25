@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package rings_kit_size_model;
+option go_package = "github.com/Alexander272/sealur_proto/api/pro/models/rings_kit_size_model";
+
+message RingsKitSize {
+    string id = 1;
+    double outer = 2;
+    double inner = 3;
+    double thickness = 4;
+}

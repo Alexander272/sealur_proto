@@ -16,12 +16,21 @@ message OrderCount {
     int64 orderCount = 4;
     int64 snpOrderCount = 5;
     int64 putgOrderCount = 6;
+
     int64 positionCount = 7;
-    int64 snpPositionCount = 8;
-    int64 putgPositionCount = 9;
-    int64 averagePosition = 10;
-    int64 averageSnpPosition = 11;
+    int64 averagePosition = 8;
+
+    int64 snpPositionCount = 9;
+    int64 averageSnpPosition = 10;
+    
+    int64 putgPositionCount = 11;
     int64 averagePutgPosition = 12;
+
+    int64 ringPositionCount = 13;
+    int64 averageRingPosition = 14;
+
+    int64 kitPositionCount = 15;
+    int64 averageKitPosition = 16;
 }
 
 message Clients {
@@ -31,6 +40,8 @@ message Clients {
     int64 positionCount = 4;
     int64 snpPositionCount = 5;
     int64 putgPositionCount = 6;
+    int64 ringPositionCount = 7;
+    int64 kitPositionCount = 8;
 }
 
 message FullOrder {
