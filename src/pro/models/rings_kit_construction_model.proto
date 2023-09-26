@@ -13,6 +13,7 @@ message RingsKitConstruction {
     bool hasThickness = 7;
     string defaultCount = 8;
     string defaultMaterials = 9;
+    repeated string enabledMaterials = 10;
 }
 
 message KitConstruction {
