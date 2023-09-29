@@ -19,6 +19,7 @@ message CreateRingsKitConstruction {
     string defaultCount = 8;    
     int64 count = 9;
     string defaultMaterials = 10;
+    repeated string enabledMaterials = 11;
 }
 
 message UpdateRingsKitConstruction {
@@ -33,6 +34,7 @@ message UpdateRingsKitConstruction {
     string defaultCount = 9;
     int64 count = 10;
     string defaultMaterials = 11;
+    repeated string enabledMaterials = 12;
 }
 
 message DeleteRingsKitConstruction {
