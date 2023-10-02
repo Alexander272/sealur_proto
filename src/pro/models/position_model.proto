@@ -340,11 +340,13 @@ message PositionRingsKit {
 message OrderPositionRingsKit {
     string id = 1;
     string positionId = 2;
-    rings_kit_construction_model.RingsKitConstruction construction = 3;
-    string count = 4;
-    string size = 5;
-    string thickness = 6;
-    string material = 7;
-    string modifying = 8;
-    string drawing = 9;
+    string typeId = 3;
+    string type = 4;
+    rings_kit_construction_model.RingsKitConstruction construction = 5;
+    string count = 6;
+    string size = 7;
+    string thickness = 8;
+    string material = 9;
+    string modifying = 10;
+    string drawing = 11;
 }
