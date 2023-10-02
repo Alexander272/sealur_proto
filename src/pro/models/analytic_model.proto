@@ -13,24 +13,26 @@ message OrderCount {
     string id = 1;
     string name = 2;
     string company = 3;
-    int64 orderCount = 4;
-    int64 snpOrderCount = 5;
-    int64 putgOrderCount = 6;
 
-    int64 positionCount = 7;
-    int64 averagePosition = 8;
+    int64 orderCount = 4; 
+    int64 positionCount = 5;
+    int64 averagePosition = 6;
 
-    int64 snpPositionCount = 9;
-    int64 averageSnpPosition = 10;
+    int64 snpOrderCount = 7;
+    int64 snpPositionCount = 8;
+    int64 averageSnpPosition = 9;
     
+    int64 putgOrderCount = 10;
     int64 putgPositionCount = 11;
     int64 averagePutgPosition = 12;
 
-    int64 ringPositionCount = 13;
-    int64 averageRingPosition = 14;
+    int64 ringOrderCount = 13;
+    int64 ringPositionCount = 14;
+    int64 averageRingPosition = 15;
 
-    int64 kitPositionCount = 15;
-    int64 averageKitPosition = 16;
+    int64 kitOrderCount = 16;
+    int64 kitPositionCount = 17;
+    int64 averageKitPosition = 18;
 }
 
 message Clients {
