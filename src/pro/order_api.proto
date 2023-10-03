@@ -101,17 +101,19 @@ message Orders {
 
 message Analytics {
     int64 ordersCount = 1;
-    int64 usersCountRegister = 2;
-    int64 userCountLink = 3;
-    int64 userCount = 4;
-    int64 newUserCountLink = 5;
-    int64 newUserCount = 6;
-    repeated analytic_model.Order orders = 7; 
-    int64 positionCount = 8;
-    int64 snpPositionCount = 9;
-    int64 putgPositionCount = 10;
-    int64 ringPositionCount = 11;
-    int64 kitPositionCount = 12;
+    int64 companyCount = 2;
+    int64 usersCountRegister = 3;
+    int64 userCountLink = 4;
+    int64 userCount = 5;
+    int64 newUserCountLink = 6;
+    int64 newUserCount = 7;
+    int64 newCompanyCount = 8;
+    repeated analytic_model.Order orders = 9; 
+    int64 positionCount = 10;
+    int64 snpPositionCount = 11;
+    int64 putgPositionCount = 12;
+    int64 ringPositionCount = 13;
+    int64 kitPositionCount = 14;
 }
 
 message OrderAnalytics {
