@@ -110,8 +110,10 @@ message Manager {
 message Analytics {
     int64 usersCountRegister = 1;
     int64 userCountLink = 2;
-    int64 newUserCount = 3;
-    int64 newUserCountLink = 4;
+    int64 companyCount = 3;
+    int64 newUserCount = 4;
+    int64 newUserCountLink = 5;
+    int64 newCompanyCount = 6;
 }
 
 message AnalyticsUsers {
