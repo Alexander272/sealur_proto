@@ -114,6 +114,7 @@ message Analytics {
     int64 newUserCount = 4;
     int64 newUserCountLink = 5;
     int64 newCompanyCount = 6;
+    int64 userVisitCount = 7;
 }
 
 message AnalyticsUsers {
