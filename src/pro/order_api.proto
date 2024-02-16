@@ -108,12 +108,13 @@ message Analytics {
     int64 newUserCountLink = 6;
     int64 newUserCount = 7;
     int64 newCompanyCount = 8;
-    repeated analytic_model.Order orders = 9; 
-    int64 positionCount = 10;
-    int64 snpPositionCount = 11;
-    int64 putgPositionCount = 12;
-    int64 ringPositionCount = 13;
-    int64 kitPositionCount = 14;
+    int64 userVisitCount = 9;
+    repeated analytic_model.Order orders = 10; 
+    int64 positionCount = 11;
+    int64 snpPositionCount = 12;
+    int64 putgPositionCount = 13;
+    int64 ringPositionCount = 14;
+    int64 kitPositionCount = 15;
 }
 
 message OrderAnalytics {
